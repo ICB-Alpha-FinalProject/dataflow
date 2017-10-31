@@ -1,5 +1,6 @@
 # dataflow
-![Build Status](http://localhost:8080/job/automatic build/badge/icon)
+
+[![Build Status](http://localhost:8080/job/automatic%20build/badge/icon)](http://localhost:8080/job/automatic%20build/)
 
 ICB's final project for Telerik Academy Alpha course.
 
