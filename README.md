@@ -1,7 +1,7 @@
 # dataflow
 ICB's final project for Telerik Academy Alpha course.
 
-![ICB](http://url/to/img.png)
+![ICB](https://github.com/ICB-Alpha-FinalProject/dataflow/blob/master/icb-logo.png)
 
 # 1	Project description
 ICB wants a simple public IoT Sensor Portal to be developed. Referenced as The Application. The portal will fetch and store sensor data form various sources. It will support public sensor data access along with private sensors. The logged in users will be able to share sensors data between them.
