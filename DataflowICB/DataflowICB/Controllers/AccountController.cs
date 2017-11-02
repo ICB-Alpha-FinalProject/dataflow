@@ -90,6 +90,10 @@ namespace DataflowICB.Controllers
                     return View(model);
             }
         }
+        public ActionResult Edit()
+        {
+            return this.View();
+        }
 
         //
         // GET: /Account/VerifyCode
