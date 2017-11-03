@@ -7,6 +7,7 @@ using Microsoft.Owin.Security.Google;
 using Owin;
 using DataflowICB.Models;
 using DataflowICB.Database;
+using DataflowICB.Database.Models;
 
 namespace DataflowICB
 {

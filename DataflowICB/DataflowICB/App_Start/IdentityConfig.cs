@@ -12,6 +12,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using DataflowICB.Models;
 using DataflowICB.Database;
+using DataflowICB.Database.Models;
 
 namespace DataflowICB
 {
