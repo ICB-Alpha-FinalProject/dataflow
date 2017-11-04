@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("DataflowICB.Context")]
+[assembly: AssemblyTitle("Dataflow.Services")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("DataflowICB.Context")]
+[assembly: AssemblyProduct("Dataflow.Services")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("8e380d31-dfc1-401d-93f0-53cedba8a6f9")]
+[assembly: Guid("8d05b7e6-cf48-4b44-b785-4e7152e057ae")]
 
 // Version information for an assembly consists of the following four values:
 //

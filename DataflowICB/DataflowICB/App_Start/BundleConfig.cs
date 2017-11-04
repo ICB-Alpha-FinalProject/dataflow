@@ -14,6 +14,9 @@ namespace DataflowICB
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
 
+            bundles.Add(new ScriptBundle("~/bundles/jqueryajax").Include(
+                      "~/Scripts/jquery.unobtrusive-ajax*"));
+
             bundles.Add(new ScriptBundle("~/bundles/vendor-css").Include(
                     "~/Content/vendor/bootstrap/css/bootstra*",
                     "~/Content/vendor/font-awesome/css/font-awesome*"

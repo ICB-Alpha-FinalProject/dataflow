@@ -1,3 +1,24 @@
-﻿<h2>
-    Register Sensor
-</h2>
+﻿@model IEnumerable<SensorApiData>
+
+<h3>Register Sensor</h3>
+
+@foreach (SensorApiData sensor in Model)
+{
+    <p>
+        @Ajax.ActionLink(sensor.Id,
+       "GetProperRegView",
+       "Sensor",
+       new { sensorType = sensor.MeasureType },
+       new AjaxOptions
+       {
+           UpdateTargetId = "form-container",
+           InsertionMode = InsertionMode.Replace
+       })
+    </p>
+}
+
+<div id="form-container"></div>
+
+@section scripts{
+@Scripts.Render("~/bundles/jqueryajax")    
+}
