@@ -5,6 +5,7 @@
     @Styles.Render("~/Content/css")
     @Styles.Render("~/bundles/vendor-css");
 </head>
+@*http://fontawesome.io/icons/*@
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
@@ -15,18 +16,27 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav navbar-sidenav">
-                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-                    <a class="nav-link" href="@Url.Action("Index", "Home")">
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Home">
+                    <a class="nav-link" href="@Url.Action("Index", "Home", new { area  = String.Empty})">
                         <i class="fa fa-fw fa-home"></i>
                         <span class="nav-link-text">Home</span>
                     </a>
                 </li>
-                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-                    <a class="nav-link" href="@Url.Action("AllSensors", "Sensor")">
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Public Sensors">
+                    <a class="nav-link" href="@Url.Action("AllSensors", "Sensor", new { area  = String.Empty})">
                         <i class="fa fa-fw fa-dashboard"></i>
                         <span class="nav-link-text">Public Sensors</span>
                     </a>
                 </li>
+                @if (User.IsInRole("Admin"))
+                {
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Admin Panel">
+                        <a class="nav-link" href="@Url.Action("AdminPanel", "Admin", new { Area = "Admin"})">
+                            <i class="fa fa-fw fa-flash"></i>
+                            <span class="nav-link-text">Admin Panel</span>
+                        </a>
+                    </li>
+                }
             </ul>
             <ul class="navbar-nav sidenav-toggler">
                 <li class="nav-item">
@@ -136,7 +146,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="@Url.Action("Edit", "Account")">
-                            <i class="fa fa-fw fa-user"></i> Profile
+                            <i class="fa fa-fw fa-user"></i> @User.Identity.Name
                         </a>
                     </li>
                     <li class="nav-item">
