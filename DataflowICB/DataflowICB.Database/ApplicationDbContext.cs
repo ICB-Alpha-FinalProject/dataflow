@@ -17,10 +17,10 @@ namespace DataflowICB.Database
 
         }
 
-        public virtual IDbSet<Sensor> Sensors { get; set; }
-        public virtual IDbSet<BoolTypeSensor> BoolSensors { get; set; }
-        public virtual IDbSet<ValueTypeSensor> ValueSensors { get; set; }
-        public virtual IDbSet<TimeHistory> TimeHistory { get; set; }
+        //public virtual IDbSet<Sensor> Sensors { get; set; }
+        //public virtual IDbSet<BoolTypeSensor> BoolSensors { get; set; }
+        //public virtual IDbSet<ValueTypeSensor> ValueSensors { get; set; }
+        //public virtual IDbSet<TimeHistory> TimeHistory { get; set; }
 
         public static ApplicationDbContext Create()
         {

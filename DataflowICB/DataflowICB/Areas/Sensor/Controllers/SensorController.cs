@@ -1,4 +1,5 @@
-﻿using DataflowICB.Attributes;
+﻿using DataflowICB.Areas.Sensor.Models;
+using DataflowICB.Attributes;
 using DataflowICB.Models.DataApi;
 using Newtonsoft.Json;
 using System;
@@ -38,16 +39,23 @@ namespace DataflowICB.Areas.Sensor.Controllers
 
         [Authorize]
         [AjaxOnly]
-        public ActionResult GetProperRegView(string sensorType)
+        public ActionResult GetProperRegView(string sensorId)
         {
-            if (sensorType.Contains("true"))
+            var sensorVm = new SensorViewModel()
             {
-                return this.PartialView("_CreateBoolTypeSensor");
-            }
-            else
-            {
-                return this.PartialView("_CreateValueTypeSensor");
-            }
+                Url = "http://telerikacademy.icb.com/api/sensor/" + sensorId
+            };
+
+
+            return this.View("CommonSensorRegisterInfo", sensorVm);
+            //if (sensorType.Contains("true"))
+            //{
+            //    return this.PartialView("_CreateBoolTypeSensor");
+            //}
+            //else
+            //{
+            //    return this.PartialView("_CreateValueTypeSensor");
+            //}
         }
 
 

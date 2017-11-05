@@ -212,6 +212,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Areas\Sensor\Controllers\SensorController.cs" />
+    <Compile Include="Areas\Sensor\Models\SensorViewModel.cs" />
     <Compile Include="Areas\Sensor\SensorAreaRegistration.cs" />
     <Compile Include="Attributes\AjaxOnlyAttributecs.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -373,7 +374,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
-    <Folder Include="Areas\Sensor\Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

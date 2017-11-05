@@ -34,7 +34,7 @@
                                         @Ajax.ActionLink("Select",
                                          "GetProperRegView",
                                          "Sensor",
-                                         new { sensorType = sensor.MeasureType },
+                                         new { sensorId = sensor.Id },
                                          new AjaxOptions
                                          {
                                              UpdateTargetId = "form-container",
@@ -61,10 +61,10 @@
                             </div>
                         </div>
                         <div class="wizard-footer">
-                            <div class="pull-right">
+                            @*<div class="pull-right">
                                 <input type='button' class='btn btn-next btn-fill btn-info btn-wd btn-sm' name='next' value='Next' />
                                 <input type='button' class='btn btn-finish btn-fill btn-info btn-wd btn-sm' name='finish' value='Finish' />
-                            </div>
+                            </div>*@
                             <div class="pull-left">
                                 <input type='button' class='btn btn-previous btn-fill btn-default btn-wd btn-sm' name='previous' value='Previous' />
                             </div>
