@@ -17,7 +17,7 @@ namespace DataflowICB
             bundles.Add(new ScriptBundle("~/bundles/jqueryajax").Include(
                       "~/Scripts/jquery.unobtrusive-ajax*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/vendor-css").Include(
+            bundles.Add(new StyleBundle("~/bundles/vendor-css").Include(
                     "~/Content/vendor/bootstrap/css/bootstra*",
                     "~/Content/vendor/font-awesome/css/font-awesome*"
 
@@ -40,8 +40,22 @@ namespace DataflowICB
             //          "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/sb-admin.css"));   
-            
+                      "~/Content/sb-admin.css",
+                      "~/Content/Site.css"
+                      ));
+
+            bundles.Add(new StyleBundle("~/bundles/wizard-css").Include(
+                        "~/Content/wizard/css/gsdk-bootstrap-wizard.css"
+                ));
+
+            bundles.Add(new ScriptBundle("~/bundles/wizard-js").Include(
+                      "~/Content/wizard/js/jquery.bootstrap.wizard.js",
+                      "~/Content/wizard/js/gsdk-bootstrap-wizard.js",
+                      "~/Content/wizard/js/bootstrap.min.js",
+                      "~/Content/wizard/js/jquery.validate.min.js",
+                      "~/Content/wizard/js/jquery-2.2.4.min.js"
+              ));
+
         }
     }
 }

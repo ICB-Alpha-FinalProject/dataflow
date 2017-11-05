@@ -4,20 +4,19 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
-namespace DataflowICB.Controllers
+namespace DataflowICB.Areas.Sensor.Controllers
 {
     public class SensorController : Controller
     {
         public SensorController()
         {
         }
-        
+
         [Authorize]
         public async Task<ActionResult> RegisterSensor()
         {

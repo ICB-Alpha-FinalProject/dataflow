@@ -5,6 +5,14 @@
     template: '<div class="tooltip navbar-sidenav-tooltip" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>'
   })
   // Toggle the side navigation
+  setTimeout(() => {
+      $('#toggleNavColor').click(function () {
+          console.log("triggered")
+          $('nav').toggleClass('navbar-dark navbar-light');
+          $('nav').toggleClass('bg-dark bg-light');
+          $('body').toggleClass('bg-dark bg-light');
+      });
+  }, 0);
   $("#sidenavToggler").click(function(e) {
     e.preventDefault();
     $("body").toggleClass("sidenav-toggled");
@@ -23,6 +31,7 @@
     this.scrollTop += (delta < 0 ? 1 : -1) * 30;
     e.preventDefault();
   });
+ 
   // Scroll to top button appear
   $(document).scroll(function() {
     var scrollDistance = $(this).scrollTop();
