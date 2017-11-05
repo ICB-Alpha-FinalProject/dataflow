@@ -26,7 +26,10 @@ namespace DataflowICB.Database.Models
         public uint PollingInterval { get; set; }
 
         [Required]
-        public string MeasurementType { get; set; }
+        public ValueTypeSensor ValueTypeSensor { get; set; }
+
+        [Required]
+        public BoolTypeSensor BoolTypeSensor { get; set; }
 
         [Required]
         public bool IsPublic { get; set; }
@@ -36,12 +39,9 @@ namespace DataflowICB.Database.Models
         public double MaxValue { get; set; }
 
         public SensorRangeValidity SensorValidity { get; set; }
-
-        //Time History
-
+        
         [Required]
         public string SensorValue { get; set; }
-
 
         public DateTime LastUpdate { get; set; }
     }
