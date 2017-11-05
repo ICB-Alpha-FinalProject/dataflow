@@ -34,10 +34,8 @@ namespace DataflowICB.Database.Models
         [Range(1, maxPollingInterval)]
         public uint PollingInterval { get; set; }
 
-        [Required]
         public virtual ValueTypeSensor ValueTypeSensor { get; set; }
 
-        [Required]
         public virtual BoolTypeSensor BoolTypeSensor { get; set; }
 
         [Required]

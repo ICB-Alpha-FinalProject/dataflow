@@ -21,7 +21,5 @@ namespace DataflowICB.Database.Models
         public BoolTypeSensor BoolSensor { get; set; }
 
         public string BoolSensorId { get; set; }
-
-
     }
 }

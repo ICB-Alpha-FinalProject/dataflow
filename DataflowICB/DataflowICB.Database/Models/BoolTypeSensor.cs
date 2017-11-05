@@ -40,7 +40,5 @@ namespace DataflowICB.Database.Models
                 this.boolHistory = value;
             }
         }
-
-
     }
 }

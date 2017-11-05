@@ -46,10 +46,6 @@ namespace DataflowICB.Database.Models
             {
                 this.valueHistory = value;
             }
-
         }
-
-
-
     }
 }
