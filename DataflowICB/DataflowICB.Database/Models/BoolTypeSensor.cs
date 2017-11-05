@@ -1,20 +1,45 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DataflowICB.Database.Models
 {
     public class BoolTypeSensor
     {
+        private ICollection<TimeHistory> boolHistory;
+
+        public BoolTypeSensor()
+        {
+            this.boolHistory = new List<TimeHistory>();
+        }
+
+        [Required]
         public string MeasurementType { get; set; }
 
-        public Guid Id { get; set; }
+        [Key]
+        public string Id { get; set; }
 
-        public Sensor SensorModel { get; set; }
+        public virtual Sensor SensorModel { get; set; }
 
-        public Guid SensorModelId { get; set; }
+        public string SensorModelId { get; set; }
 
-        public bool isInAcceptableRange { get; set; }
+        public bool IsConnected { get; set; }
 
-        public bool isConnected { get; set; }
+        [Required]
+        public bool CurrentValue { get; set; }
+
+        public virtual ICollection<TimeHistory> BoolHistory
+        {
+
+            get
+            {
+                return this.boolHistory;
+            }
+            set
+            {
+                this.boolHistory = value;
+            }
+        }
 
 
     }

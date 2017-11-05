@@ -9,8 +9,17 @@ namespace DataflowICB.Database.Models
 {
     public class Sensor
     {
+        
+        private const int maxPollingInterval = 86400;
+        private ICollection<ApplicationUser> sharedWithUsers;
+
+        public Sensor()
+        {
+            this.sharedWithUsers = new HashSet<ApplicationUser>();
+        }
+
         [Key]
-        public Guid Id { get; set; }
+        public string Id { get; set; }
 
         [Required]
         [StringLength(20, MinimumLength = 2)]
@@ -22,26 +31,41 @@ namespace DataflowICB.Database.Models
         public string URL { get; set; }
 
         [Required]
-        [Range(0, int.MaxValue)]
+        [Range(1, maxPollingInterval)]
         public uint PollingInterval { get; set; }
 
         [Required]
-        public ValueTypeSensor ValueTypeSensor { get; set; }
+        public virtual ValueTypeSensor ValueTypeSensor { get; set; }
 
         [Required]
-        public BoolTypeSensor BoolTypeSensor { get; set; }
+        public virtual BoolTypeSensor BoolTypeSensor { get; set; }
 
         [Required]
         public bool IsPublic { get; set; }
 
-        public double MinValue { get; set; }
-
-        public double MaxValue { get; set; }
-
-        public SensorRangeValidity SensorValidity { get; set; }
+        public SensorRangeValidity SensorValidity { get; set; }        
         
         [Required]
-        public string SensorValue { get; set; }
+        public virtual ApplicationUser Creator { get; set; }
+
+        [Required]
+        public string CreatorId { get; set; }
+
+        public virtual ICollection<ApplicationUser> SharedWithUsers
+        {
+            get
+            {
+                return this.sharedWithUsers;
+            }
+            set
+            {
+                this.sharedWithUsers = value;
+            }
+        }
+
+        public double SensorCoordinatesX { get; set; }
+
+        public double SensorCoordinatesY { get; set; }
 
         public DateTime LastUpdate { get; set; }
     }

@@ -1,24 +1,53 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DataflowICB.Database.Models
 {
     public class ValueTypeSensor
     {
-        public Guid Id { get; set; }
+        private ICollection<TimeHistory> valueHistory;
 
+        public ValueTypeSensor()
+        {
+            this.valueHistory = new List<TimeHistory>();
+        }
+
+        [Key]
+        public string Id { get; set; }
+
+        [Required]
         public string MeasurementType { get; set; }
 
-        public Sensor SensorModel { get; set; }
+        public virtual Sensor SensorModel { get; set; }
 
-        public Guid SensorModelId { get; set; }
+        public string SensorModelId { get; set; }
 
+        [Required]
         public double MinValue { get; set; }
 
+        [Required]
         public double Maxvalue { get; set; }
 
-        public bool? IsInAcceptableRange { get; set; }
+        public bool IsInAcceptableRange { get; set; }
 
-        public bool? IsConnected { get; set; }
+        public bool IsConnected { get; set; }
+
+        [Required]
+        public double CurrentValue { get; set; }
+
+        public virtual ICollection<TimeHistory> ValueHistory
+        {
+            get
+            {
+                return this.valueHistory;
+            }
+            set
+            {
+                this.valueHistory = value;
+            }
+
+        }
 
 
 
