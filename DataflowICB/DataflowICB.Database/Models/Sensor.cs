@@ -34,24 +34,24 @@ namespace DataflowICB.Database.Models
         [Range(1, maxPollingInterval)]
         public uint PollingInterval { get; set; }
 
-        public virtual ValueTypeSensor ValueTypeSensor { get; set; }
-
         public string ValueTypeSensorId { get; set; }
 
-        public virtual BoolTypeSensor BoolTypeSensor { get; set; }
-
+        public virtual ValueTypeSensor ValueTypeSensor { get; set; }
+        
         public string BoolTypeSensorId { get; set; }
 
+        public virtual BoolTypeSensor BoolTypeSensor { get; set; }
+        
         [Required]
         public bool IsPublic { get; set; }
 
-        public SensorRangeValidity SensorValidity { get; set; }        
-        
-        [Required]
-        public virtual ApplicationUser Creator { get; set; }
+        public SensorRangeValidity SensorValidity { get; set; }
 
         [Required]
         public string CreatorId { get; set; }
+
+        [Required]
+        public virtual ApplicationUser Creator { get; set; }
 
         public virtual ICollection<ApplicationUser> SharedWithUsers
         {

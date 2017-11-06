@@ -14,12 +14,13 @@ namespace DataflowICB.Database.Models
         [Required]
         public double Value { get; set; }
 
+        public string ValueSensorId { get; set; }
+
         public ValueTypeSensor ValueSensor { get; set; }
 
-        public string ValueSensorId { get; set; }
+        public string BoolSensorId { get; set; }
 
         public BoolTypeSensor BoolSensor { get; set; }
 
-        public string BoolSensorId { get; set; }
     }
 }

@@ -54,6 +54,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationDbContext.cs" />
+    <Compile Include="Migrations\201711061411586_Initial.cs" />
+    <Compile Include="Migrations\201711061411586_Initial.Designer.cs">
+      <DependentUpon>201711061411586_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711061414058_Sensor and its types relation.cs" />
+    <Compile Include="Migrations\201711061414058_Sensor and its types relation.Designer.cs">
+      <DependentUpon>201711061414058_Sensor and its types relation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711061418009_time history relations.cs" />
+    <Compile Include="Migrations\201711061418009_time history relations.Designer.cs">
+      <DependentUpon>201711061418009_time history relations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711061428311_Sensor User relation.cs" />
+    <Compile Include="Migrations\201711061428311_Sensor User relation.Designer.cs">
+      <DependentUpon>201711061428311_Sensor User relation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\BoolTypeSensor.cs" />
@@ -66,6 +82,20 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201711061411586_Initial.resx">
+      <DependentUpon>201711061411586_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711061414058_Sensor and its types relation.resx">
+      <DependentUpon>201711061414058_Sensor and its types relation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711061418009_time history relations.resx">
+      <DependentUpon>201711061418009_time history relations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711061428311_Sensor User relation.resx">
+      <DependentUpon>201711061428311_Sensor User relation.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

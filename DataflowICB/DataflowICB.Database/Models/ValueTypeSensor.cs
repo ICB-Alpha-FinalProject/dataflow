@@ -20,9 +20,9 @@ namespace DataflowICB.Database.Models
         [Required]
         public string MeasurementType { get; set; }
 
-        public virtual Sensor SensorModel { get; set; }
-
         public string SensorModelId { get; set; }
+
+        public virtual Sensor SensorModel { get; set; }
 
         [Required]
         public double MinValue { get; set; }
