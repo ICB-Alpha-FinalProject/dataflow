@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataflowICB.Database.Models
 {
@@ -13,7 +14,7 @@ namespace DataflowICB.Database.Models
             this.valueHistory = new List<TimeHistory>();
         }
 
-        [Key]
+        [Key, ForeignKey("SensorModel")]
         public string Id { get; set; }
 
         [Required]

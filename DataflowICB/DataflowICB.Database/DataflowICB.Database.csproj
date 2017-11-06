@@ -58,6 +58,14 @@
     <Compile Include="Migrations\201711032158332_Initial.Designer.cs">
       <DependentUpon>201711032158332_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711061317289_Added sensor model.cs" />
+    <Compile Include="Migrations\201711061317289_Added sensor model.Designer.cs">
+      <DependentUpon>201711061317289_Added sensor model.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711061321112_Fixed Names of Id.cs" />
+    <Compile Include="Migrations\201711061321112_Fixed Names of Id.Designer.cs">
+      <DependentUpon>201711061321112_Fixed Names of Id.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\BoolTypeSensor.cs" />
@@ -70,6 +78,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201711032158332_Initial.resx">
       <DependentUpon>201711032158332_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711061317289_Added sensor model.resx">
+      <DependentUpon>201711061317289_Added sensor model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711061321112_Fixed Names of Id.resx">
+      <DependentUpon>201711061321112_Fixed Names of Id.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

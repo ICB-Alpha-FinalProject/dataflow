@@ -36,7 +36,11 @@ namespace DataflowICB.Database.Models
 
         public virtual ValueTypeSensor ValueTypeSensor { get; set; }
 
+        public string ValueTypeSensorId { get; set; }
+
         public virtual BoolTypeSensor BoolTypeSensor { get; set; }
+
+        public string BoolTypeSensorId { get; set; }
 
         [Required]
         public bool IsPublic { get; set; }
