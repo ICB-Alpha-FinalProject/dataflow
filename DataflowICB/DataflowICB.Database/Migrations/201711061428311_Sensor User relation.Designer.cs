@@ -7,13 +7,13 @@ namespace DataflowICB.Database.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.0-30225")]
-    public sealed partial class Initial : IMigrationMetadata
+    public sealed partial class SensorUserrelation : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(SensorUserrelation));
         
         string IMigrationMetadata.Id
         {
-            get { return "201711032158332_Initial"; }
+            get { return "201711061428311_Sensor User relation"; }
         }
         
         string IMigrationMetadata.Source

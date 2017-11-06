@@ -1,5 +1,6 @@
 namespace DataflowICB.Database.Migrations
 {
+    using DataflowICB.Database.Models;
     using Microsoft.AspNet.Identity.EntityFramework;
     using System;
     using System.Data.Entity;
@@ -33,6 +34,7 @@ namespace DataflowICB.Database.Migrations
                 if (!ctx.Roles.Any())
                 {
                     var role = ctx.Roles.Add(new IdentityRole("Admin"));
+
 
                     ctx.Users
                         .First(u => u.UserName == "test@test.bg")

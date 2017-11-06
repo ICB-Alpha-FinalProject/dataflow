@@ -7,13 +7,13 @@ namespace DataflowICB.Database.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.0-30225")]
-    public sealed partial class Addedsensormodel : IMigrationMetadata
+    public sealed partial class timehistoryrelations : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Addedsensormodel));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(timehistoryrelations));
         
         string IMigrationMetadata.Id
         {
-            get { return "201711061317289_Added sensor model"; }
+            get { return "201711061418009_time history relations"; }
         }
         
         string IMigrationMetadata.Source
