@@ -1,0 +1,22 @@
+﻿
+@model ValueTypeSensorViewModel
+@{
+    Layout = null;
+}
+@using (Ajax.BeginForm("CreateSensor", "Sensor", new AjaxOptions
+{
+    HttpMethod = "POST"
+}))
+{
+    @Html.AntiForgeryToken()
+    @Html.Partial("_CommonSensorForm", Model.Sensor)
+
+    @Html.LabelFor(m => m.MinValue)
+    @Html.EditorFor(m => m.MinValue)
+
+    <input type="submit" value="Register" class="btn btn-info btn-block" />
+}
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+}

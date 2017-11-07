@@ -33,31 +33,53 @@ namespace DataflowICB.Areas.Sensor.Controllers
 
                 var resViewModel = JsonConvert.DeserializeObject<List<SensorApiData>>(content);
 
+                foreach (var sensor in resViewModel)
+                {
+                    var isValueTYpe = !sensor.Description.Contains("false");
+
+                    sensor.IsValueType = isValueTYpe;
+                }
+
                 return this.View(resViewModel);
             }
         }
 
         [Authorize]
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public ActionResult CreateBoolSensor(BoolTypeSensorViewModel model)
+        {
+            return this.Content(model.ToString());
+        }
+
+        [Authorize]
         [AjaxOnly]
-        public ActionResult GetProperRegView(string sensorId)
+        public ActionResult GetProperRegView(string sensorId, bool isValueType)
         {
             var sensorVm = new SensorViewModel()
             {
-                Url = "http://telerikacademy.icb.com/api/sensor/" + sensorId
+                Url = "http://telerikacademy.icb.com/api/sensor/" + sensorId,
+                IsValueType = isValueType
             };
 
+            if (sensorVm.IsValueType)
+            {
+                var valueTypeSensorVm = new ValueTypeSensorViewModel()
+                {
+                    Sensor = sensorVm
+                };
 
-            return this.View("CommonSensorRegisterInfo", sensorVm);
-            //if (sensorType.Contains("true"))
-            //{
-            //    return this.PartialView("_CreateBoolTypeSensor");
-            //}
-            //else
-            //{
-            //    return this.PartialView("_CreateValueTypeSensor");
-            //}
+                return this.View("RegisterValueSensor", valueTypeSensorVm);
+            }
+            else
+            {
+                var boolSensorVm = new BoolTypeSensorViewModel()
+                {
+                    Sensor = sensorVm
+                };
+
+                return this.View("RegisterBoolSensor", boolSensorVm);
+            }
         }
-
-
     }
 }

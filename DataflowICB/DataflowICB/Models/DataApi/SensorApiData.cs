@@ -20,5 +20,7 @@ namespace DataflowICB.Models.DataApi
 
         [JsonProperty("measureType")]
         public string MeasureType { get; set; }
+
+        public bool IsValueType { get; set; }
     }
 }

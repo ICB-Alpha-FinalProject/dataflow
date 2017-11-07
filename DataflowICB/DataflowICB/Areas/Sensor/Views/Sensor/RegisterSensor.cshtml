@@ -7,34 +7,33 @@
             <!--      Wizard container        -->
             <div class="wizard-container">
                 <div class="card wizard-card" data-color="azzure" id="wizard">
-                    <form action="" method="">
-                        <!--        You can switch ' data-color="azzure" '  with one of the next bright colors: "blue", "green", "orange", "red"          -->
-                        <div class="wizard-header">
-                            <h3>
-                                <b>REGISTER</b> YOUR SENSOR <br>
-                                <small>Create any of the following types of sensor</small>
-                            </h3>
-                        </div>
-                        <div class="wizard-navigation">
-                            <ul>
-                                <li><a href="#sensor-type" data-toggle="tab">Sensor Type</a></li>
-                                <li><a href="#sensor-data" data-toggle="tab">Fill Data</a></li>
-                            </ul>
-                        </div>
-                        <div class="tab-content">
-                            <div class="tab-pane" id="sensor-type">
+                    <!--        You can switch ' data-color="azzure" '  with one of the next bright colors: "blue", "green", "orange", "red"          -->
+                    <div class="wizard-header">
+                        <h3>
+                            <b>REGISTER</b> YOUR SENSOR <br>
+                            <small>Create any of the following types of sensor</small>
+                        </h3>
+                    </div>
+                    <div class="wizard-navigation">
+                        <ul>
+                            <li><a href="#sensor-type" data-toggle="tab">Sensor Type</a></li>
+                            <li><a href="#sensor-data" data-toggle="tab">Fill Data</a></li>
+                        </ul>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane" id="sensor-type">
 
-                                @foreach (SensorApiData sensor in Model)
-                                {
-                                    <div class="box">
-                                        <small class="fade-text">@sensor.Tag</small>
-                                        <p>@sensor.Description</p>
-                                        <p class="fade-text">Measurement type: @sensor.MeasureType</p>
+                            @foreach (SensorApiData sensor in Model)
+                            {
+                                <div class="">
+                                    <small class="fade-text">@sensor.Tag</small>
+                                    <p>@sensor.Description</p>
+                                    <p class="fade-text">Measurement type: @sensor.MeasureType</p>
 
-                                        @Ajax.ActionLink("Select",
+                                    @Ajax.ActionLink("Select",
                                          "GetProperRegView",
                                          "Sensor",
-                                         new { sensorId = sensor.Id },
+                                         new { sensorId = sensor.Id, isValueType = sensor.IsValueType },
                                          new AjaxOptions
                                          {
                                              UpdateTargetId = "form-container",
@@ -42,41 +41,34 @@
                                              AllowCache = true
                                          },
                                          new { @class = "btn-next btn" })
-                                        
-                                    </div>
 
-
-                                }
-
-
-
-                            </div>
-                            <div class="tab-pane" id="sensor-data">
-
-                                <div id="form-container"></div>
-
-                            </div>
-                            <div class="tab-pane" id="finalize">
-
-                            </div>
+                                </div>
+                            }
                         </div>
-                        <div class="wizard-footer">
-                            @*<div class="pull-right">
+                        <div class="tab-pane" id="sensor-data">
+
+                            <div id="form-container"></div>
+
+                        </div>
+                        <div class="tab-pane" id="finalize">
+
+                        </div>
+                    </div>
+                    <div class="wizard-footer">
+                        @*<div class="pull-right">
                                 <input type='button' class='btn btn-next btn-fill btn-info btn-wd btn-sm' name='next' value='Next' />
                                 <input type='button' class='btn btn-finish btn-fill btn-info btn-wd btn-sm' name='finish' value='Finish' />
                             </div>*@
-                            <div class="pull-left">
-                                <input type='button' class='btn btn-previous btn-fill btn-default btn-wd btn-sm' name='previous' value='Previous' />
-                            </div>
-                            <div class="clearfix"></div>
+                        <div class="pull-left">
+                            <input type='button' class='btn btn-previous btn-fill btn-default btn-wd btn-sm' name='previous' value='Previous' />
                         </div>
-                    </form>
+                        <div class="clearfix"></div>
+                    </div>
                 </div>
             </div> <!-- wizard container -->
         </div>
     </div> <!-- row -->
 </div> <!--  big container -->
-
 @*https://ctrlq.org/code/19639-turn-div-clickable-link*@
 @section scripts{
     @Scripts.Render("~/bundles/jqueryajax")

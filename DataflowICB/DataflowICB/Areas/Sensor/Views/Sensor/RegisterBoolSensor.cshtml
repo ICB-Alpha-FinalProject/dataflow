@@ -1,0 +1,20 @@
+﻿@model BoolTypeSensorViewModel
+@{
+    Layout = null;
+}
+
+@using (Ajax.BeginForm("CreateBoolSensor", "Sensor",
+            new AjaxOptions
+            {
+                HttpMethod = "POST"
+            }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.Partial("_CommonSensorForm", Model)
+
+    @Html.EditorFor(m => m.Sensor.Description)
+
+
+    <input type="submit" value="Register" class="" />
+}

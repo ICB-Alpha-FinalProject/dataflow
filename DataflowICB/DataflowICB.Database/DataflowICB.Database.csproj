@@ -70,6 +70,14 @@
     <Compile Include="Migrations\201711061428311_Sensor User relation.Designer.cs">
       <DependentUpon>201711061428311_Sensor User relation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711071459197_add sensor polling interval.cs" />
+    <Compile Include="Migrations\201711071459197_add sensor polling interval.Designer.cs">
+      <DependentUpon>201711071459197_add sensor polling interval.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711071503171_delete useless prop in Sensor.cs" />
+    <Compile Include="Migrations\201711071503171_delete useless prop in Sensor.Designer.cs">
+      <DependentUpon>201711071503171_delete useless prop in Sensor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\BoolTypeSensor.cs" />
@@ -95,6 +103,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711061428311_Sensor User relation.resx">
       <DependentUpon>201711061428311_Sensor User relation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711071459197_add sensor polling interval.resx">
+      <DependentUpon>201711071459197_add sensor polling interval.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711071503171_delete useless prop in Sensor.resx">
+      <DependentUpon>201711071503171_delete useless prop in Sensor.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

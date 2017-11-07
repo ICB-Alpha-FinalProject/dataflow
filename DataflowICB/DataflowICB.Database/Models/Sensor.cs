@@ -32,7 +32,7 @@ namespace DataflowICB.Database.Models
 
         [Required]
         [Range(1, maxPollingInterval)]
-        public uint PollingInterval { get; set; }
+        public int PollingInterval { get; set; }
 
         public string ValueTypeSensorId { get; set; }
 
@@ -44,9 +44,7 @@ namespace DataflowICB.Database.Models
         
         [Required]
         public bool IsPublic { get; set; }
-
-        public SensorRangeValidity SensorValidity { get; set; }
-
+        
         [Required]
         public string CreatorId { get; set; }
 

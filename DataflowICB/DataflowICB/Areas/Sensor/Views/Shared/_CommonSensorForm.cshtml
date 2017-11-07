@@ -1,0 +1,29 @@
+﻿@{ 
+    Layout = null;
+}
+
+@model BoolTypeSensorViewModel
+
+<div class="form-group">
+    @Html.LabelFor(m => m.Sensor.Name)
+    @Html.EditorFor(m => m.Sensor.Name, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.Sensor.Name,null, new { @class = "text-danger" })
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(m => m.Sensor.Description)
+    @Html.EditorFor(m => m.Sensor.Description, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.Sensor.Description, "", new { @class = "text-danger" })
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(m => m.Sensor.IsPublic)
+    @Html.EditorFor(m => m.Sensor.IsPublic, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.Sensor.IsPublic, "", new { @class = "text-danger" })
+</div>
+
+<div class="form-group">
+    @Html.LabelFor(m => m.Sensor.MeasurementType)
+    @Html.EditorFor(m => m.Sensor.MeasurementType, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.Sensor.MeasurementType, "", new { @class = "text-danger" })
+</div>

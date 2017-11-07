@@ -29,20 +29,19 @@ namespace DataflowICB.Database.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
-            using (var ctx = new ApplicationDbContext())
-            {
-                if (!ctx.Roles.Any())
-                {
-                    var role = ctx.Roles.Add(new IdentityRole("Admin"));
+            //using (var ctx = new ApplicationDbContext())
+            //{
+            //    if (ctx.Users.Any())
+            //    {
+            //        var role = ctx.Roles.Add(new IdentityRole("Admin"));
+                    
+            //        ctx.Users
+            //            .First(u => u.UserName == "test@test.bg")
+            //            .Roles.Add(new IdentityUserRole() { RoleId = role.Id });
 
-
-                    ctx.Users
-                        .First(u => u.UserName == "test@test.bg")
-                        .Roles.Add(new IdentityUserRole() { RoleId = role.Id });
-
-                    ctx.SaveChanges();
-                }
-            }
+            //        ctx.SaveChanges();
+            //    }
+            //}
 
         }
     }
