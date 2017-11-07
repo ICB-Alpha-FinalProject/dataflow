@@ -1,0 +1,38 @@
+﻿@model IEnumerable<UserViewModel>
+<h2>All Users</h2>
+
+<div id="exampleAccordion" data-children=".item">
+    @foreach (var user in Model)
+    {
+        <div class="item">
+            <div role="tabpanel">
+                <p class="mb-3">
+
+                    @Ajax.ActionLink("Edit " + @user.Username, "EditUser",
+       new { id = user.Id },
+       new AjaxOptions
+       {
+           InsertionMode = InsertionMode.Replace,
+           UpdateTargetId = user.Id
+       })
+
+                </p>
+
+            </div>
+            <div id="@user.Id" class="div-form"></div>
+        </div>
+    }
+</div>
+
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryajax")
+    <script>
+        $('a').on('click', function () {
+            let href = $(this).attr('href')
+            let id = href.split('/').reverse()[0]
+            $('.div-form').attr('hidden', 'hidden')
+            let divId = '#' + id;
+            $(divId).removeAttr('hidden')
+        })
+    </script>
+}

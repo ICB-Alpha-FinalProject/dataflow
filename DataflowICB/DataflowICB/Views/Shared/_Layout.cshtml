@@ -47,12 +47,28 @@
                 </li>
                 @if (User.IsInRole("Admin"))
                 {
-                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Admin Panel">
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Admin">
+                        <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseExamplePages1" data-parent="#exampleAccordion">
+                            <i class="fa fa-fw fa-dashboard"></i>
+                            <span class="nav-link-text">Admin</span>
+                        </a>
+                        <ul class="sidenav-second-level collapse" id="collapseExamplePages1">
+                            <li>
+                                @Html.ActionLink("All Sensors", "AllSensors", "Admin", new { area = "Admin" }, new { })
+                            </li>
+                            <li>
+                                @Html.ActionLink("All Users", "AllUsers", "Admin", new { area = "Admin" }, new { })
+                            </li>
+                        </ul>
+                    </li>
+
+
+                    @*<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Admin Panel">
                         <a class="nav-link" href="@Url.Action("adminpanel", "admin", new { Area = "admin"})">
                             <i class="fa fa-fw fa-flash"></i>
                             <span class="nav-link-text">Admin Panel</span>
                         </a>
-                    </li>
+                    </li>*@
                 }
             </ul>
             <ul class="navbar-nav sidenav-toggler">
