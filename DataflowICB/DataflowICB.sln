@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataflowICB.Database", "Dat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dataflow.Services", "Dataflow.Services\Dataflow.Services.csproj", "{8D05B7E6-CF48-4B44-B785-4E7152E057AE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dataflow.DataServices", "Dataflow.DataServices\Dataflow.DataServices.csproj", "{BDA32D80-C003-4CF1-A520-4475A67481DE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{8D05B7E6-CF48-4B44-B785-4E7152E057AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8D05B7E6-CF48-4B44-B785-4E7152E057AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8D05B7E6-CF48-4B44-B785-4E7152E057AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDA32D80-C003-4CF1-A520-4475A67481DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDA32D80-C003-4CF1-A520-4475A67481DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDA32D80-C003-4CF1-A520-4475A67481DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDA32D80-C003-4CF1-A520-4475A67481DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
