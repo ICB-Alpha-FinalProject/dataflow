@@ -211,6 +211,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
+    <Compile Include="Areas\Admin\Models\UserViewModel.cs" />
     <Compile Include="Areas\Sensor\Controllers\SensorController.cs" />
     <Compile Include="Areas\Sensor\Models\SensorViewModel.cs" />
     <Compile Include="Areas\Sensor\SensorAreaRegistration.cs" />
@@ -312,6 +313,8 @@
     <Content Include="Areas\Sensor\Views\web.config" />
     <Content Include="Areas\Sensor\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Sensor\Views\Sensor\CommonSensorRegisterInfo.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\AllUsers.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_EditUser.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -372,8 +375,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Admin\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

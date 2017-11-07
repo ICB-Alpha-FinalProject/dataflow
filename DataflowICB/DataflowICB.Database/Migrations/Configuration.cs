@@ -44,6 +44,34 @@ namespace DataflowICB.Database.Migrations
                 }
             }
 
+
+            //if (!context.Roles.Any())
+            //{
+            //    var role = context.Roles.Add(new IdentityRole("Admin"));
+            //    context.SaveChanges();
+
+            //    role = context.Roles.Single();
+            //    var user = context.Users.Single();
+            //    user.Roles.Add(new IdentityUserRole()
+            //    {
+            //        RoleId = role.Id,
+            //        UserId = user.Id
+            //    });
+
+            //    context.SaveChanges();
+            //}
+
+            //if (context.Roles.Any())
+            //{
+            //    var role = context.Roles.Single();
+
+
+            //    context.Users
+            //        .First(u => u.UserName == "test@test.bg")
+            //        .Roles.Add(new IdentityUserRole() { RoleId = role.Id });
+
+            //    context.SaveChanges();
+            //}
         }
     }
 }
