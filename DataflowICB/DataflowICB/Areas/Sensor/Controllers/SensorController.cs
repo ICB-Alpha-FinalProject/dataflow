@@ -47,39 +47,47 @@ namespace DataflowICB.Areas.Sensor.Controllers
         [Authorize]
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public ActionResult CreateBoolSensor(BoolTypeSensorViewModel model)
+        public ActionResult CreateSensor(SensorViewModel model)
         {
-            return this.Content(model.ToString());
+            if (ModelState.IsValid)
+                return this.Content(model.Description);
+            else
+            {
+                ModelState.AddModelError("keyName", "Form is not valid");
+                return View("RegisterValueSensor", model);
+            }
         }
 
         [Authorize]
         [AjaxOnly]
-        public ActionResult GetProperRegView(string sensorId, bool isValueType)
+        public ActionResult GetProperRegView(string sensorId, bool isValueType, string measureType)
         {
+
             var sensorVm = new SensorViewModel()
             {
                 Url = "http://telerikacademy.icb.com/api/sensor/" + sensorId,
-                IsValueType = isValueType
+                IsValueType = isValueType,
+                CreatorUsername = this.HttpContext.User.Identity.Name,
+                MeasurementType = measureType
             };
 
-            if (sensorVm.IsValueType)
+            if (isValueType)
             {
-                var valueTypeSensorVm = new ValueTypeSensorViewModel()
-                {
-                    Sensor = sensorVm
-                };
+                var valueTypeSensorVm = new ValueTypeSensorViewModel();
 
-                return this.View("RegisterValueSensor", valueTypeSensorVm);
+                sensorVm.ValueTypeSensor = valueTypeSensorVm;
+                return this.View("RegisterValueSensor", sensorVm);
             }
             else
             {
-                var boolSensorVm = new BoolTypeSensorViewModel()
-                {
-                    Sensor = sensorVm
-                };
+                var boolSensorVm = new BoolTypeSensorViewModel();
 
-                return this.View("RegisterBoolSensor", boolSensorVm);
+                sensorVm.BoolTypeSensor = boolSensorVm;
+                return this.View("RegisterBoolSensor", sensorVm);
+
             }
+
+
         }
     }
 }

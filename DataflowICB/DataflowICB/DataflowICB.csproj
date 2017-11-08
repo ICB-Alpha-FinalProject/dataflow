@@ -320,7 +320,6 @@
     <Content Include="Areas\Sensor\Views\Sensor\RegisterValueSensor.cshtml" />
     <Content Include="Areas\Sensor\Views\Sensor\RegisterBoolSensor.cshtml" />
     <Content Include="Areas\Sensor\Views\Shared\_CommonSensorForm.cshtml" />
-    <Content Include="Areas\Sensor\Views\Sensor\CommonSensorRegisterInfo.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\AllUsers.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_EditUser.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />

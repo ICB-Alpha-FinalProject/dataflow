@@ -14,6 +14,7 @@ namespace DataflowICB.Areas.Sensor.Models
         {
 
         }
+
         [Required]
         [StringLength(20, MinimumLength = 2, ErrorMessage = "Name must be between 2 and 20 characters")]
         public string Name { get; set; }
@@ -24,15 +25,16 @@ namespace DataflowICB.Areas.Sensor.Models
         [Required]
         public string Url { get; set; }
 
-        [Required]
-        [Range(0, Constants.MaxPollingInterval)]
-        public int PollingInterval { get; set; }
+        public ValueTypeSensorViewModel ValueTypeSensor { get; set; }
 
+        public BoolTypeSensorViewModel BoolTypeSensor { get; set; }
+        
         [Required]
         public string MeasurementType { get; set; }
 
         [Required]
-        public double CurrentValue { get; set; }
+        [Range(0, Constants.MaxPollingInterval)]
+        public int PollingInterval { get; set; }
 
         [Required]
         public bool IsPublic { get; set; }
