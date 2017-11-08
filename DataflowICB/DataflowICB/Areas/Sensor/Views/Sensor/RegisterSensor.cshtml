@@ -33,14 +33,18 @@
                                     @Ajax.ActionLink("Select",
                                          "GetProperRegView",
                                          "Sensor",
-                                         new { sensorId = sensor.Id, isValueType = sensor.IsValueType },
+                                         new
+                                         {
+                                             sensorId = sensor.Id,
+                                             isValueType = sensor.IsValueType,
+                                             measureType = sensor.MeasureType
+                                         },
                                          new AjaxOptions
                                          {
                                              UpdateTargetId = "form-container",
-                                             InsertionMode = InsertionMode.Replace,
-                                             AllowCache = true
+                                             InsertionMode = InsertionMode.Replace
                                          },
-                                         new { @class = "btn-next btn" })
+                                         new { @class = "btn" })
 
                                 </div>
                             }
@@ -55,10 +59,10 @@
                         </div>
                     </div>
                     <div class="wizard-footer">
-                        @*<div class="pull-right">
-                                <input type='button' class='btn btn-next btn-fill btn-info btn-wd btn-sm' name='next' value='Next' />
-                                <input type='button' class='btn btn-finish btn-fill btn-info btn-wd btn-sm' name='finish' value='Finish' />
-                            </div>*@
+                        <div class="pull-right">
+                            <input type='button' class='btn btn-next btn-fill btn-info btn-wd btn-sm' name='next' value='Next' />
+                            @*<input type='button' class='btn btn-finish btn-fill btn-info btn-wd btn-sm' name='finish' value='Finish' />*@
+                        </div>
                         <div class="pull-left">
                             <input type='button' class='btn btn-previous btn-fill btn-default btn-wd btn-sm' name='previous' value='Previous' />
                         </div>
@@ -70,7 +74,9 @@
     </div> <!-- row -->
 </div> <!--  big container -->
 @*https://ctrlq.org/code/19639-turn-div-clickable-link*@
+
 @section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/jqueryajax")
     @Scripts.Render("~/bundles/wizard-js")
 }

@@ -1,22 +1,37 @@
 ﻿
-@model ValueTypeSensorViewModel
+@model SensorViewModel
 @{
     Layout = null;
 }
+
 @using (Ajax.BeginForm("CreateSensor", "Sensor", new AjaxOptions
 {
-    HttpMethod = "POST"
+    HttpMethod = "POST",
+    UpdateTargetId = "form-container",
+    InsertionMode = InsertionMode.Replace
 }))
 {
-    @Html.AntiForgeryToken()
-    @Html.Partial("_CommonSensorForm", Model.Sensor)
+    @Html.ValidationSummary(false)
 
-    @Html.LabelFor(m => m.MinValue)
-    @Html.EditorFor(m => m.MinValue)
+    @Html.AntiForgeryToken()
+    @Html.Partial("_CommonSensorForm", Model)
+
+    @Html.LabelFor(m => m.ValueTypeSensor.MinValue)
+    @Html.EditorFor(m => m.ValueTypeSensor.MinValue, new { @type = "number" })
+    @Html.ValidationMessageFor(m=>m.ValueTypeSensor.MinValue)
+    <br />
+    @Html.LabelFor(m => m.ValueTypeSensor.Maxvalue)
+    @Html.EditorFor(m => m.ValueTypeSensor.Maxvalue)
+
+
+    @Html.LabelFor(m => m.Description)
+    @Html.EditorFor(m => m.Description, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
 
     <input type="submit" value="Register" class="btn btn-info btn-block" />
 }
 
 @section scripts{
+    @Scripts.Render("~/bundles/jqueryajax")
     @Scripts.Render("~/bundles/jqueryval")
 }
