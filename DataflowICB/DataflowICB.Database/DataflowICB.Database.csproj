@@ -54,29 +54,41 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationDbContext.cs" />
-    <Compile Include="Migrations\201711061411586_Initial.cs" />
-    <Compile Include="Migrations\201711061411586_Initial.Designer.cs">
-      <DependentUpon>201711061411586_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201711080851122_Initial.cs" />
+    <Compile Include="Migrations\201711080851122_Initial.Designer.cs">
+      <DependentUpon>201711080851122_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201711061414058_Sensor and its types relation.cs" />
-    <Compile Include="Migrations\201711061414058_Sensor and its types relation.Designer.cs">
-      <DependentUpon>201711061414058_Sensor and its types relation.cs</DependentUpon>
+    <Compile Include="Migrations\201711080854567_Sensor to ValueTypeSensor.cs" />
+    <Compile Include="Migrations\201711080854567_Sensor to ValueTypeSensor.Designer.cs">
+      <DependentUpon>201711080854567_Sensor to ValueTypeSensor.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201711061418009_time history relations.cs" />
-    <Compile Include="Migrations\201711061418009_time history relations.Designer.cs">
-      <DependentUpon>201711061418009_time history relations.cs</DependentUpon>
+    <Compile Include="Migrations\201711080910075_Try.cs" />
+    <Compile Include="Migrations\201711080910075_Try.Designer.cs">
+      <DependentUpon>201711080910075_Try.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201711061428311_Sensor User relation.cs" />
-    <Compile Include="Migrations\201711061428311_Sensor User relation.Designer.cs">
-      <DependentUpon>201711061428311_Sensor User relation.cs</DependentUpon>
+    <Compile Include="Migrations\201711080915430_Sensor to BoolTypeSensor.cs" />
+    <Compile Include="Migrations\201711080915430_Sensor to BoolTypeSensor.Designer.cs">
+      <DependentUpon>201711080915430_Sensor to BoolTypeSensor.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201711071459197_add sensor polling interval.cs" />
-    <Compile Include="Migrations\201711071459197_add sensor polling interval.Designer.cs">
-      <DependentUpon>201711071459197_add sensor polling interval.cs</DependentUpon>
+    <Compile Include="Migrations\201711080918134_BoolTypeSensor to TimeHistory.cs" />
+    <Compile Include="Migrations\201711080918134_BoolTypeSensor to TimeHistory.Designer.cs">
+      <DependentUpon>201711080918134_BoolTypeSensor to TimeHistory.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201711071503171_delete useless prop in Sensor.cs" />
-    <Compile Include="Migrations\201711071503171_delete useless prop in Sensor.Designer.cs">
-      <DependentUpon>201711071503171_delete useless prop in Sensor.cs</DependentUpon>
+    <Compile Include="Migrations\201711080920259_ValueTypeSensor to TimeHistory.cs" />
+    <Compile Include="Migrations\201711080920259_ValueTypeSensor to TimeHistory.Designer.cs">
+      <DependentUpon>201711080920259_ValueTypeSensor to TimeHistory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711080922468_Creator To MySensors.cs" />
+    <Compile Include="Migrations\201711080922468_Creator To MySensors.Designer.cs">
+      <DependentUpon>201711080922468_Creator To MySensors.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711081041188_Shared Table.cs" />
+    <Compile Include="Migrations\201711081041188_Shared Table.Designer.cs">
+      <DependentUpon>201711081041188_Shared Table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711081537083_Added IsDeleted Flag.cs" />
+    <Compile Include="Migrations\201711081537083_Added IsDeleted Flag.Designer.cs">
+      <DependentUpon>201711081537083_Added IsDeleted Flag.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -92,23 +104,32 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201711061411586_Initial.resx">
-      <DependentUpon>201711061411586_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201711080851122_Initial.resx">
+      <DependentUpon>201711080851122_Initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711061414058_Sensor and its types relation.resx">
-      <DependentUpon>201711061414058_Sensor and its types relation.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201711080854567_Sensor to ValueTypeSensor.resx">
+      <DependentUpon>201711080854567_Sensor to ValueTypeSensor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711061418009_time history relations.resx">
-      <DependentUpon>201711061418009_time history relations.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201711080910075_Try.resx">
+      <DependentUpon>201711080910075_Try.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711061428311_Sensor User relation.resx">
-      <DependentUpon>201711061428311_Sensor User relation.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201711080915430_Sensor to BoolTypeSensor.resx">
+      <DependentUpon>201711080915430_Sensor to BoolTypeSensor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711071459197_add sensor polling interval.resx">
-      <DependentUpon>201711071459197_add sensor polling interval.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201711080918134_BoolTypeSensor to TimeHistory.resx">
+      <DependentUpon>201711080918134_BoolTypeSensor to TimeHistory.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711071503171_delete useless prop in Sensor.resx">
-      <DependentUpon>201711071503171_delete useless prop in Sensor.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201711080920259_ValueTypeSensor to TimeHistory.resx">
+      <DependentUpon>201711080920259_ValueTypeSensor to TimeHistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711080922468_Creator To MySensors.resx">
+      <DependentUpon>201711080922468_Creator To MySensors.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711081041188_Shared Table.resx">
+      <DependentUpon>201711081041188_Shared Table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711081537083_Added IsDeleted Flag.resx">
+      <DependentUpon>201711081537083_Added IsDeleted Flag.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -14,15 +14,15 @@ namespace DataflowICB.Database.Models
             this.valueHistory = new List<TimeHistory>();
         }
 
-        [Key, ForeignKey("SensorModel")]
+        [Key, ForeignKey("Sensor")]
         public string Id { get; set; }
 
         [Required]
         public string MeasurementType { get; set; }
 
-        public string SensorModelId { get; set; }
+        public string SensorId { get; set; }
 
-        public virtual Sensor SensorModel { get; set; }
+        public virtual Sensor Sensor { get; set; }
 
         [Required]
         public double MinValue { get; set; }

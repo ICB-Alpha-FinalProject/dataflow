@@ -396,6 +396,13 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Dataflow.DataServices\Dataflow.DataServices.csproj">
+      <Project>{bda32d80-c003-4cf1-a520-4475a67481de}</Project>
+      <Name>Dataflow.DataServices</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataflowICB.Database\DataflowICB.Database.csproj">
       <Project>{a440899d-495c-4f1a-981c-345561033502}</Project>
       <Name>DataflowICB.Database</Name>

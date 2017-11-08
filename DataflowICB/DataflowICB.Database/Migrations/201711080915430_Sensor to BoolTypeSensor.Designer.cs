@@ -7,13 +7,13 @@ namespace DataflowICB.Database.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.0-30225")]
-    public sealed partial class deleteuselesspropinSensor : IMigrationMetadata
+    public sealed partial class SensortoBoolTypeSensor : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(deleteuselesspropinSensor));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(SensortoBoolTypeSensor));
         
         string IMigrationMetadata.Id
         {
-            get { return "201711071503171_delete useless prop in Sensor"; }
+            get { return "201711080915430_Sensor to BoolTypeSensor"; }
         }
         
         string IMigrationMetadata.Source

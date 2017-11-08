@@ -8,8 +8,7 @@ using System.Threading.Tasks;
 namespace DataflowICB.Database.Models
 {
     public class Sensor
-    {
-        
+    {       
         private const int maxPollingInterval = 86400;
         private ICollection<ApplicationUser> sharedWithUsers;
 
@@ -37,14 +36,14 @@ namespace DataflowICB.Database.Models
         public string ValueTypeSensorId { get; set; }
 
         public virtual ValueTypeSensor ValueTypeSensor { get; set; }
-        
+
         public string BoolTypeSensorId { get; set; }
 
         public virtual BoolTypeSensor BoolTypeSensor { get; set; }
-        
+
         [Required]
         public bool IsPublic { get; set; }
-        
+
         [Required]
         public string CreatorId { get; set; }
 
@@ -67,6 +66,8 @@ namespace DataflowICB.Database.Models
 
         public double SensorCoordinatesY { get; set; }
 
-        public DateTime LastUpdate { get; set; }
+        public DateTime? LastUpdate { get; set; }
+
+        public bool IsDeleted { get; set; }
     }
 }

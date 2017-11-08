@@ -16,11 +16,10 @@ namespace DataflowICB.Database.Models
 
         public string ValueSensorId { get; set; }
 
-        public ValueTypeSensor ValueSensor { get; set; }
+        public virtual ValueTypeSensor ValueSensor { get; set; }
 
         public string BoolSensorId { get; set; }
 
-        public BoolTypeSensor BoolSensor { get; set; }
-
+        public virtual BoolTypeSensor BoolSensor { get; set; }
     }
 }

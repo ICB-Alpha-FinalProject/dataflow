@@ -14,16 +14,15 @@ namespace DataflowICB.Database.Models
             this.boolHistory = new List<TimeHistory>();
         }
 
-        [Key, ForeignKey("SensorModel")]
+        [Key, ForeignKey("Sensor")]
         public string Id { get; set; }
 
         [Required]
         public string MeasurementType { get; set; }
 
+        public string SensorId { get; set; }
 
-        public string SensorModelId { get; set; }
-        public virtual Sensor SensorModel { get; set; }
-
+        public virtual Sensor Sensor { get; set; }
 
         public bool IsConnected { get; set; }
 
@@ -32,7 +31,6 @@ namespace DataflowICB.Database.Models
 
         public virtual ICollection<TimeHistory> BoolHistory
         {
-
             get
             {
                 return this.boolHistory;

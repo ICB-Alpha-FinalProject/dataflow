@@ -7,13 +7,13 @@ namespace DataflowICB.Database.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.0-30225")]
-    public sealed partial class addsensorpollinginterval : IMigrationMetadata
+    public sealed partial class BoolTypeSensortoTimeHistory : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(addsensorpollinginterval));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(BoolTypeSensortoTimeHistory));
         
         string IMigrationMetadata.Id
         {
-            get { return "201711071459197_add sensor polling interval"; }
+            get { return "201711080918134_BoolTypeSensor to TimeHistory"; }
         }
         
         string IMigrationMetadata.Source

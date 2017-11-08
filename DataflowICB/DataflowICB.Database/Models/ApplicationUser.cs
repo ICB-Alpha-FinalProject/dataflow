@@ -52,5 +52,7 @@ namespace DataflowICB.Database.Models
                 sharedSensors = value;
             }
         }
+
+        public bool IsDeleted { get; set; }
     }
 }
