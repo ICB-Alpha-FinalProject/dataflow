@@ -8,17 +8,6 @@ namespace DataflowICB.Database.Migrations
         public override void Up()
         {
             CreateTable(
-                "dbo.BoolTypeSensors",
-                c => new
-                    {
-                        Id = c.String(nullable: false, maxLength: 128),
-                        MeasurementType = c.String(nullable: false),
-                        IsConnected = c.Boolean(nullable: false),
-                        CurrentValue = c.Boolean(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id);
-            
-            CreateTable(
                 "dbo.AspNetRoles",
                 c => new
                     {
@@ -40,32 +29,6 @@ namespace DataflowICB.Database.Migrations
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId)
                 .Index(t => t.RoleId);
-            
-            CreateTable(
-                "dbo.Sensors",
-                c => new
-                    {
-                        Id = c.String(nullable: false, maxLength: 128),
-                        Name = c.String(nullable: false, maxLength: 20),
-                        Description = c.String(),
-                        URL = c.String(nullable: false),
-                        IsPublic = c.Boolean(nullable: false),
-                        SensorValidity = c.Int(nullable: false),
-                        SensorCoordinatesX = c.Double(nullable: false),
-                        SensorCoordinatesY = c.Double(nullable: false),
-                        LastUpdate = c.DateTime(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id);
-            
-            CreateTable(
-                "dbo.TimeHistories",
-                c => new
-                    {
-                        Id = c.String(nullable: false, maxLength: 128),
-                        Date = c.DateTime(nullable: false),
-                        Value = c.Double(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.AspNetUsers",
@@ -112,20 +75,6 @@ namespace DataflowICB.Database.Migrations
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
             
-            CreateTable(
-                "dbo.ValueTypeSensors",
-                c => new
-                    {
-                        Id = c.String(nullable: false, maxLength: 128),
-                        MeasurementType = c.String(nullable: false),
-                        MinValue = c.Double(nullable: false),
-                        Maxvalue = c.Double(nullable: false),
-                        IsInAcceptableRange = c.Boolean(nullable: false),
-                        IsConnected = c.Boolean(nullable: false),
-                        CurrentValue = c.Double(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id);
-            
         }
         
         public override void Down()
@@ -140,15 +89,11 @@ namespace DataflowICB.Database.Migrations
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
-            DropTable("dbo.ValueTypeSensors");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
-            DropTable("dbo.TimeHistories");
-            DropTable("dbo.Sensors");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
-            DropTable("dbo.BoolTypeSensors");
         }
     }
 }

@@ -20,11 +20,28 @@ namespace DataflowICB.Database
         public virtual IDbSet<Sensor> Sensors { get; set; }
         public virtual IDbSet<BoolTypeSensor> BoolSensors { get; set; }
         public virtual IDbSet<ValueTypeSensor> ValueSensors { get; set; }
-        public virtual IDbSet<TimeHistory> TimeHistory { get; set; }
+        public virtual IDbSet<ValueHistory> ValueHistory { get; set; }
 
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany(u => u.SharedSensors)
+                .WithMany(s => s.SharedWithUsers)
+                .Map(us =>
+                {
+                    us.MapLeftKey("UserRefId");
+                    us.MapRightKey("SensorRefId");
+                    us.ToTable("UserSharedSensors");
+                });
+
+
         }
     }
 }

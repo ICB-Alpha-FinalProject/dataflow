@@ -21,30 +21,26 @@ namespace DataflowICB.Areas.Sensor.Models
 
         [StringLength(250, MinimumLength = 3)]
         public string Description { get; set; }
-
-        [Required]
+        
         public string Url { get; set; }
 
         public ValueTypeSensorViewModel ValueTypeSensor { get; set; }
 
         public BoolTypeSensorViewModel BoolTypeSensor { get; set; }
         
-        [Required]
         public string MeasurementType { get; set; }
 
         [Required]
-        [Range(0, Constants.MaxPollingInterval)]
+        [Range(1, Constants.MaxPollingInterval)]
         public int PollingInterval { get; set; }
 
         [Required]
         public bool IsPublic { get; set; }
 
         public bool IsValueType { get; set; }
-
-        [Required]
+        
         public string CreatorUsername { get; set; }
 
         public ICollection<string> SharedWithUsers { get; set; }
-
     }
 }

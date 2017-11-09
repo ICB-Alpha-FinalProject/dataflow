@@ -395,6 +395,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Dataflow.DataServices\Dataflow.DataServices.csproj">
+      <Project>{BDA32D80-C003-4CF1-A520-4475A67481DE}</Project>
+      <Name>Dataflow.DataServices</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataflowICB.Database\DataflowICB.Database.csproj">
       <Project>{a440899d-495c-4f1a-981c-345561033502}</Project>
       <Name>DataflowICB.Database</Name>

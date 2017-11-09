@@ -12,6 +12,8 @@ namespace DataflowICB.App_Start
     using Ninject.Web.Common;
     using Microsoft.AspNet.Identity.Owin;
     using DataflowICB.Database;
+    using Dataflow.DataServices.Contracts;
+    using Dataflow.DataServices;
 
     public static class NinjectWebCommon
     {
@@ -76,6 +78,10 @@ namespace DataflowICB.App_Start
                     .GetOwinContext()
                     .Get<ApplicationDbContext>()
                 )
+                .InRequestScope();
+
+            kernel.Bind<ISensorService>()
+                .To<SensorService>()
                 .InRequestScope();
         }
     }

@@ -7,13 +7,13 @@ namespace DataflowICB.Database.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.0-30225")]
-    public sealed partial class Initial : IMigrationMetadata
+    public sealed partial class valuehistory : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(valuehistory));
         
         string IMigrationMetadata.Id
         {
-            get { return "201711061411586_Initial"; }
+            get { return "201711082357175_value history"; }
         }
         
         string IMigrationMetadata.Source

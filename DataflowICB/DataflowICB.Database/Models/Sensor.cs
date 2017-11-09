@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +10,6 @@ namespace DataflowICB.Database.Models
 {
     public class Sensor
     {
-        
         private const int maxPollingInterval = 86400;
         private ICollection<ApplicationUser> sharedWithUsers;
 
@@ -18,13 +18,12 @@ namespace DataflowICB.Database.Models
             this.sharedWithUsers = new HashSet<ApplicationUser>();
         }
 
-        [Key]
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [StringLength(20, MinimumLength = 2)]
         public string Name { get; set; }
-
+        
         public string Description { get; set; }
 
         [Required]
@@ -34,22 +33,21 @@ namespace DataflowICB.Database.Models
         [Range(1, maxPollingInterval)]
         public int PollingInterval { get; set; }
 
-        public string ValueTypeSensorId { get; set; }
+        public int? ValueTypeSensorId { get; set; }
 
         public virtual ValueTypeSensor ValueTypeSensor { get; set; }
-        
-        public string BoolTypeSensorId { get; set; }
+
+        public int? BoolTypeSensorId { get; set; }
 
         public virtual BoolTypeSensor BoolTypeSensor { get; set; }
-        
-        [Required]
-        public bool IsPublic { get; set; }
-        
-        [Required]
-        public string CreatorId { get; set; }
 
         [Required]
-        public virtual ApplicationUser Creator { get; set; }
+        public bool IsPublic { get; set; }
+
+        [Required]
+        public string OwnerId { get; set; }
+
+        public virtual ApplicationUser Owner { get; set; }
 
         public virtual ICollection<ApplicationUser> SharedWithUsers
         {

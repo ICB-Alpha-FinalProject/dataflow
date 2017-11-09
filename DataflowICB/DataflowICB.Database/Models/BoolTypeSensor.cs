@@ -7,30 +7,27 @@ namespace DataflowICB.Database.Models
 {
     public class BoolTypeSensor
     {
-        private ICollection<TimeHistory> boolHistory;
+        private ICollection<ValueHistory> boolHistory;
 
         public BoolTypeSensor()
         {
-            this.boolHistory = new List<TimeHistory>();
+            this.boolHistory = new List<ValueHistory>();
         }
+        
+        [ForeignKey("Sensor")]
+        public int Id { get; set; }
 
-        [Key, ForeignKey("SensorModel")]
-        public string Id { get; set; }
+        public Sensor Sensor { get; set; }
 
         [Required]
         public string MeasurementType { get; set; }
-
-
-        public string SensorModelId { get; set; }
-        public virtual Sensor SensorModel { get; set; }
-
-
+        
         public bool IsConnected { get; set; }
 
         [Required]
         public bool CurrentValue { get; set; }
 
-        public virtual ICollection<TimeHistory> BoolHistory
+        public virtual ICollection<ValueHistory> BoolHistory
         {
 
             get

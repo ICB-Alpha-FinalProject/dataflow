@@ -17,17 +17,13 @@
     @Html.Partial("_CommonSensorForm", Model)
 
     @Html.LabelFor(m => m.ValueTypeSensor.MinValue)
-    @Html.EditorFor(m => m.ValueTypeSensor.MinValue, new { @type = "number" })
+    @Html.EditorFor(m => m.ValueTypeSensor.MinValue, new { @type = "number", @class="text-danger" })
     @Html.ValidationMessageFor(m=>m.ValueTypeSensor.MinValue)
     <br />
     @Html.LabelFor(m => m.ValueTypeSensor.Maxvalue)
-    @Html.EditorFor(m => m.ValueTypeSensor.Maxvalue)
-
-
-    @Html.LabelFor(m => m.Description)
-    @Html.EditorFor(m => m.Description, new { @class = "form-control" })
-    @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
-
+    @Html.EditorFor(m => m.ValueTypeSensor.Maxvalue, new { @type = "number", @class = "text-danger" })
+    @Html.ValidationMessageFor(m=>m.ValueTypeSensor.Maxvalue)
+    
     <input type="submit" value="Register" class="btn btn-info btn-block" />
 }
 
