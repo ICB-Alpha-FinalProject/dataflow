@@ -212,6 +212,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
+    <Compile Include="Areas\Admin\Models\AdminSensorViewModel.cs" />
     <Compile Include="Areas\Admin\Models\UserViewModel.cs" />
     <Compile Include="Areas\Sensor\Controllers\SensorController.cs" />
     <Compile Include="Areas\Sensor\Models\BoolTypeSensorViewModel.cs" />
@@ -322,6 +323,8 @@
     <Content Include="Areas\Sensor\Views\Shared\_CommonSensorForm.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\AllUsers.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_EditUser.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_EditSensor.cshtml" />
+    <Content Include="Areas\Admin\Views\Admin\AllSensors.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

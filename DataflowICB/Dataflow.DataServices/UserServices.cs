@@ -10,6 +10,7 @@ using DataflowICB.Database;
 using DataflowICB;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity;
+using Dataflow.DataServices.Models;
 
 namespace Dataflow.DataServices
 {
@@ -24,14 +25,14 @@ namespace Dataflow.DataServices
             this.dbContext = dbContext;
         }
 
-        public void EditUser(ApplicationUser editedUser)
+        public void EditUser(UserDataModel editedUser)
         {
             Guard.WhenArgument(editedUser, "editedUser").IsNull().Throw();
 
             var user = this.dbContext.Users.First(u => u.Id == editedUser.Id);
             if (user != null)
             {
-                user.UserName = editedUser.UserName;
+                user.UserName = editedUser.Username;
                 user.Email = editedUser.Email;
                 user.IsDeleted = editedUser.IsDeleted;
 
@@ -39,7 +40,7 @@ namespace Dataflow.DataServices
             }
         }
 
-        public ApplicationUser GetUser(string username)
+        public UserDataModel GetUser(string username)
         {
             Guard.WhenArgument(username, "username").IsNull().Throw();
 
@@ -49,12 +50,12 @@ namespace Dataflow.DataServices
                 throw new ArgumentException($"No user with username {username}!");
             }
 
-            return user;
+            return UserDataModel.Convert(user);
         }
 
-        public ICollection<ApplicationUser> GetAllUsers()
+        public ICollection<UserDataModel> GetAllUsers()
         {
-            return this.dbContext.Users.ToList();
+            return this.dbContext.Users.Select(UserDataModel.Create).ToList();
         }
     }
 }

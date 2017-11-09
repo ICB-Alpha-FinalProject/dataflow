@@ -21,15 +21,20 @@ namespace Dataflow.DataServices
         public void AddSensor(Sensor sensor)
         {
             this.context.Sensors.Add(sensor);
+            this.context.SaveChanges();
+            //try
+            //{
+            //    this.context.SaveChanges();
+            //}
+            //catch (Exception ex)
+            //{
 
-            try
-            {
-                this.context.SaveChanges();
-            }
-            catch (Exception ex)
-            {
+            //}
+        }
 
-            }
+        public ICollection<Sensor> GetAllSensors()
+        {
+            return this.context.Sensors.ToList();
         }
     }
 }

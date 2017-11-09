@@ -1,0 +1,44 @@
+﻿@model AdminSensorViewModel
+
+<h3>Edit sensor:</h3>
+@using (Html.BeginForm("EditSensor", "Admin", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(m => m.Id)
+    <div>
+        @Html.LabelFor(m => m.Name)
+        @Html.EditorFor(m => m.Name)
+    </div>
+    <div>
+        @Html.LabelFor(m => m.Description)
+        @Html.EditorFor(m => m.Description)
+    </div>
+    <div>
+        @Html.LabelFor(m => m.URL)
+        @Html.EditorFor(m => m.URL)
+    </div>
+    <div>
+        @Html.LabelFor(m => m.Owner)
+        @Html.EditorFor(m => m.Owner)
+    </div>
+    <div>
+        @Html.LabelFor(m => m.SharedWithUsers)
+        @Html.EditorFor(m => m.SharedWithUsers)
+    </div>
+    <div>
+        @Html.LabelFor(m => m.IsBoolType)
+        @Html.EditorFor(m => m.IsBoolType)
+    </div>
+    <div>
+        @Html.LabelFor(m => m.IsPublic)
+        @Html.EditorFor(m => m.IsPublic)
+    </div>
+    <div>
+        @Html.LabelFor(m => m.IsDeleted)
+        @Html.EditorFor(m => m.IsDeleted)
+    </div>
+    <div>
+        <input type="submit" value="Save" />
+    </div>
+}

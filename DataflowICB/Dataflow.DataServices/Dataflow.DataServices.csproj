@@ -58,6 +58,11 @@
   <ItemGroup>
     <Compile Include="Contracts\ISensorService.cs" />
     <Compile Include="Contracts\IUserServices.cs" />
+    <Compile Include="Models\BoolTypeSensorDataModel.cs" />
+    <Compile Include="Models\SensorDataModel.cs" />
+    <Compile Include="Models\UserDataModel.cs" />
+    <Compile Include="Models\ValueHistoryDataModel.cs" />
+    <Compile Include="Models\ValueTypeSensorDataModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SensorService.cs" />
     <Compile Include="UserServices.cs" />

@@ -1,4 +1,5 @@
-﻿using DataflowICB.Database.Models;
+﻿using Dataflow.DataServices.Models;
+using DataflowICB.Database.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +34,7 @@ namespace DataflowICB.Areas.Admin.Models
             }
         }
 
-        public static ICollection<UserViewModel> Convert(IEnumerable<ApplicationUser> applicationUsers)
+        public static ICollection<UserViewModel> Convert(IEnumerable<UserDataModel> applicationUsers)
         {
             ICollection<UserViewModel> usersViewModel = new List<UserViewModel>();
             foreach (var appUser in applicationUsers)
@@ -41,7 +42,7 @@ namespace DataflowICB.Areas.Admin.Models
                 usersViewModel.Add(new UserViewModel
                 {
                     Email = appUser.Email,
-                    Username = appUser.UserName,
+                    Username = appUser.Username,
                     Id = appUser.Id,
                     IsDeleted = appUser.IsDeleted
                 });

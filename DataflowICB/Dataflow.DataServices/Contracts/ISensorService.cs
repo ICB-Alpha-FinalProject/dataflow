@@ -11,5 +11,7 @@ namespace Dataflow.DataServices.Contracts
     public interface ISensorService
     {
         void AddSensor(Sensor sensor);
+
+        ICollection<Sensor> GetAllSensors();
     }
 }
