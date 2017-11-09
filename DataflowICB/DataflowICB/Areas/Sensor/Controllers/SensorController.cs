@@ -142,5 +142,12 @@ namespace DataflowICB.Areas.Sensor.Controllers
             await this.sensorService.UpdateSensors();
             return this.RedirectToAction("Index", "Home", new { area = "" });
         }
+
+        [Authorize]
+        public ActionResult UserSensors()
+        {
+            var sensors = this.sensorService.
+            return View();
+        }
     }
 }

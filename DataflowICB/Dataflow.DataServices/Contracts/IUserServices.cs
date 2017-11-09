@@ -1,4 +1,5 @@
-﻿using DataflowICB.Database.Models;
+﻿using Dataflow.DataServices.Models;
+using DataflowICB.Database.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,10 @@ namespace Dataflow.DataServices.Contracts
 {
     public interface IUserServices
     {
-        ApplicationUser GetUser(string username);
+        UserDataModel GetUser(string username);
 
-        ICollection<ApplicationUser> GetAllUsers();
+        ICollection<UserDataModel> GetAllUsers();
 
-        void EditUser(ApplicationUser editedUser);
+        void EditUser(UserDataModel editedUser);
     }
 }

@@ -7,7 +7,7 @@
 </head>
 @*http://fontawesome.io/icons/*@
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
-    
+
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
         @Html.ActionLink("dataflow.", "Index", "Home", new { area = string.Empty }, new { @class = "navbar-brand" })
@@ -31,6 +31,7 @@
                         <li>
                             @Html.ActionLink("Public Sensors", "PublicSensors", "sensor", new { area = "Sensor" }, new { })
                             @Html.ActionLink("MANUAL UpdateSensors (for test)", "UpdateSensors", "Sensor", new { area = "Sensor"}, new { })
+
                         </li>
                         @if (User.Identity.IsAuthenticated)
                         {
@@ -38,10 +39,10 @@
                                 @Html.ActionLink("My Sensors", "UserSensors", "Sensor", new { area = "Sensor" }, new { })
                             </li>
                             <li>
-                                @Html.ActionLink("Register New Sensor", "RegisterSensor", "Sensor", new { area = "Sensor" }, new { })
+                                @Html.ActionLink("Shared Sensors", "UserSensors", "Sensor", new { area = "Sensor" }, new { })
                             </li>
                             <li>
-                                <a href="blank.html">Edit ?</a>
+                                @Html.ActionLink("Register New Sensor", "RegisterSensor", "Sensor", new { area = "Sensor" }, new { })
                             </li>
                         }
                     </ul>
@@ -65,11 +66,11 @@
 
 
                     @*<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Admin Panel">
-                        <a class="nav-link" href="@Url.Action("adminpanel", "admin", new { Area = "admin"})">
-                            <i class="fa fa-fw fa-flash"></i>
-                            <span class="nav-link-text">Admin Panel</span>
-                        </a>
-                    </li>*@
+                            <a class="nav-link" href="@Url.Action("adminpanel", "admin", new { Area = "admin"})">
+                                <i class="fa fa-fw fa-flash"></i>
+                                <span class="nav-link-text">Admin Panel</span>
+                            </a>
+                        </li>*@
                 }
             </ul>
             <ul class="navbar-nav sidenav-toggler">
@@ -211,7 +212,7 @@
         <!-- /.content-wrapper-->
         <div>
 
-        @RenderBody()
+            @RenderBody()
         </div>
         <footer class="sticky-footer">
             <div class="container">
@@ -247,16 +248,16 @@
             </div>
         </div>
         @*<!-- Bootstrap core JavaScript-->
-        <script src="vendor/jquery/jquery.min.js"></script>
-        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <!-- Core plugin JavaScript-->
-        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-        <!-- Page level plugin JavaScript-->
-        <script src="vendor/chart.js/Chart.min.js"></script>
-        <!-- Custom scripts for all pages-->
-        <script src="js/sb-admin.min.js"></script>
-        <!-- Custom scripts for this page-->
-        <script src="js/sb-admin-charts.min.js"></script>*@
+            <script src="vendor/jquery/jquery.min.js"></script>
+            <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+            <!-- Core plugin JavaScript-->
+            <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+            <!-- Page level plugin JavaScript-->
+            <script src="vendor/chart.js/Chart.min.js"></script>
+            <!-- Custom scripts for all pages-->
+            <script src="js/sb-admin.min.js"></script>
+            <!-- Custom scripts for this page-->
+            <script src="js/sb-admin-charts.min.js"></script>*@
     </div>
 </body>
 @Scripts.Render("~/bundles/jquery")

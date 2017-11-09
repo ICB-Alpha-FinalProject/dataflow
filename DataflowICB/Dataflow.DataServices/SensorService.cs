@@ -30,6 +30,7 @@ namespace Dataflow.DataServices
         {
             this.context.Sensors.Add(sensor);
             this.context.SaveChanges();
+
         }
 
         public IEnumerable<Sensor> GetAllSensors()
@@ -87,6 +88,30 @@ namespace Dataflow.DataServices
             }
 
             this.context.SaveChanges();
+        }
+
+
+
+        public IEnumerable<SensorServiceModel> GetAllSensorsForUser(string username)
+        {
+            var sensorForUser = context.Sensors.Where(s => s.Owner.UserName == username)
+                .Select(sensor => new SensorServiceModel
+                {
+                    Name = sensor.Name,
+                    Description = sensor.Description,
+                    CurrentValue = sensor.IsBoolType ? sensor.BoolTypeSensor.CurrentValue.ToString(): sensor.ValueTypeSensor.CurrentValue.ToString(),
+                    IsPublic = sensor.IsPublic,
+                    IsShared = sensor.SharedWithUsers.Count() > 0
+                    
+                })
+                .ToList();
+
+            return sensorForUser;
+        }
+
+        public SensorServiceModel ShareWithUser(string username)
+        {
+
         }
 
     }
