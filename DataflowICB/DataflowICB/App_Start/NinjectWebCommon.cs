@@ -48,6 +48,7 @@ namespace DataflowICB.App_Start
             {
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
+                kernel.Bind<IUserServices>().To<UserServices>();
 
                 RegisterServices(kernel);
                 return kernel;

@@ -83,7 +83,7 @@ namespace DataflowICB.Database.Migrations
             //        var role = ctx.Roles.Add(new IdentityRole("Admin"));
 
             //        ctx.Users
-            //            .First(u => u.UserName == "test@test.bg")
+            //            .First(u => u.UserName == "admin")
             //            .Roles.Add(new IdentityUserRole() { RoleId = role.Id });
 
             //        ctx.SaveChanges();

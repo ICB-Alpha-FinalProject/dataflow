@@ -1,4 +1,5 @@
-﻿using Dataflow.DataServices.Contracts;
+﻿using Bytes2you.Validation;
+using Dataflow.DataServices.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,21 +19,30 @@ namespace Dataflow.DataServices
 
         public UserServices(ApplicationDbContext dbContext)
         {
+            Guard.WhenArgument(dbContext, "dbContext").IsNull().Throw();
+
             this.dbContext = dbContext;
         }
 
-        public void EditUser(string usernameOld, string username, string email)
+        public void EditUser(ApplicationUser editedUser)
         {
-            var user = GetUser(usernameOld);
+            Guard.WhenArgument(editedUser, "editedUser").IsNull().Throw();
 
-            user.UserName = username;
-            user.Email = email;
+            var user = this.dbContext.Users.First(u => u.Id == editedUser.Id);
+            if (user != null)
+            {
+                user.UserName = editedUser.UserName;
+                user.Email = editedUser.Email;
+                user.IsDeleted = editedUser.IsDeleted;
 
-            this.dbContext.SaveChanges();
+                this.dbContext.SaveChanges();
+            }
         }
 
         public ApplicationUser GetUser(string username)
         {
+            Guard.WhenArgument(username, "username").IsNull().Throw();
+
             var user = this.dbContext.Users.First(u => u.UserName == username);
             if (user == null)
             {
@@ -42,16 +52,9 @@ namespace Dataflow.DataServices
             return user;
         }
 
-        public IEnumerable<ApplicationUser> GetAllUsers()
+        public ICollection<ApplicationUser> GetAllUsers()
         {
-            return this.dbContext
-                .Users
-                .Select(u => new ApplicationUser()
-                {
-                    Email = u.Email,
-                    UserName = u.UserName,
-                })
-                .ToList();
+            return this.dbContext.Users.ToList();
         }
     }
 }

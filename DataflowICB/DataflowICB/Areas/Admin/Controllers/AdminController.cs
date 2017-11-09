@@ -1,5 +1,6 @@
 ﻿using Dataflow.DataServices.Contracts;
 using DataflowICB.Areas.Admin.Models;
+using DataflowICB.Database.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,9 +23,10 @@ namespace DataflowICB.Areas.Admin.Controllers
 
         public ActionResult AllUsers()
         {
-            var usersViewModel = this.services
-                .GetAllUsers();
+            var applicationUserModel = this.services.GetAllUsers();
 
+            List<UserViewModel> usersViewModel = UserViewModel.Convert(applicationUserModel).ToList();
+            
             return this.View(usersViewModel);
         }
 
@@ -49,6 +51,14 @@ namespace DataflowICB.Areas.Admin.Controllers
             {
                 await this.userManager.RemoveFromRoleAsync(userViewModel.Id, "Admin");
             }
+
+            this.services.EditUser(new ApplicationUser
+            {
+                Id = userViewModel.Id,
+                UserName = userViewModel.Username,
+                Email = userViewModel.Email,
+                IsDeleted = userViewModel.IsDeleted
+            });
 
             return this.RedirectToAction("AllUsers");
         }

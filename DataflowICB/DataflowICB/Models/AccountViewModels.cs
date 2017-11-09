@@ -6,6 +6,11 @@ namespace DataflowICB.Models
     public class ExternalLoginConfirmationViewModel
     {
         [Required]
+        [StringLength(20, ErrorMessage = "The Username must be at least {2} characters long.", MinimumLength = 2)]
+        [Display(Name = "Username")]
+        public string Username { get; set; }
+
+        [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
     }
@@ -49,9 +54,14 @@ namespace DataflowICB.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Email")]
-        [EmailAddress]
-        public string Email { get; set; }
+        [StringLength(20, ErrorMessage = "The Username must be at least {2} characters long.", MinimumLength = 2)]
+        [Display(Name = "Username")]
+        public string Username { get; set; }
+
+        //[Required]
+        //[Display(Name = "Email")]
+        //[EmailAddress]
+        //public string Email { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
@@ -64,6 +74,11 @@ namespace DataflowICB.Models
 
     public class RegisterViewModel
     {
+        [Required]
+        [StringLength(20, ErrorMessage = "The Username must be at least {2} characters long.", MinimumLength = 2)]
+        [Display(Name = "Username")]
+        public string Username { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]

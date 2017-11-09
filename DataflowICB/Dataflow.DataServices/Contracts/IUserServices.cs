@@ -11,6 +11,8 @@ namespace Dataflow.DataServices.Contracts
     {
         ApplicationUser GetUser(string username);
 
-        IEnumerable<ApplicationUser> GetAllUsers();
+        ICollection<ApplicationUser> GetAllUsers();
+
+        void EditUser(ApplicationUser editedUser);
     }
 }
