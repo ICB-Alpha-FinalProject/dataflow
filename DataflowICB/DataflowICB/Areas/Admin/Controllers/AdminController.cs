@@ -1,4 +1,5 @@
 ﻿using Dataflow.DataServices.Contracts;
+using Dataflow.DataServices.Models;
 using DataflowICB.Areas.Admin.Models;
 using DataflowICB.Database.Models;
 using System;
@@ -30,6 +31,15 @@ namespace DataflowICB.Areas.Admin.Controllers
             return this.View(usersViewModel);
         }
 
+        public ActionResult AllSensors()
+        {
+            var applicationUserModel = this.services.GetAllUsers();
+
+            List<UserViewModel> usersViewModel = UserViewModel.Convert(applicationUserModel).ToList();
+
+            return this.View(usersViewModel);
+        }
+
         public async Task<ActionResult> EditUser(string id)
         {
             var user = await this.userManager.FindByIdAsync(id);
@@ -52,10 +62,10 @@ namespace DataflowICB.Areas.Admin.Controllers
                 await this.userManager.RemoveFromRoleAsync(userViewModel.Id, "Admin");
             }
 
-            this.services.EditUser(new ApplicationUser
+            this.services.EditUser(new UserDataModel
             {
                 Id = userViewModel.Id,
-                UserName = userViewModel.Username,
+                Username = userViewModel.Username,
                 Email = userViewModel.Email,
                 IsDeleted = userViewModel.IsDeleted
             });
