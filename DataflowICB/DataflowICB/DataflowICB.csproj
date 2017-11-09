@@ -403,7 +403,7 @@
       <Name>Dataflow.DataServices</Name>
     </ProjectReference>
     <ProjectReference Include="..\DataflowICB.Database\DataflowICB.Database.csproj">
-      <Project>{a440899d-495c-4f1a-981c-345561033502}</Project>
+      <Project>{A440899D-495C-4F1A-981C-345561033502}</Project>
       <Name>DataflowICB.Database</Name>
     </ProjectReference>
   </ItemGroup>

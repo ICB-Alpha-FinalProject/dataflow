@@ -17,6 +17,8 @@ namespace DataflowICB.Areas.Admin.Models
 
         public bool IsAdmin { get; set; }
 
+        public bool IsDeleted { get; set; }
+
         public static Expression<Func<ApplicationUser, UserViewModel>> Create
         {
             get
@@ -25,9 +27,27 @@ namespace DataflowICB.Areas.Admin.Models
                 {
                     Id = u.Id,
                     Username = u.UserName,
-                    Email = u.Email
+                    Email = u.Email,
+                    IsDeleted = u.IsDeleted
                 };
             }
+        }
+
+        public static ICollection<UserViewModel> Convert(IEnumerable<ApplicationUser> applicationUsers)
+        {
+            ICollection<UserViewModel> usersViewModel = new List<UserViewModel>();
+            foreach (var appUser in applicationUsers)
+            {
+                usersViewModel.Add(new UserViewModel
+                {
+                    Email = appUser.Email,
+                    Username = appUser.UserName,
+                    Id = appUser.Id,
+                    IsDeleted = appUser.IsDeleted
+                });
+            }
+
+            return usersViewModel;
         }
     }
 }

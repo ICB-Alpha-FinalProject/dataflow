@@ -12,6 +12,8 @@ namespace DataflowICB.App_Start
     using Ninject.Web.Common;
     using Microsoft.AspNet.Identity.Owin;
     using DataflowICB.Database;
+    using Dataflow.DataServices.Contracts;
+    using Dataflow.DataServices;
 
     public static class NinjectWebCommon
     {
@@ -46,6 +48,7 @@ namespace DataflowICB.App_Start
             {
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
+                kernel.Bind<IUserServices>().To<UserServices>();
 
                 RegisterServices(kernel);
                 return kernel;
