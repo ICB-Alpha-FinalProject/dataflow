@@ -1,7 +1,6 @@
 ﻿using Dataflow.DataServices.Contracts;
 using DataflowICB.Attributes;
 using DataflowICB.Database;
-using DataflowICB.Models.DataApi;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -13,6 +12,7 @@ using System.Web.Mvc;
 using DataflowICB.Database.Models;
 using DataflowICB.Areas.Sensor.Models;
 using Microsoft.AspNet.Identity;
+using DataflowICB.Models.DataApi;
 
 namespace DataflowICB.Areas.Sensor.Controllers
 {
@@ -115,7 +115,7 @@ namespace DataflowICB.Areas.Sensor.Controllers
 
             var sensorVm = new SensorViewModel()
             {
-                Url = "http://telerikacademy.icb.com/api/sensor/" + sensorId,
+                Url = "http://telerikacademy.icb.bg/api/sensor/" + sensorId,
                 IsValueType = isValueType,
                 CreatorUsername = this.HttpContext.User.Identity.Name,
                 MeasurementType = measureType
@@ -135,8 +135,12 @@ namespace DataflowICB.Areas.Sensor.Controllers
                 sensorVm.BoolTypeSensor = boolSensorVm;
                 return this.PartialView("RegisterBoolSensor", sensorVm);
             }
+        }
 
-
+        public async Task<ActionResult> UpdateSensors()
+        {
+            await this.sensorService.UpdateSensors();
+            return this.RedirectToAction("Index", "Home", new { area = "" });
         }
     }
 }

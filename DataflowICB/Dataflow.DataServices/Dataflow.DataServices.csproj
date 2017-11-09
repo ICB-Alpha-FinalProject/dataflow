@@ -45,6 +45,9 @@
     <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -66,6 +69,10 @@
     <ProjectReference Include="..\DataflowICB.Database\DataflowICB.Database.csproj">
       <Project>{a440899d-495c-4f1a-981c-345561033502}</Project>
       <Name>DataflowICB.Database</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SensorApiModels\SensorApiModels.csproj">
+      <Project>{40D6188C-5F7A-4CD1-B1AB-2BCC8B174C6B}</Project>
+      <Name>SensorApiModels</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

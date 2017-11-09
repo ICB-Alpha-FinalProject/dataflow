@@ -57,6 +57,9 @@
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\MSTest.TestFramework.1.2.0\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.3.2.0.0\lib\net45-full\Ninject.dll</HintPath>
     </Reference>
@@ -132,9 +135,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -226,7 +226,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\DataApi\SensorApiData.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -399,9 +398,17 @@
       <Project>{BDA32D80-C003-4CF1-A520-4475A67481DE}</Project>
       <Name>Dataflow.DataServices</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Dataflow.Services\Dataflow.Services.csproj">
+      <Project>{8D05B7E6-CF48-4B44-B785-4E7152E057AE}</Project>
+      <Name>Dataflow.Services</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataflowICB.Database\DataflowICB.Database.csproj">
       <Project>{A440899D-495C-4F1A-981C-345561033502}</Project>
       <Name>DataflowICB.Database</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SensorApiModels\SensorApiModels.csproj">
+      <Project>{40D6188C-5F7A-4CD1-B1AB-2BCC8B174C6B}</Project>
+      <Name>SensorApiModels</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

@@ -29,7 +29,8 @@
                     </a>
                     <ul class="sidenav-second-level collapse" id="collapseExamplePages">
                         <li>
-                            @Html.ActionLink("Public Sensors", "PublicSensors", "sensor", new { area = "Sensor"}, new { })
+                            @Html.ActionLink("Public Sensors", "PublicSensors", "sensor", new { area = "Sensor" }, new { })
+                            @Html.ActionLink("MANUAL UpdateSensors (for test)", "UpdateSensors", "Sensor", new { area = "Sensor"}, new { })
                         </li>
                         @if (User.Identity.IsAuthenticated)
                         {

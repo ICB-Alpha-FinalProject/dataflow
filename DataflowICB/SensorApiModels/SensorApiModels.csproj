@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8D05B7E6-CF48-4B44-B785-4E7152E057AE}</ProjectGuid>
+    <ProjectGuid>{40D6188C-5F7A-4CD1-B1AB-2BCC8B174C6B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Dataflow.Services</RootNamespace>
-    <AssemblyName>Dataflow.Services</AssemblyName>
+    <RootNamespace>SensorApiModels</RootNamespace>
+    <AssemblyName>SensorApiModels</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -43,19 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataApi\SensorApiData.cs" />
+    <Compile Include="DataApi\SensorApiUpdate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataflowICB.Database\DataflowICB.Database.csproj">
-      <Project>{A440899D-495C-4F1A-981C-345561033502}</Project>
-      <Name>DataflowICB.Database</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Contracts\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
