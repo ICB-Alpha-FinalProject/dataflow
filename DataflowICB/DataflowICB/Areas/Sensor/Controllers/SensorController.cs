@@ -138,5 +138,12 @@ namespace DataflowICB.Areas.Sensor.Controllers
 
 
         }
+
+        [Authorize]
+        public ActionResult UserSensors()
+        {
+            var sensors = this.sensorService.
+            return View();
+        }
     }
 }

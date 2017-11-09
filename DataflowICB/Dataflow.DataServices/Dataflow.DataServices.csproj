@@ -60,6 +60,7 @@
     <Compile Include="Contracts\IUserServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SensorService.cs" />
+    <Compile Include="SensorServiceModel.cs" />
     <Compile Include="UserServices.cs" />
   </ItemGroup>
   <ItemGroup>
