@@ -111,7 +111,7 @@ namespace Dataflow.DataServices
 
         public SensorServiceModel ShareWithUser(string username)
         {
-
+            return new SensorServiceModel();
         }
 
     }
