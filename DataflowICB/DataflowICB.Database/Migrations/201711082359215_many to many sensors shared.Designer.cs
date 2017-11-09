@@ -7,13 +7,13 @@ namespace DataflowICB.Database.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.0-30225")]
-    public sealed partial class ValueTypeSensortoTimeHistory : IMigrationMetadata
+    public sealed partial class manytomanysensorsshared : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(ValueTypeSensortoTimeHistory));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(manytomanysensorsshared));
         
         string IMigrationMetadata.Id
         {
-            get { return "201711080920259_ValueTypeSensor to TimeHistory"; }
+            get { return "201711082359215_many to many sensors shared"; }
         }
         
         string IMigrationMetadata.Source

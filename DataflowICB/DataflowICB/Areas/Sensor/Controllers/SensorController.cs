@@ -1,5 +1,6 @@
-﻿using DataflowICB.Areas.Sensor.Models;
+﻿using Dataflow.DataServices.Contracts;
 using DataflowICB.Attributes;
+using DataflowICB.Database;
 using DataflowICB.Models.DataApi;
 using Newtonsoft.Json;
 using System;
@@ -9,13 +10,22 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using DataflowICB.Database.Models;
+using DataflowICB.Areas.Sensor.Models;
+using Microsoft.AspNet.Identity;
 
 namespace DataflowICB.Areas.Sensor.Controllers
 {
     public class SensorController : Controller
     {
-        public SensorController()
+
+        private readonly ISensorService sensorService;
+
+        public SensorController(ISensorService sensorService)
         {
+            // validation
+
+            this.sensorService = sensorService;
         }
 
         [Authorize]
@@ -49,8 +59,46 @@ namespace DataflowICB.Areas.Sensor.Controllers
         [HttpPost]
         public ActionResult CreateSensor(SensorViewModel model)
         {
+            var sensor = new DataflowICB.Database.Models.Sensor()
+            {
+                OwnerId = this.User.Identity.GetUserId(),
+                Description = model.Description,
+                IsPublic = model.IsPublic,
+                Name = model.Name,
+                URL = model.Url,
+                PollingInterval = model.PollingInterval,
+                LastUpdate = DateTime.Now
+            };
+
             if (ModelState.IsValid)
-                return this.Content(model.Description);
+            {
+                if (model.BoolTypeSensor != null)
+                {
+                    var boolType = new BoolTypeSensor()
+                    {
+                        CurrentValue = model.BoolTypeSensor.CurrentValue,
+                        MeasurementType = model.MeasurementType
+                    };
+                    sensor.BoolTypeSensor = boolType;
+                }
+
+                if (model.ValueTypeSensor != null)
+                {
+                    var valueType = new ValueTypeSensor()
+                    {
+                        CurrentValue = model.ValueTypeSensor.CurrentValue,
+                        IsInAcceptableRange = model.ValueTypeSensor.IsInAcceptableRange,
+                        Maxvalue = model.ValueTypeSensor.Maxvalue,
+                        MinValue = model.ValueTypeSensor.MinValue
+                    };
+
+                    sensor.ValueTypeSensor = valueType;
+                }
+
+                this.sensorService.AddSensor(sensor);
+
+                return this.RedirectToAction("Index", "Home", new { area = "" });
+            }
             else
             {
                 ModelState.AddModelError("keyName", "Form is not valid");
@@ -76,15 +124,14 @@ namespace DataflowICB.Areas.Sensor.Controllers
                 var valueTypeSensorVm = new ValueTypeSensorViewModel();
 
                 sensorVm.ValueTypeSensor = valueTypeSensorVm;
-                return this.View("RegisterValueSensor", sensorVm);
+                return this.PartialView("RegisterValueSensor", sensorVm);
             }
             else
             {
                 var boolSensorVm = new BoolTypeSensorViewModel();
 
                 sensorVm.BoolTypeSensor = boolSensorVm;
-                return this.View("RegisterBoolSensor", sensorVm);
-
+                return this.PartialView("RegisterBoolSensor", sensorVm);
             }
 
 

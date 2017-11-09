@@ -7,22 +7,19 @@ namespace DataflowICB.Database.Models
 {
     public class ValueTypeSensor
     {
-        private ICollection<TimeHistory> valueHistory;
-
+        private ICollection<ValueHistory> valueHistory;
         public ValueTypeSensor()
         {
-            this.valueHistory = new List<TimeHistory>();
+            this.valueHistory = new List<ValueHistory>();
         }
+        
+        [ForeignKey("Sensor")]
+        public int Id { get; set; }
 
-        [Key, ForeignKey("Sensor")]
-        public string Id { get; set; }
+        public Sensor Sensor { get; set; }
 
         [Required]
         public string MeasurementType { get; set; }
-
-        public string SensorId { get; set; }
-
-        public virtual Sensor Sensor { get; set; }
 
         [Required]
         public double MinValue { get; set; }
@@ -37,7 +34,7 @@ namespace DataflowICB.Database.Models
         [Required]
         public double CurrentValue { get; set; }
 
-        public virtual ICollection<TimeHistory> ValueHistory
+        public virtual ICollection<ValueHistory> ValueHistory
         {
             get
             {

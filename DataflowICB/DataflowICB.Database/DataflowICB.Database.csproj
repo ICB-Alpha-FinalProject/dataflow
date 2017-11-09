@@ -54,11 +54,39 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationDbContext.cs" />
+    <Compile Include="Migrations\201711082349487_Initial.cs" />
+    <Compile Include="Migrations\201711082349487_Initial.Designer.cs">
+      <DependentUpon>201711082349487_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711082352326_add sensor.cs" />
+    <Compile Include="Migrations\201711082352326_add sensor.Designer.cs">
+      <DependentUpon>201711082352326_add sensor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711082354309_other sensors.cs" />
+    <Compile Include="Migrations\201711082354309_other sensors.Designer.cs">
+      <DependentUpon>201711082354309_other sensors.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711082355395_owner- my sensors .cs" />
+    <Compile Include="Migrations\201711082355395_owner- my sensors .Designer.cs">
+      <DependentUpon>201711082355395_owner- my sensors .cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711082357175_value history.cs" />
+    <Compile Include="Migrations\201711082357175_value history.Designer.cs">
+      <DependentUpon>201711082357175_value history.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711082359215_many to many sensors shared.cs" />
+    <Compile Include="Migrations\201711082359215_many to many sensors shared.Designer.cs">
+      <DependentUpon>201711082359215_many to many sensors shared.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711090048260_add isdeleted.cs" />
+    <Compile Include="Migrations\201711090048260_add isdeleted.Designer.cs">
+      <DependentUpon>201711090048260_add isdeleted.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\BoolTypeSensor.cs" />
     <Compile Include="Models\Sensor.cs" />
-    <Compile Include="Models\TimeHistory.cs" />
+    <Compile Include="Models\ValueHistory.cs" />
     <Compile Include="Models\ValueTypeSensor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SensorRangeValidity.cs" />
@@ -66,6 +94,29 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201711082349487_Initial.resx">
+      <DependentUpon>201711082349487_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711082352326_add sensor.resx">
+      <DependentUpon>201711082352326_add sensor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711082354309_other sensors.resx">
+      <DependentUpon>201711082354309_other sensors.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711082355395_owner- my sensors .resx">
+      <DependentUpon>201711082355395_owner- my sensors .cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711082357175_value history.resx">
+      <DependentUpon>201711082357175_value history.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711082359215_many to many sensors shared.resx">
+      <DependentUpon>201711082359215_many to many sensors shared.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711090048260_add isdeleted.resx">
+      <DependentUpon>201711090048260_add isdeleted.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

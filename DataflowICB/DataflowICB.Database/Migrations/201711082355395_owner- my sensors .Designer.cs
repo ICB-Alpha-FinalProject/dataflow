@@ -7,13 +7,13 @@ namespace DataflowICB.Database.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.0-30225")]
-    public sealed partial class AddedIsDeletedFlag : IMigrationMetadata
+    public sealed partial class ownermysensors : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddedIsDeletedFlag));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(ownermysensors));
         
         string IMigrationMetadata.Id
         {
-            get { return "201711081537083_Added IsDeleted Flag"; }
+            get { return "201711082355395_owner- my sensors "; }
         }
         
         string IMigrationMetadata.Source

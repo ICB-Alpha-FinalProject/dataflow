@@ -80,6 +80,10 @@ namespace DataflowICB.App_Start
                     .Get<ApplicationDbContext>()
                 )
                 .InRequestScope();
+
+            kernel.Bind<ISensorService>()
+                .To<SensorService>()
+                .InRequestScope();
         }
     }
 }

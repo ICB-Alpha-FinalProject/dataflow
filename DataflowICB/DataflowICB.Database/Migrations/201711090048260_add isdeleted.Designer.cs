@@ -7,13 +7,13 @@ namespace DataflowICB.Database.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.0-30225")]
-    public sealed partial class SensortoBoolTypeSensor : IMigrationMetadata
+    public sealed partial class addisdeleted : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(SensortoBoolTypeSensor));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(addisdeleted));
         
         string IMigrationMetadata.Id
         {
-            get { return "201711080915430_Sensor to BoolTypeSensor"; }
+            get { return "201711090048260_add isdeleted"; }
         }
         
         string IMigrationMetadata.Source

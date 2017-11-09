@@ -1,12 +1,17 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataflowICB.Database.Models
 {
-    public class TimeHistory
+    public class ValueHistory
     {
-        [Key]
-        public string Id { get; set; }
+        public ValueHistory()
+        {
+
+        }
+
+        public int Id { get; set; }
 
         [Required]
         public DateTime Date { get; set; }
@@ -14,11 +19,11 @@ namespace DataflowICB.Database.Models
         [Required]
         public double Value { get; set; }
 
-        public string ValueSensorId { get; set; }
+        public int? ValueSensorId { get; set; }
 
         public virtual ValueTypeSensor ValueSensor { get; set; }
 
-        public string BoolSensorId { get; set; }
+        public int? BoolSensorId { get; set; }
 
         public virtual BoolTypeSensor BoolSensor { get; set; }
     }

@@ -14,10 +14,10 @@
                             <small>Create any of the following types of sensor</small>
                         </h3>
                     </div>
-                    <div class="wizard-navigation">
+                    <div class="">
                         <ul>
-                            <li><a href="#sensor-type" data-toggle="tab">Sensor Type</a></li>
-                            <li><a href="#sensor-data" data-toggle="tab">Fill Data</a></li>
+                            <li hidden="hidden"><a href="#sensor-type" data-toggle="tab">Sensor Type</a></li>
+                            <li hidden="hidden"><a href="#sensor-data" data-toggle="tab">Fill Data</a></li>
                         </ul>
                     </div>
                     <div class="tab-content">
@@ -25,7 +25,7 @@
 
                             @foreach (SensorApiData sensor in Model)
                             {
-                                <div class="">
+                                <div class="box">
                                     <small class="fade-text">@sensor.Tag</small>
                                     <p>@sensor.Description</p>
                                     <p class="fade-text">Measurement type: @sensor.MeasureType</p>
@@ -42,9 +42,10 @@
                                          new AjaxOptions
                                          {
                                              UpdateTargetId = "form-container",
-                                             InsertionMode = InsertionMode.Replace
+                                             InsertionMode = InsertionMode.Replace,
+                                             OnComplete = "nextPage"
                                          },
-                                         new { @class = "btn" })
+                                         new { @class = "btn ajax-call" })
 
                                 </div>
                             }
@@ -60,7 +61,7 @@
                     </div>
                     <div class="wizard-footer">
                         <div class="pull-right">
-                            <input type='button' class='btn btn-next btn-fill btn-info btn-wd btn-sm' name='next' value='Next' />
+                            <input type='button' hidden="hidden" class='btn btn-next btn-fill btn-info btn-wd btn-sm' name='next' value='Next' />
                             @*<input type='button' class='btn btn-finish btn-fill btn-info btn-wd btn-sm' name='finish' value='Finish' />*@
                         </div>
                         <div class="pull-left">
@@ -77,6 +78,13 @@
 @*https://ctrlq.org/code/19639-turn-div-clickable-link*@
 
 @section scripts{
+
+    <script>
+        function nextPage() {
+            $("input.btn-next").click()
+        }
+    </script>
+
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/jqueryajax")
     @Scripts.Render("~/bundles/wizard-js")

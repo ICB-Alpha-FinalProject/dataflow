@@ -7,13 +7,13 @@ namespace DataflowICB.Database.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.0-30225")]
-    public sealed partial class SharedTable : IMigrationMetadata
+    public sealed partial class valuehistory : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(SharedTable));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(valuehistory));
         
         string IMigrationMetadata.Id
         {
-            get { return "201711081041188_Shared Table"; }
+            get { return "201711082357175_value history"; }
         }
         
         string IMigrationMetadata.Source
