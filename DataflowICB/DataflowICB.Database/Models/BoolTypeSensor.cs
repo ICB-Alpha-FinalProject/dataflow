@@ -21,7 +21,7 @@ namespace DataflowICB.Database.Models
 
         [Required]
         public string MeasurementType { get; set; }
-        
+
         public bool IsConnected { get; set; }
 
         [Required]
@@ -29,7 +29,6 @@ namespace DataflowICB.Database.Models
 
         public virtual ICollection<ValueHistory> BoolHistory
         {
-
             get
             {
                 return this.boolHistory;

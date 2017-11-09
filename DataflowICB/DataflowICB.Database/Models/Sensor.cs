@@ -66,5 +66,7 @@ namespace DataflowICB.Database.Models
         public double SensorCoordinatesY { get; set; }
 
         public DateTime LastUpdate { get; set; }
+
+        public bool IsDeleted { get; set; }
     }
 }

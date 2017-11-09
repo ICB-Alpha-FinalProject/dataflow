@@ -3,6 +3,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,11 +17,11 @@ namespace DataflowICB.Database
         {
 
         }
-
         public virtual IDbSet<Sensor> Sensors { get; set; }
         public virtual IDbSet<BoolTypeSensor> BoolSensors { get; set; }
         public virtual IDbSet<ValueTypeSensor> ValueSensors { get; set; }
         public virtual IDbSet<ValueHistory> ValueHistory { get; set; }
+
 
         public static ApplicationDbContext Create()
         {
@@ -43,5 +44,6 @@ namespace DataflowICB.Database
 
 
         }
+
     }
 }

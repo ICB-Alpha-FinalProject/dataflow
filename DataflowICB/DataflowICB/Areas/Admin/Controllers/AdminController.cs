@@ -1,5 +1,5 @@
-﻿using DataflowICB.Areas.Admin.Models;
-using DataflowICB.Database;
+﻿using Dataflow.DataServices.Contracts;
+using DataflowICB.Areas.Admin.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,19 +12,18 @@ namespace DataflowICB.Areas.Admin.Controllers
     public class AdminController : Controller
     {
         private readonly ApplicationUserManager userManager;
-        private readonly ApplicationDbContext dbContext;
+        private readonly IUserServices services;
 
-        public AdminController(ApplicationUserManager userManager, ApplicationDbContext dbContext)
+        public AdminController(ApplicationUserManager userManager, IUserServices services)
         {
             this.userManager = userManager;
-            this.dbContext = dbContext;
+            this.services = services;
         }
 
         public ActionResult AllUsers()
         {
-            var usersViewModel = this.dbContext
-                .Users
-                .Select(UserViewModel.Create).ToList();
+            var usersViewModel = this.services
+                .GetAllUsers();
 
             return this.View(usersViewModel);
         }
