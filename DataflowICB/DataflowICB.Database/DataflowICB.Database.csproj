@@ -78,6 +78,10 @@
     <Compile Include="Migrations\201711082359215_many to many sensors shared.Designer.cs">
       <DependentUpon>201711082359215_many to many sensors shared.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711090048260_add isdeleted.cs" />
+    <Compile Include="Migrations\201711090048260_add isdeleted.Designer.cs">
+      <DependentUpon>201711090048260_add isdeleted.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\BoolTypeSensor.cs" />
@@ -109,6 +113,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711082359215_many to many sensors shared.resx">
       <DependentUpon>201711082359215_many to many sensors shared.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711090048260_add isdeleted.resx">
+      <DependentUpon>201711090048260_add isdeleted.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
