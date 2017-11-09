@@ -79,6 +79,7 @@ namespace DataflowICB.Areas.Sensor.Controllers
                         CurrentValue = model.BoolTypeSensor.CurrentValue,
                         MeasurementType = model.MeasurementType
                     };
+                    sensor.IsBoolType = true;
                     sensor.BoolTypeSensor = boolType;
                 }
 
@@ -86,6 +87,7 @@ namespace DataflowICB.Areas.Sensor.Controllers
                 {
                     var valueType = new ValueTypeSensor()
                     {
+                        MeasurementType = model.MeasurementType,
                         CurrentValue = model.ValueTypeSensor.CurrentValue,
                         IsInAcceptableRange = model.ValueTypeSensor.IsInAcceptableRange,
                         Maxvalue = model.ValueTypeSensor.Maxvalue,

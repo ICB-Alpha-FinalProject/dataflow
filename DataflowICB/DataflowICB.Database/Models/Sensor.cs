@@ -23,7 +23,7 @@ namespace DataflowICB.Database.Models
         [Required]
         [StringLength(20, MinimumLength = 2)]
         public string Name { get; set; }
-        
+
         public string Description { get; set; }
 
         [Required]
@@ -33,13 +33,11 @@ namespace DataflowICB.Database.Models
         [Range(1, maxPollingInterval)]
         public int PollingInterval { get; set; }
 
-        public int? ValueTypeSensorId { get; set; }
-
         public virtual ValueTypeSensor ValueTypeSensor { get; set; }
 
-        public int? BoolTypeSensorId { get; set; }
-
         public virtual BoolTypeSensor BoolTypeSensor { get; set; }
+
+        public bool IsBoolType { get; set; }
 
         [Required]
         public bool IsPublic { get; set; }

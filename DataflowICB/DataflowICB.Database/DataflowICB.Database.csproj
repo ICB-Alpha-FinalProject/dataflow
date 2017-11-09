@@ -82,6 +82,10 @@
     <Compile Include="Migrations\201711090048260_add isdeleted.Designer.cs">
       <DependentUpon>201711090048260_add isdeleted.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711091302541_ispublic and delete ref sensor ids.cs" />
+    <Compile Include="Migrations\201711091302541_ispublic and delete ref sensor ids.Designer.cs">
+      <DependentUpon>201711091302541_ispublic and delete ref sensor ids.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\BoolTypeSensor.cs" />
@@ -116,6 +120,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711090048260_add isdeleted.resx">
       <DependentUpon>201711090048260_add isdeleted.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711091302541_ispublic and delete ref sensor ids.resx">
+      <DependentUpon>201711091302541_ispublic and delete ref sensor ids.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
