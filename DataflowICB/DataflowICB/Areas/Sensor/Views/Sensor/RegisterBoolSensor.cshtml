@@ -4,16 +4,20 @@
 }
 
 @using (Ajax.BeginForm("CreateSensor", "Sensor",
-            new AjaxOptions
-            {
-                HttpMethod = "POST",
-                UpdateTargetId = "form-container",
-                InsertionMode = InsertionMode.Replace
-            }))
+        new AjaxOptions
+        {
+            HttpMethod = "POST",
+            UpdateTargetId = "form-container",
+            InsertionMode = InsertionMode.Replace
+        }))
 {
     @Html.AntiForgeryToken()
 
     @Html.Partial("_CommonSensorForm", Model)
 
     <input type="submit" value="Register" class="" />
+}
+
+@section scripts{
+
 }

@@ -45,7 +45,7 @@ namespace Dataflow.DataServices
         public async Task UpdateSensors()
         {
             var sensorsForUpdate = this.context.Sensors
-                .Where(s => (DbFunctions.AddSeconds(s.LastUpdate, s.PollingInterval) <= DateTime.Now))
+                .Where(s => ((DbFunctions.AddSeconds(s.LastUpdate, s.PollingInterval)) <= DateTime.Now))
                 .ToList();
 
             foreach (Sensor s in sensorsForUpdate)
@@ -53,6 +53,7 @@ namespace Dataflow.DataServices
                 var url = s.URL;
 
                 var content = await client.GetStringAsync(url);
+
                 var updatedValue = JsonConvert.DeserializeObject<SensorApiUpdate>(content);
                 int pollingInterval = s.PollingInterval;
 
@@ -60,11 +61,13 @@ namespace Dataflow.DataServices
                 {
                     if (s.BoolTypeSensor.CurrentValue != bool.Parse(updatedValue.Value))
                     {
+                        s.BoolTypeSensor.CurrentValue = bool.Parse(updatedValue.Value);
+
                         var valueHistory = new ValueHistory()
                         {
                             BoolSensor = s.BoolTypeSensor,
                             Date = updatedValue.TimeStamp,
-                            Value = double.Parse(updatedValue.Value)
+                            Value = bool.Parse(updatedValue.Value) ? 1 : 0
                         };
                         s.BoolTypeSensor.BoolHistory.Add(valueHistory);
                     }
@@ -73,6 +76,8 @@ namespace Dataflow.DataServices
                 {
                     if (s.ValueTypeSensor.CurrentValue != double.Parse(updatedValue.Value))
                     {
+                        s.ValueTypeSensor.CurrentValue = double.Parse(updatedValue.Value);
+
                         var valueHistory = new ValueHistory()
                         {
                             ValueSensor = s.ValueTypeSensor,
@@ -90,6 +95,33 @@ namespace Dataflow.DataServices
             this.context.SaveChanges();
         }
 
+        public IEnumerable<SensorApiUpdate> HistoryDataForBoolSensorsById(int sensorId)
+        {
+            var boolHistoryData = this.context.ValueHistory
+                .Where(h => h.BoolSensorId == sensorId)
+               .Select(s => new SensorApiUpdate
+               {
+                   TimeStamp = s.Date,
+                   Value = s.Value.ToString()
+               })
+               .ToList();
+            
+            return boolHistoryData;
+        }
+
+        public IEnumerable<SensorApiUpdate> HistoryDataForValueSensorsById(int sensorId)
+        {
+            var valueHistoryData = this.context.ValueHistory
+                .Where(h => h.ValueSensorId == sensorId)
+               .Select(s => new SensorApiUpdate
+               {
+                   TimeStamp = s.Date,
+                   Value = s.Value.ToString()
+               })
+               .ToList();
+
+            return valueHistoryData;
+        }
 
 
         public IEnumerable<SensorServiceModel> GetAllSensorsForUser(string username)
@@ -99,10 +131,10 @@ namespace Dataflow.DataServices
                 {
                     Name = sensor.Name,
                     Description = sensor.Description,
-                    CurrentValue = sensor.IsBoolType ? sensor.BoolTypeSensor.CurrentValue.ToString(): sensor.ValueTypeSensor.CurrentValue.ToString(),
+                    CurrentValue = sensor.IsBoolType ? sensor.BoolTypeSensor.CurrentValue.ToString() : sensor.ValueTypeSensor.CurrentValue.ToString(),
                     IsPublic = sensor.IsPublic,
                     IsShared = sensor.SharedWithUsers.Count() > 0
-                    
+
                 })
                 .ToList();
 
@@ -114,5 +146,10 @@ namespace Dataflow.DataServices
             return new SensorServiceModel();
         }
 
+        public Sensor GetSensorById(string id)
+        {
+            var sensor = this.context.Sensors.Find(id);
+            return sensor;
+        }
     }
 }

@@ -59,19 +59,19 @@ namespace DataflowICB.Areas.Sensor.Controllers
         [HttpPost]
         public ActionResult CreateSensor(SensorViewModel model)
         {
-            var sensor = new DataflowICB.Database.Models.Sensor()
-            {
-                OwnerId = this.User.Identity.GetUserId(),
-                Description = model.Description,
-                IsPublic = model.IsPublic,
-                Name = model.Name,
-                URL = model.Url,
-                PollingInterval = model.PollingInterval,
-                LastUpdate = DateTime.Now
-            };
-
             if (ModelState.IsValid)
             {
+                var sensor = new DataflowICB.Database.Models.Sensor()
+                {
+                    OwnerId = this.User.Identity.GetUserId(),
+                    Description = model.Description,
+                    IsPublic = model.IsPublic,
+                    Name = model.Name,
+                    URL = model.Url,
+                    PollingInterval = model.PollingInterval,
+                    LastUpdate = DateTime.Now
+                };
+
                 if (model.BoolTypeSensor != null)
                 {
                     var boolType = new BoolTypeSensor()
@@ -140,8 +140,26 @@ namespace DataflowICB.Areas.Sensor.Controllers
         public async Task<ActionResult> UpdateSensors()
         {
             await this.sensorService.UpdateSensors();
-            return this.RedirectToAction("Index", "Home", new { area = "" });
+            //return this.RedirectToAction("Index", "Home", new { area = "" });
+            return new EmptyResult();
         }
+
+        [Authorize]
+        public ActionResult SensorHistoryGraph(string sensorId)
+        {
+            return this.View();
+        }
+
+        [AjaxOnly]
+        [Authorize]
+        public JsonResult GetHistoryDataForSensor(int sensorId)
+        {
+            var sensors = this.sensorService.HistoryDataForValueSensorsById(sensorId);
+            var serialized = JsonConvert.SerializeObject(sensors);
+
+            return this.Json(serialized, JsonRequestBehavior.AllowGet);
+        }
+
 
         [Authorize]
         public ActionResult UserSensors()

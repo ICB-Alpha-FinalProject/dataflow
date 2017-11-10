@@ -91,33 +91,24 @@ namespace DataflowICB.Database.Migrations
             //}
 
 
-            //if (!context.Roles.Any())
-            //{
-            //    var role = context.Roles.Add(new IdentityRole("Admin"));
-            //    context.SaveChanges();
+            if (!context.Roles.Any())
+            {
+                var role = context.Roles.Add(new IdentityRole("Admin"));
+                context.SaveChanges();
 
-            //    role = context.Roles.Single();
-            //    var user = context.Users.Single();
-            //    user.Roles.Add(new IdentityUserRole()
-            //    {
-            //        RoleId = role.Id,
-            //        UserId = user.Id
-            //    });
+                role = context.Roles.Single();
+                var user = context.Users
+                    .Single(u => u.UserName == "test");
 
-            //    context.SaveChanges();
-            //}
+                user.Roles.Add(new IdentityUserRole()
+                {
+                    RoleId = role.Id,
+                    UserId = user.Id
+                });
 
-            //if (context.Roles.Any())
-            //{
-            //    var role = context.Roles.Single();
+                context.SaveChanges();
+            }
 
-
-            //    context.Users
-            //        .First(u => u.UserName == "test@test.bg")
-            //        .Roles.Add(new IdentityUserRole() { RoleId = role.Id });
-
-            //    context.SaveChanges();
-            //}
         }
     }
 }

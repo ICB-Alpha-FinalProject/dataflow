@@ -46,3 +46,9 @@ div.box:hover {
 .fade-text {
     opacity: .5;
 }
+
+#chartdiv {
+    width: 100%;
+    height: 500px;
+}
+					

@@ -43,9 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataApi\CustomDateTimeConverter.cs" />
     <Compile Include="DataApi\SensorApiData.cs" />
     <Compile Include="DataApi\SensorApiUpdate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SensorViewModels\SensorHistoryValue.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

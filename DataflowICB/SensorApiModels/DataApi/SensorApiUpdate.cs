@@ -9,6 +9,7 @@ namespace DataflowICB.Models.DataApi
     public class SensorApiUpdate
     {
         [JsonProperty("timeStamp")]
+        [JsonConverter(typeof(CustomDateTimeConverter))]
         public DateTime TimeStamp { get; set; }
 
         public string Value { get; set; }
