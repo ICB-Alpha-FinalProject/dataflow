@@ -1,4 +1,5 @@
 ﻿using Dataflow.DataServices.Contracts;
+using Dataflow.DataServices.Models;
 using DataflowICB.Database;
 using DataflowICB.Database.Models;
 using DataflowICB.Models.DataApi;
@@ -124,16 +125,16 @@ namespace Dataflow.DataServices
         }
 
 
-        public IEnumerable<SensorServiceModel> GetAllSensorsForUser(string username)
+        public IEnumerable<SensorDataModel> GetAllSensorsForUser(string username)
         {
             var sensorForUser = context.Sensors.Where(s => s.Owner.UserName == username)
-                .Select(sensor => new SensorServiceModel
+                .Select(sensor => new SensorDataModel
                 {
                     Name = sensor.Name,
                     Description = sensor.Description,
                     CurrentValue = sensor.IsBoolType ? sensor.BoolTypeSensor.CurrentValue.ToString() : sensor.ValueTypeSensor.CurrentValue.ToString(),
                     IsPublic = sensor.IsPublic,
-                    IsShared = sensor.SharedWithUsers.Count() > 0
+                    IsShared = sensor.SharedWithUsers.Count() > 0 //TODO: link IsShared SensorDataModel property with Sensor database model IsShared property
 
                 })
                 .ToList();
@@ -141,9 +142,9 @@ namespace Dataflow.DataServices
             return sensorForUser;
         }
 
-        public SensorServiceModel ShareWithUser(string username)
+        public SensorDataModel ShareWithUser(string username)
         {
-            return new SensorServiceModel();
+            return new SensorDataModel();
         }
 
         public Sensor GetSensorById(string id)
