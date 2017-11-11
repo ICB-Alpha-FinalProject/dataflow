@@ -46,7 +46,6 @@ namespace DataflowICB.Areas.Sensor.Controllers
                 foreach (var sensor in resViewModel)
                 {
                     var isValueTYpe = !sensor.Description.Contains("false");
-
                     sensor.IsValueType = isValueTYpe;
                 }
 
@@ -76,7 +75,6 @@ namespace DataflowICB.Areas.Sensor.Controllers
                 {
                     var boolType = new BoolTypeSensor()
                     {
-                        CurrentValue = model.BoolTypeSensor.CurrentValue,
                         MeasurementType = model.MeasurementType
                     };
                     sensor.IsBoolType = true;
@@ -88,7 +86,6 @@ namespace DataflowICB.Areas.Sensor.Controllers
                     var valueType = new ValueTypeSensor()
                     {
                         MeasurementType = model.MeasurementType,
-                        CurrentValue = model.ValueTypeSensor.CurrentValue,
                         IsInAcceptableRange = model.ValueTypeSensor.IsInAcceptableRange,
                         Maxvalue = model.ValueTypeSensor.Maxvalue,
                         MinValue = model.ValueTypeSensor.MinValue
@@ -99,12 +96,18 @@ namespace DataflowICB.Areas.Sensor.Controllers
 
                 this.sensorService.AddSensor(sensor);
 
-                return this.RedirectToAction("Index", "Home", new { area = "" });
+                return this.Json(Url.Action("Index", "Home", new { area = "" }));
             }
             else
             {
-                ModelState.AddModelError("keyName", "Form is not valid");
-                return View("RegisterValueSensor", model);
+                if (model.IsValueType)
+                {
+                    return this.View("RegisterValueSensor", model);
+                }
+                else
+                {
+                    return this.View("RegisterBoolSensor", model);
+                }
             }
         }
 
@@ -126,14 +129,14 @@ namespace DataflowICB.Areas.Sensor.Controllers
                 var valueTypeSensorVm = new ValueTypeSensorViewModel();
 
                 sensorVm.ValueTypeSensor = valueTypeSensorVm;
-                return this.PartialView("RegisterValueSensor", sensorVm);
+                return this.View("RegisterValueSensor", sensorVm);
             }
             else
             {
                 var boolSensorVm = new BoolTypeSensorViewModel();
 
                 sensorVm.BoolTypeSensor = boolSensorVm;
-                return this.PartialView("RegisterBoolSensor", sensorVm);
+                return this.View("RegisterBoolSensor", sensorVm);
             }
         }
 

@@ -23,24 +23,24 @@ textarea {
     max-width: 280px;
 }
 
-
-
+div#sensor-type{
+    width:50%;
+    float:left;
+}
 
 div.box {
-    position: relative;
-    display: inline-block;
-    width: 200px;
-    height: 250px;
     background: #eee;
     color: #000;
     padding:10px;
     margin: 10px;
+    width:250px;
+    height:250px;
+    display:inline-block;
 }
 
 div.box:hover {
     cursor: not-allowed;
 }
-
 
 
 .fade-text {

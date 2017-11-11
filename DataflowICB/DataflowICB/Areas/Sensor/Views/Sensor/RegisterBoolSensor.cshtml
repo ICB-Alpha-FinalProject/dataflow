@@ -1,14 +1,12 @@
 ﻿@model SensorViewModel
-@{
-    Layout = null;
-}
-
 @using (Ajax.BeginForm("CreateSensor", "Sensor",
         new AjaxOptions
         {
             HttpMethod = "POST",
             UpdateTargetId = "form-container",
-            InsertionMode = InsertionMode.Replace
+            InsertionMode = InsertionMode.Replace,
+            OnComplete = "onComplete"
+
         }))
 {
     @Html.AntiForgeryToken()
@@ -18,6 +16,9 @@
     <input type="submit" value="Register" class="" />
 }
 
-@section scripts{
+@*@section scripts{
 
-}
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryajax")
+}*@

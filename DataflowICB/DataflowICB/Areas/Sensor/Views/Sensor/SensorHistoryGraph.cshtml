@@ -10,21 +10,21 @@
 
 @section scripts{
     <script type="text/javascript">
-
+        var chart;
          $.ajax({
              url: "@Url.Action("GetHistoryDataForSensor", "Sensor", new {area = "Sensor", sensorId = "6" })",
              dataType: "JSON",
              complete: function (chartData) {
                  chartData = JSON.parse(chartData.responseJSON);
                  console.log("chart ", chartData);
-                 var chart = AmCharts.makeChart("chartdiv", {
+                 chart = AmCharts.makeChart("chartdiv", {
                      "type": "serial",
-                     "theme": "none",
+                     "theme": "light",
                      "marginRight": 80,
                      "dataProvider": chartData,
                      "valueAxes": [{
                          "position": "left",
-                         "title": "Unique visitors"
+                         "title": "Value"
                      }],
                      "graphs": [{
                          "id": "g1",
@@ -46,7 +46,7 @@
                          "color": "#AAAAAA"
                      },
                      "chartCursor": {
-                         "categoryBalloonDateFormat": "JJ:NN, DD MMMM",
+                         "categoryBalloonDateFormat": "YYYY-MM-DD HH:NN:SS",
                          "cursorPosition": "mouse"
                      },
                      "categoryField": "timeStamp",
@@ -71,9 +71,6 @@
                  }
              }
          })
-
-
-
     </script>
 
 }
