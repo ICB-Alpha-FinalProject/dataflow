@@ -163,12 +163,21 @@ namespace DataflowICB.Areas.Sensor.Controllers
             return this.Json(serialized, JsonRequestBehavior.AllowGet);
         }
 
-
+        //CACHING ???
         [Authorize]
         public ActionResult UserSensors()
         {
-            //var sensors = this.sensorService.
-            return View();
+            var sensors = this.sensorService.GetAllSensorsForUser(this.User.Identity.Name)
+            .Select(sensor => new SensorViewModel
+             {
+                 Name = sensor.Name,
+                 Description = sensor.Description,
+                 CurrentValue = sensor.CurrentValue,
+                 IsPublic = sensor.IsPublic,
+                 IsShared = sensor.IsShared
+             }).ToList();
+
+            return View(sensors);
         }
     }
 }

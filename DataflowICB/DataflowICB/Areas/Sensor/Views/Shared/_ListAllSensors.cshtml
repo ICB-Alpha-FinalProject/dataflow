@@ -2,7 +2,6 @@
 
 @Styles.Render("~/bundles/tables-css")
 
-<!-- Example DataTables Card-->
 <div class="card mb-3">
     <div class="card-header">
         <i class="fa fa-table"></i> Data Table Example
@@ -29,29 +28,24 @@
                     </tr>
                 </tfoot>
                 <tbody>
-                   @foreach (var sensor in @Model)
-                   {
-                    <tr>
-                        <td>@sensor.Name</td>
-                        <td>@sensor.Description</td>
-                        <td>@sensor.CurrentValue</td>
-                        <td>@sensor.IsPublic</td>
-                        <td>@sensor.IsShared</td>
-                    </tr>
-                   }
-                   
+                    @foreach (var sensor in Model)
+                    {
+                        <tr>
+                            <td>@sensor.Name</td>
+                            <td>>@sensor.Description</td>
+                            <td>>@sensor.CurrentValue</td>
+                            <td>>@sensor.IsPublic</td>
+                            <td>>@sensor.IsShared</td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </div>
     </div>
     <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-</div>
-<!-- /.container-fluid-->
-<!-- /.content-wrapper-->
 
-@section  scripts{
+    @section  scripts{
 
-    @Scripts.Render("~/bundles/tables-js")
+        @Scripts.Render("~/bundles/tables-js")
 
-}
-
+    }

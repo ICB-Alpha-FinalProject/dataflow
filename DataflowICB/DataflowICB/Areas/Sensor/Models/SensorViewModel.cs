@@ -28,7 +28,9 @@ namespace DataflowICB.Areas.Sensor.Models
         public ValueTypeSensorViewModel ValueTypeSensor { get; set; }
 
         public BoolTypeSensorViewModel BoolTypeSensor { get; set; }
-        
+
+        public string CurrentValue { get; set; }
+
         public string MeasurementType { get; set; }
 
         [Required]
@@ -37,6 +39,8 @@ namespace DataflowICB.Areas.Sensor.Models
 
         [Required]
         public bool IsPublic { get; set; }
+
+        public bool IsShared { get; set; }
 
         public bool IsValueType { get; set; }
         

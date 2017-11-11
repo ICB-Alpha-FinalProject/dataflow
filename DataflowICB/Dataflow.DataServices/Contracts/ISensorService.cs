@@ -1,4 +1,5 @@
 ﻿
+using Dataflow.DataServices.Models;
 using DataflowICB.Database.Models;
 using DataflowICB.Models.DataApi;
 using System;
@@ -13,6 +14,7 @@ namespace Dataflow.DataServices.Contracts
     {
         void AddSensor(Sensor sensor);
         IEnumerable<Sensor> GetAllSensors();
+        IEnumerable<SensorDataModel> GetAllSensorsForUser(string username);
         Task UpdateSensors();
         Sensor GetSensorById(string id);
         IEnumerable<SensorApiUpdate> HistoryDataForBoolSensorsById(int sensorId);
