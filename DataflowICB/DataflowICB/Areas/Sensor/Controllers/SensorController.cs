@@ -72,7 +72,7 @@ namespace DataflowICB.Areas.Sensor.Controllers
                     LastUpdate = DateTime.Now
                 };
 
-                if (!model.IsValueType)
+                if (model.IsValueType)
                 {
                     var valueType = new ValueTypeSensor()
                     {
