@@ -31,6 +31,8 @@
                         <li>
                             @Html.ActionLink("Public Sensors", "PublicSensors", "sensor", new { area = "Sensor" }, new { })
                             @Html.ActionLink("MANUAL UpdateSensors (for test)", "UpdateSensors", "Sensor", new { area = "Sensor" }, new { })
+                            @Html.ActionLink("HISTORY CHARTY", "SensorHistoryGraph", "Sensor", new { area = "Sensor" }, new { })
+
 
                         </li>
                         @if (User.Identity.IsAuthenticated)
@@ -193,7 +195,7 @@
                 else
                 {
                     <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Login","Account")">
+                        <a class="nav-link" href="@Url.Action("Login","Account", new {area="" })">
                             <i class="fa fa-fw fa-sign-in"></i>Login
                         </a>
                     </li>
@@ -262,6 +264,7 @@
 </body>
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/bootstrap")
 @Scripts.Render("~/bundles/vendor-js")
 @RenderSection("scripts", required: false)
 </html>

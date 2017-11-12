@@ -42,12 +42,14 @@ namespace DataflowICB.Database.Models
         [Required]
         public bool IsPublic { get; set; }
 
+        public bool IsShared { get; set; }
+
         [Required]
         public string OwnerId { get; set; }
 
         public virtual ApplicationUser Owner { get; set; }
 
-        public bool IsShared { get; set; }
+        //public bool IsShared { get; set; }
 
         public virtual ICollection<ApplicationUser> SharedWithUsers
         {

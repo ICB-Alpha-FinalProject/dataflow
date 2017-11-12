@@ -46,7 +46,6 @@ namespace DataflowICB.Areas.Sensor.Controllers
                 foreach (var sensor in resViewModel)
                 {
                     var isValueTYpe = !sensor.Description.Contains("false");
-
                     sensor.IsValueType = isValueTYpe;
                 }
 
@@ -59,24 +58,23 @@ namespace DataflowICB.Areas.Sensor.Controllers
         [HttpPost]
         public ActionResult CreateSensor(SensorViewModel model)
         {
-            var sensor = new DataflowICB.Database.Models.Sensor()
-            {
-                OwnerId = this.User.Identity.GetUserId(),
-                Description = model.Description,
-                IsPublic = model.IsPublic,
-                Name = model.Name,
-                URL = model.Url,
-                PollingInterval = model.PollingInterval,
-                LastUpdate = DateTime.Now
-            };
-
             if (ModelState.IsValid)
             {
+                var sensor = new DataflowICB.Database.Models.Sensor()
+                {
+                    OwnerId = this.User.Identity.GetUserId(),
+                    Description = model.Description,
+                    IsPublic = model.IsPublic,
+                    Name = model.Name,
+                    URL = model.Url,
+                    PollingInterval = model.PollingInterval,
+                    LastUpdate = DateTime.Now
+                };
+
                 if (model.BoolTypeSensor != null)
                 {
                     var boolType = new BoolTypeSensor()
                     {
-                        CurrentValue = model.BoolTypeSensor.CurrentValue,
                         MeasurementType = model.MeasurementType
                     };
                     sensor.IsBoolType = true;
@@ -88,7 +86,6 @@ namespace DataflowICB.Areas.Sensor.Controllers
                     var valueType = new ValueTypeSensor()
                     {
                         MeasurementType = model.MeasurementType,
-                        CurrentValue = model.ValueTypeSensor.CurrentValue,
                         IsInAcceptableRange = model.ValueTypeSensor.IsInAcceptableRange,
                         Maxvalue = model.ValueTypeSensor.Maxvalue,
                         MinValue = model.ValueTypeSensor.MinValue
@@ -99,12 +96,18 @@ namespace DataflowICB.Areas.Sensor.Controllers
 
                 this.sensorService.AddSensor(sensor);
 
-                return this.RedirectToAction("Index", "Home", new { area = "" });
+                return this.Json(Url.Action("Index", "Home", new { area = "" }));
             }
             else
             {
-                ModelState.AddModelError("keyName", "Form is not valid");
-                return View("RegisterValueSensor", model);
+                if (model.IsValueType)
+                {
+                    return this.View("RegisterValueSensor", model);
+                }
+                else
+                {
+                    return this.View("RegisterBoolSensor", model);
+                }
             }
         }
 
@@ -126,28 +129,55 @@ namespace DataflowICB.Areas.Sensor.Controllers
                 var valueTypeSensorVm = new ValueTypeSensorViewModel();
 
                 sensorVm.ValueTypeSensor = valueTypeSensorVm;
-                return this.PartialView("RegisterValueSensor", sensorVm);
+                return this.View("RegisterValueSensor", sensorVm);
             }
             else
             {
                 var boolSensorVm = new BoolTypeSensorViewModel();
 
                 sensorVm.BoolTypeSensor = boolSensorVm;
-                return this.PartialView("RegisterBoolSensor", sensorVm);
+                return this.View("RegisterBoolSensor", sensorVm);
             }
         }
 
         public async Task<ActionResult> UpdateSensors()
         {
             await this.sensorService.UpdateSensors();
-            return this.RedirectToAction("Index", "Home", new { area = "" });
+            //return this.RedirectToAction("Index", "Home", new { area = "" });
+            return new EmptyResult();
         }
 
         [Authorize]
+        public ActionResult SensorHistoryGraph(string sensorId)
+        {
+            return this.View();
+        }
+
+        [AjaxOnly]
+        [Authorize]
+        public JsonResult GetHistoryDataForSensor(int sensorId)
+        {
+            var sensors = this.sensorService.HistoryDataForValueSensorsById(sensorId);
+            var serialized = JsonConvert.SerializeObject(sensors);
+
+            return this.Json(serialized, JsonRequestBehavior.AllowGet);
+        }
+
+        //CACHING ???
+        [Authorize]
         public ActionResult UserSensors()
         {
-            //var sensors = this.sensorService.
-            return View();
+            var sensors = this.sensorService.GetAllSensorsForUser(this.User.Identity.Name)
+            .Select(sensor => new SensorViewModel
+             {
+                 Name = sensor.Name,
+                 Description = sensor.Description,
+                 CurrentValue = sensor.CurrentValue,
+                 IsPublic = sensor.IsPublic,
+                 IsShared = sensor.IsShared
+             }).ToList();
+
+            return View(sensors);
         }
     }
 }
