@@ -130,12 +130,13 @@ namespace Dataflow.DataServices
                     Description = m.Description,
                     URL = m.URL,
                     PollingInterval = m.PollingInterval,
-                    MeasurementType = m.IsBoolType ? m.BoolTypeSensor.MeasurementType : m.ValueTypeSensor.MeasurementType,
+                    MeasurementType = m.IsBoolType ? m.BoolTypeSensor.MeasurementType: m.ValueTypeSensor.MeasurementType,
                     IsBoolType = m.IsBoolType,
                     IsPublic = m.IsPublic,
                     IsShared = m.IsShared,
-                    MaxValue = m.ValueTypeSensor.Maxvalue,
-                    MinValue = m.ValueTypeSensor.MinValue
+                    MaxValue = m.IsBoolType ? 0.0 : m.ValueTypeSensor.Maxvalue,
+                    MinValue = m.IsBoolType ? 0.0 : m.ValueTypeSensor.MinValue,
+                  
                 }).First();
 
             return sensor;
@@ -202,7 +203,9 @@ namespace Dataflow.DataServices
                     CurrentValue = sensor.IsBoolType ? sensor.BoolTypeSensor.CurrentValue.ToString() : sensor.ValueTypeSensor.CurrentValue.ToString(),
                     IsBoolType = sensor.IsBoolType,
                     IsPublic = sensor.IsPublic,
-                    IsShared = sensor.IsShared
+                    IsShared = sensor.IsShared,
+                    IsConnected = sensor.IsBoolType ? sensor.BoolTypeSensor.IsConnected : sensor.ValueTypeSensor.IsConnected,
+                    MeasurementType = sensor.IsBoolType ? sensor.BoolTypeSensor.MeasurementType : sensor.ValueTypeSensor.MeasurementType
                 })
                 .ToList();
 

@@ -6,8 +6,6 @@ namespace Dataflow.DataServices.Models
     {
         public string MeasurementType { get; set; }
 
-        public bool IsConnected { get; set; }
-
         public bool CurrentValue { get; set; }
 
         public ICollection<ValueHistoryDataModel> BoolHistory { get; set; }

@@ -173,7 +173,10 @@ namespace DataflowICB.Areas.Sensor.Controllers
                 CurrentValue = sensor.CurrentValue,
                 IsValueType = !sensor.IsBoolType,
                 IsPublic = sensor.IsPublic,
-                IsShared = sensor.IsShared
+                IsShared = sensor.IsShared,
+                IsConnected = sensor.IsConnected,
+                MeasurementType = sensor.MeasurementType
+
             }).ToList();
 
             return View(sensors);
@@ -183,7 +186,7 @@ namespace DataflowICB.Areas.Sensor.Controllers
         [Authorize]
         public ActionResult EditSensor(int id)
         {
-            var sensor = this.sensorService.GetUserSensorById(id);
+            var sensor = this.sensorService.GetSensorById(id);
 
             var sensorViewModel = new SensorViewModel()
             {
@@ -221,7 +224,7 @@ namespace DataflowICB.Areas.Sensor.Controllers
                 IsPublic = false,
                 IsShared = viewModel.IsShared,
             });
-            
+
             return this.RedirectToAction("UserSensors");
 
         }
@@ -269,10 +272,13 @@ namespace DataflowICB.Areas.Sensor.Controllers
             var sensors = this.sensorService.GetAllPublicSensors()
              .Select(sensor => new SensorViewModel
              {
+
                  Id = sensor.Id,
                  CreatorUsername = sensor.Owner,
                  Name = sensor.Name,
                  Description = sensor.Description,
+                 MeasurementType = sensor.MeasurementType,
+                 IsConnected = sensor.IsConnected
 
              }).ToList();
 

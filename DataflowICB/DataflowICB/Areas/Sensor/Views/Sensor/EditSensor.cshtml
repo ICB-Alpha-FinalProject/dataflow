@@ -27,8 +27,6 @@
         @Html.LabelFor(m => m.IsValueType)
         @Html.EditorFor(m => m.IsValueType)
     </div>
-    //for measurment type
-
     <div>
         @Html.LabelFor(m => m.MeasurementType)
         @Html.EditorFor(m => m.MeasurementType)
@@ -42,7 +40,7 @@
         @Html.EditorFor(m => m.IsShared)
     </div>
 
-    if (Model.IsValueType == true)
+    if (Model.IsValueType)
     {
         <div>
             @Html.LabelFor(m => m.MinValue)
