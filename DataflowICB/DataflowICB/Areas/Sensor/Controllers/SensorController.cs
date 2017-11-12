@@ -29,6 +29,7 @@ namespace DataflowICB.Areas.Sensor.Controllers
         }
 
         [Authorize]
+        [OutputCache(Duration = 10)]
         public async Task<ActionResult> RegisterSensor()
         {
             // TODO: depdency inverse HttpClient
@@ -53,9 +54,9 @@ namespace DataflowICB.Areas.Sensor.Controllers
             }
         }
 
+        [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        [HttpPost]
         public ActionResult CreateSensor(SensorViewModel model)
         {
             if (ModelState.IsValid)
@@ -163,7 +164,9 @@ namespace DataflowICB.Areas.Sensor.Controllers
             return this.Json(serialized, JsonRequestBehavior.AllowGet);
         }
 
-        //CACHING ???
+        // http://blog.danielcorreia.net/asp-net-mvc-vary-by-current-user/
+        // so it doesnt cache info for one user for all others
+        [OutputCache(Duration = 30, VaryByCustom = "User")]
         [Authorize]
         public ActionResult UserSensors()
         {

@@ -36,7 +36,6 @@ namespace DataflowICB.Areas.Admin.Controllers
         public ActionResult AllSensors()
         {
             var sensorDataModel = this.sensorServices.GetAllSensors(true);
-
             List<AdminSensorViewModel> sensorViewModel = AdminSensorViewModel.Convert(sensorDataModel).ToList();
 
             return this.View(sensorViewModel);

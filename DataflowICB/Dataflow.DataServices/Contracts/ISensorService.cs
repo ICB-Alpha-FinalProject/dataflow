@@ -1,6 +1,7 @@
 ﻿
 using Dataflow.DataServices.Models;
 using DataflowICB.Database.Models;
+using DataflowICB.Models.DataApi;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,8 @@ namespace Dataflow.DataServices.Contracts
         Task UpdateSensors();
         SensorDataModel GetSensorById(int Id);
         void EditSensor(SensorDataModel editedSensor);
-        IEnumerable<SensorDataModel> GetAllSensorsForUser(string username);
+        IEnumerable<SensorDataModel> GetAllSensorsForUser(string name);
+        IEnumerable<SensorApiUpdate> HistoryDataForBoolSensorsById(int sensorId);
+        IEnumerable<SensorApiUpdate> HistoryDataForValueSensorsById(int sensorId);
     }
 }

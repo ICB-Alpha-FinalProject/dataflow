@@ -20,18 +20,21 @@
                 <h3>sensor IoT portal</h3>
                 <hr class="intro-divider">
                 <ul class="list-inline intro-social-buttons">
+                    @if (!User.Identity.IsAuthenticated)
+                    {
                     <li class="list-inline-item">
-                        <a href="@Url.Action("Login", "Account", new {area = "" })" class="btn btn-secondary btn-lg">
+                        <a href="@Url.Action("Login", "Account", new { area = "" })" class="btn btn-secondary btn-lg">
                             <i class="fa-sign-in"></i>
                             <span class="network-name">Login</span>
                         </a>
                     </li>
                     <li class="list-inline-item">
-                        <a href="@Url.Action("Register", "Account", new {area = "" })" class="btn btn-secondary btn-lg">
+                        <a href="@Url.Action("Register", "Account", new { area = "" })" class="btn btn-secondary btn-lg">
                             <i class="fa-registered"></i>
                             <span class="network-name">Register</span>
                         </a>
                     </li>
+                    }
                     <li class="list-inline-item">
                         <a href="@Url.Action("PublicSensors", "Sensor", new {area = "Sensor" })" class="btn btn-secondary btn-lg">
                             <i class="fa fa-linkedin fa-dashboard"></i>
