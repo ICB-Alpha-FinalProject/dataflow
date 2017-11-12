@@ -34,11 +34,8 @@ namespace DataflowICB.Areas.Sensor.Models
 
         public string CurrentValue { get; set; }
 
-        [Required]
-        [Range(10, 100)]
         public double MinValue { get; set; }
 
-        [Required]
         public double MaxValue { get; set; }
 
         public string MeasurementType { get; set; }

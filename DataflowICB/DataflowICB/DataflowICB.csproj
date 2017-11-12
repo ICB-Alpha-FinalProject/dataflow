@@ -333,15 +333,12 @@
     <Content Include="Areas\Admin\Views\Shared\_EditUser.cshtml" />
     <Content Include="Areas\Sensor\Views\Sensor\UserSensors.cshtml" />
     <Content Include="Areas\Sensor\Views\Sensor\SensorHistoryGraph.cshtml" />
-
     <Content Include="Areas\Sensor\Views\Sensor\EditSensor.cshtml" />
     <Content Include="Areas\Sensor\Views\Sensor\ShowDetails.cshtml" />
     <Content Include="Areas\Sensor\Views\Sensor\ShareSensor.cshtml" />
-
-
     <Content Include="Areas\Admin\Views\Shared\_EditSensor.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\AllSensors.cshtml" />
-
+    <Content Include="Areas\Sensor\Views\Sensor\PublicSensors.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

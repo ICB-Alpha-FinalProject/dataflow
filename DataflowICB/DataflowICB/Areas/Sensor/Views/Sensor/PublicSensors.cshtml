@@ -1,5 +1,8 @@
 ﻿@model IEnumerable<SensorViewModel>
 
+<h2>Public Sensors</h2>
+
+
 @Styles.Render("~/bundles/tables-css")
 <!-- Example DataTables Card-->
 <div class="card mb-3">
@@ -11,47 +14,28 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
+                        <th>Owner</th>
                         <th>Name</th>
                         <th>Description</th>
-                        <th>Current Value</th>
-                        <th>Access level</th>
-                        <th>Shared</th>
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
+                        <th>Owner</th>
                         <th>Name</th>
                         <th>Description</th>
-                        <th>Current Value</th>
-                        <th>Access level</th>
-                        <th>Shared</th>
                     </tr>
                 </tfoot>
                 <tbody>
                     @foreach (var sensor in @Model)
                     {
                         <tr>
+                            <td>@sensor.CreatorUsername</td>
                             <td>@sensor.Name</td>
                             <td>@sensor.Description</td>
-                            <td>@sensor.CurrentValue</td>
-                            <td>@sensor.IsPublic</td>
-                            <td>@sensor.IsShared</td>
                             <td>
-                                @Ajax.ActionLink("[Edit]", "EditSensor",
-                                        new { id = sensor.Id },
-                                        new AjaxOptions
-                                        {
-                                            InsertionMode = InsertionMode.Replace,
-                                            UpdateTargetId = sensor.Id.ToString()
-                                        })
+
                                 @Ajax.ActionLink("[Details]", "ShowDetails",
-                                        new { id = sensor.Id },
-                                        new AjaxOptions
-                                        {
-                                            InsertionMode = InsertionMode.Replace,
-                                            UpdateTargetId = sensor.Id.ToString()
-                                        })
-                                @Ajax.ActionLink("[Share]", "ShareSensor",
                                         new { id = sensor.Id },
                                         new AjaxOptions
                                         {
@@ -86,4 +70,6 @@
     </script>
 
 }
+
+
 
