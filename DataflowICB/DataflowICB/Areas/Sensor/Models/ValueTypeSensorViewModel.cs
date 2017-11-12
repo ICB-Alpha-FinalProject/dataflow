@@ -12,17 +12,16 @@ namespace DataflowICB.Areas.Sensor.Models
         {
 
         }
-        
 
         [Required]
-        public double CurrentValue { get; set; }
-
-        [Required]
-        [Range(10,100)]
         public double MinValue { get; set; }
 
         [Required]
         public double Maxvalue { get; set; }
+
+        public double LowestValue { get; set; }
+
+        public double HighestValue { get; set; }
 
         public bool IsInAcceptableRange { get; set; }
 

@@ -12,9 +12,5 @@ namespace DataflowICB.Areas.Sensor.Models
         {
 
         }
-        
-
-        [Required]
-        public bool CurrentValue { get; set; }
     }
 }

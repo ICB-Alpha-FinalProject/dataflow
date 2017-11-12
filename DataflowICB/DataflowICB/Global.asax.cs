@@ -27,5 +27,16 @@ namespace DataflowICB
             System.Data.Entity.Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext, Configuration>());
 
         }
+
+        public override string GetVaryByCustomString(HttpContext context, string custom)
+        {
+            if (custom.Equals("User", StringComparison.InvariantCultureIgnoreCase))
+            {
+                var user = context.User.Identity.Name;
+                return "User=" + user;
+            }
+
+            return base.GetVaryByCustomString(context, custom);
+        }
     }
 }

@@ -12,6 +12,8 @@ namespace Dataflow.DataServices.Models
 
         public string Name { get; set; }
 
+        public string MeasurementType { get; set; }
+
         public string Description { get; set; }
 
         public string URL { get; set; }
@@ -23,8 +25,6 @@ namespace Dataflow.DataServices.Models
         public double MaxValue { get; set; }
 
         public double MinValue { get; set; }
-
-        public string MeasurementType { get; set; }
 
         public bool IsBoolType { get; set; }
 
@@ -54,10 +54,13 @@ namespace Dataflow.DataServices.Models
                 {
                     Id = s.Id,
                     Name = s.Name,
+                    MeasurementType = s.IsBoolType ? s.BoolTypeSensor.MeasurementType : s.ValueTypeSensor.MeasurementType,
                     Description = s.Description,
                     URL = s.URL,
                     PollingInterval = s.PollingInterval,
                     CurrentValue = s.IsBoolType ? s.BoolTypeSensor.CurrentValue.ToString() : s.ValueTypeSensor.CurrentValue.ToString(),
+                    MinValue = s.IsBoolType ? 0.0 : s.ValueTypeSensor.MinValue,
+                    MaxValue = s.IsBoolType ? 0.0 : s.ValueTypeSensor.Maxvalue,
                     IsBoolType = s.IsBoolType,
                     IsPublic = s.IsPublic,
                     IsShared = s.IsShared,
@@ -78,10 +81,13 @@ namespace Dataflow.DataServices.Models
             {
                 Id = sensor.Id,
                 Name = sensor.Name,
+                MeasurementType = sensor.IsBoolType ? sensor.BoolTypeSensor.MeasurementType : sensor.ValueTypeSensor.MeasurementType,
                 Description = sensor.Description,
                 URL = sensor.URL,
                 PollingInterval = sensor.PollingInterval,
                 CurrentValue = sensor.IsBoolType ? sensor.BoolTypeSensor.CurrentValue.ToString() : sensor.ValueTypeSensor.CurrentValue.ToString(),
+                MinValue = sensor.IsBoolType ? 0.0 : sensor.ValueTypeSensor.MinValue,
+                MaxValue = sensor.IsBoolType ? 0.0 : sensor.ValueTypeSensor.Maxvalue,
                 IsBoolType = sensor.IsBoolType,
                 IsPublic = sensor.IsPublic,
                 IsShared = sensor.IsShared,

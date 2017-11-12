@@ -1,6 +1,121 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+﻿
+<!DOCTYPE html>
+<html lang="en">
 
-Home page
+<head>
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="intro-header">
+        <div class="container">
+            <div class="intro-message">
+                <h1>dataflow.</h1>
+                <h3>sensor IoT portal</h3>
+                <hr class="intro-divider">
+                <ul class="list-inline intro-social-buttons">
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                    <li class="list-inline-item">
+                        <a href="@Url.Action("Login", "Account", new { area = "" })" class="btn btn-secondary btn-lg">
+                            <i class="fa-sign-in"></i>
+                            <span class="network-name">Login</span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="@Url.Action("Register", "Account", new { area = "" })" class="btn btn-secondary btn-lg">
+                            <i class="fa-registered"></i>
+                            <span class="network-name">Register</span>
+                        </a>
+                    </li>
+                    }
+                    <li class="list-inline-item">
+                        <a href="@Url.Action("PublicSensors", "Sensor", new {area = "Sensor" })" class="btn btn-secondary btn-lg">
+                            <i class="fa fa-linkedin fa-dashboard"></i>
+                            <span class="network-name">Public Sensors</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Content -->
+    <section class="content-section-a">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 ml-auto">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading">Death to the Stock Photo:<br>Special Thanks</h2>
+                    <p class="lead">
+                        The portal fetches and store sensor data form various sources.
+                    </p>
+                </div>
+                <div class="col-lg-5 mr-auto">
+                    <img class="img-fluid" src="img/ipad.png" alt="">
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+    </section>
+
+    <section class="content-section-b">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-5 mr-auto order-lg-2">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading">3D Device Mockups<br>by PSDCovers</h2>
+                    <p class="lead">
+                        We support public sensor data access along with private sensors.
+                       Share your sensors with other users.
+                    </p>
+                </div>
+                <div class="col-lg-5 ml-auto order-lg-1">
+                    <img class="img-fluid" src="img/dog.png" alt="">
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+
+    </section>
+    <!-- /.content-section-b -->
+
+    <section class="content-section-a">
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-5 ml-auto">
+                    <hr class="section-heading-spacer">
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading">Google Web Fonts and<br>Font Awesome Icons</h2>
+                    <p class="lead">
+                        This template features the 'Lato' font, part of the
+                        <a target="_blank" href="http://www.google.com/fonts">Google Web Font library</a>, as well as
+                        <a target="_blank" href="http://fontawesome.io">icons from Font Awesome</a>.
+                    </p>
+                </div>
+                <div class="col-lg-5 mr-auto ">
+                    <img class="img-fluid" src="img/phones.png" alt="">
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container -->
+
+    </section>
+</body>
+</html>

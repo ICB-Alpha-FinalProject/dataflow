@@ -29,7 +29,9 @@
     <script>
         $('a').on('click', function () {
             let href = $(this).attr('href')
-            let id = href.split('/').reverse()[0]
+            let id1 = href.split('/').reverse()[0]
+            let id2 = id1.split('?')
+            let id = id2[0]
             $('.div-form').attr('hidden', 'hidden')
             let divId = '#' + id;
             $(divId).removeAttr('hidden')
