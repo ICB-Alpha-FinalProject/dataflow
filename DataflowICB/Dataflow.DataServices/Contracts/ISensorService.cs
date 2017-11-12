@@ -16,5 +16,6 @@ namespace Dataflow.DataServices.Contracts
         Task UpdateSensors();
         SensorDataModel GetSensorById(int Id);
         void EditSensor(SensorDataModel editedSensor);
+        IEnumerable<SensorDataModel> GetAllSensorsForUser(string username);
     }
 }

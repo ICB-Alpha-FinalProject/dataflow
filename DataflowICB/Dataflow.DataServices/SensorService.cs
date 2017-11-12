@@ -155,10 +155,10 @@ namespace Dataflow.DataServices
 
 
 
-        public IEnumerable<SensorServiceModel> GetAllSensorsForUser(string username)
+        public IEnumerable<SensorDataModel> GetAllSensorsForUser(string username)
         {
             var sensorForUser = context.Sensors.Where(s => s.Owner.UserName == username)
-                .Select(sensor => new SensorServiceModel
+                .Select(sensor => new SensorDataModel
                 {
                     Name = sensor.Name,
                     Description = sensor.Description,
@@ -172,9 +172,9 @@ namespace Dataflow.DataServices
             return sensorForUser;
         }
 
-        public SensorServiceModel ShareWithUser(string username)
+        public SensorDataModel ShareWithUser(string username)
         {
-            return new SensorServiceModel();
+            return new SensorDataModel();
         }
 
     }
