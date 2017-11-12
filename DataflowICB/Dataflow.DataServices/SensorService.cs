@@ -1,4 +1,6 @@
-﻿using Dataflow.DataServices.Contracts;
+﻿using Bytes2you.Validation;
+using Dataflow.DataServices.Contracts;
+using Dataflow.DataServices.Models;
 using DataflowICB.Database;
 using DataflowICB.Database.Models;
 using DataflowICB.Models.DataApi;
@@ -33,13 +35,74 @@ namespace Dataflow.DataServices
 
         }
 
-        public IEnumerable<Sensor> GetAllSensors()
+        public void EditSensor(SensorDataModel editedSensor)
         {
-            var allSensors = this.context.Sensors
-                .Where(s => s.IsDeleted == false)
+            Guard.WhenArgument(editedSensor, "editedSensor").IsNull().Throw();
+
+            var sensor = this.context.Sensors.First(s => s.Id == editedSensor.Id);
+            if (sensor != null)
+            {
+                sensor.Name = editedSensor.Name;
+                sensor.Description = editedSensor.Description;
+                sensor.URL = editedSensor.URL;
+                sensor.PollingInterval = editedSensor.PollingInterval;
+                sensor.IsBoolType = editedSensor.IsBoolType;
+                sensor.IsPublic = editedSensor.IsPublic;
+                //sensor.IsShared = editedSensor.IsShared;
+                sensor.IsDeleted = editedSensor.IsDeleted;
+
+                if (sensor.IsBoolType == true)
+                {
+                    if (sensor.BoolTypeSensor == null)
+                    {
+                        sensor.BoolTypeSensor = new BoolTypeSensor();
+                    }
+
+                    sensor.BoolTypeSensor.MeasurementType = editedSensor.MeasurementType;
+                    sensor.BoolTypeSensor.CurrentValue = true;
+                }
+
+                else
+                {
+                    if (sensor.ValueTypeSensor == null)
+                    {
+                        sensor.ValueTypeSensor = new ValueTypeSensor();
+                    }
+
+                    sensor.ValueTypeSensor.MeasurementType = editedSensor.MeasurementType;
+                    sensor.ValueTypeSensor.CurrentValue = 0.0;
+                }
+
+                this.context.SaveChanges();
+            }
+        }
+
+        public IEnumerable<SensorDataModel> GetAllSensors(bool IsAdmin)
+        {
+            if (IsAdmin == true)
+            {
+                var allSensors = this.context.Sensors.Select(SensorDataModel.Create)
                 .ToList();
 
-            return allSensors;
+                return allSensors;
+            }
+
+            else
+            {
+                var allSensors = this.context.Sensors
+                .Where(s => s.IsDeleted == false).Select(SensorDataModel.Create)
+                .ToList();
+
+                return allSensors;
+            }           
+        }
+
+        public SensorDataModel GetSensorById(int Id)
+        {
+            Sensor sensorModel = this.context.Sensors.First(s => s.Id == Id);
+            SensorDataModel sensor = SensorDataModel.Convert(sensorModel);
+
+            return sensor;
         }
 
         public async Task UpdateSensors()

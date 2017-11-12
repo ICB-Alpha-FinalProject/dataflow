@@ -42,7 +42,7 @@ namespace DataflowICB
         {
         }
 
-        public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context) 
+        public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
             var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
             // Configure validation logic for usernames
@@ -83,7 +83,7 @@ namespace DataflowICB
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)
             {
-                manager.UserTokenProvider = 
+                manager.UserTokenProvider =
                     new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
             }
             return manager;
@@ -106,6 +106,18 @@ namespace DataflowICB
         public static ApplicationSignInManager Create(IdentityFactoryOptions<ApplicationSignInManager> options, IOwinContext context)
         {
             return new ApplicationSignInManager(context.GetUserManager<ApplicationUserManager>(), context.Authentication);
+        }
+
+        public override async Task SignInAsync(ApplicationUser user, bool isPersistent, bool rememberBrowser)
+        {
+            if (!user.IsDeleted)
+            {
+                await base.SignInAsync(user, isPersistent, rememberBrowser);
+            }
+            else
+            {
+                
+            }
         }
     }
 }

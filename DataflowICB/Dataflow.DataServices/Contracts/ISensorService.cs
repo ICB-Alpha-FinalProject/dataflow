@@ -1,4 +1,5 @@
 ﻿
+using Dataflow.DataServices.Models;
 using DataflowICB.Database.Models;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,9 @@ namespace Dataflow.DataServices.Contracts
     public interface ISensorService
     {
         void AddSensor(Sensor sensor);
-        IEnumerable<Sensor> GetAllSensors();
+        IEnumerable<SensorDataModel> GetAllSensors(bool IsAdmin);
         Task UpdateSensors();
+        SensorDataModel GetSensorById(int Id);
+        void EditSensor(SensorDataModel editedSensor);
     }
 }
