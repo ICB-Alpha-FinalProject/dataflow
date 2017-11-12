@@ -6,3 +6,15 @@
 
 <h2>Share Sensor...</h2>
 
+
+@*for autocomplete for users*@
+@*<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>*@

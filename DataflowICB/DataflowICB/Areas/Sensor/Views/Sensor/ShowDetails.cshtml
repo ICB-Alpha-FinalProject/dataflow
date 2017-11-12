@@ -1,2 +1,22 @@
-﻿<h2>Details...</h2>
+﻿@model SensorViewModel
 
+<h2>Details...</h2>
+
+
+
+<div>Current Value : @Model.CurrentValue</div>
+<div>Measurement Type : @Model.MeasurementType</div>
+<div>Name : @Model.Name</div>
+<div>Description : @Model.Description</div>
+<div>Polling Interval : @Model.PollingInterval</div>
+<div>Public Sensor : @Model.IsPublic</div>
+<div>Shared Sensor : @Model.IsShared</div>
+@if (Model.IsValueType)
+{
+    <div>Maximum Value : @Model.MaxValue</div>
+    <div>Minimum Value : @Model.MinValue</div>
+
+}
+
+
+   

@@ -37,6 +37,10 @@
         @Html.LabelFor(m => m.IsPublic)
         @Html.EditorFor(m => m.IsPublic)
     </div>
+    <div>
+        @Html.LabelFor(m => m.IsShared)
+        @Html.EditorFor(m => m.IsShared)
+    </div>
 
     if (Model.IsValueType == true)
     {

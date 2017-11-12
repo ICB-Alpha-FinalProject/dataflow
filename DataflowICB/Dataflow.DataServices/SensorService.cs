@@ -48,7 +48,7 @@ namespace Dataflow.DataServices
                 sensor.PollingInterval = editedSensor.PollingInterval;
                 sensor.IsBoolType = editedSensor.IsBoolType;
                 sensor.IsPublic = editedSensor.IsPublic;
-                //sensor.IsShared = editedSensor.IsShared;
+                sensor.IsShared = editedSensor.IsShared;
                 sensor.IsDeleted = editedSensor.IsDeleted;
 
                 if (sensor.IsBoolType == true)
@@ -75,6 +75,21 @@ namespace Dataflow.DataServices
 
                 this.context.SaveChanges();
             }
+        }
+
+        public IEnumerable<SensorDataModel> GetAllPublicSensors()
+        {
+            var publicSenors = this.context.Sensors.Where(m => m.IsPublic == true)
+                .Select(m => new SensorDataModel
+                {
+                    Id = m.Id,
+                    Owner = m.Owner.UserName,
+                    Name = m.Name,
+                    Description = m.Description
+
+                }).ToList();
+
+            return publicSenors;
         }
 
         public IEnumerable<SensorDataModel> GetAllSensors(bool IsAdmin)
