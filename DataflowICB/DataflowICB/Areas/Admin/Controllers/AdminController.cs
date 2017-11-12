@@ -94,10 +94,12 @@ namespace DataflowICB.Areas.Admin.Controllers
                 Description = adminSensorViewModel.Description,
                 URL = adminSensorViewModel.URL,
                 PollingInterval = adminSensorViewModel.PollingInterval,
+                MinValue = adminSensorViewModel.MinValue,
+                MaxValue = adminSensorViewModel.MaxValue,
                 IsPublic = adminSensorViewModel.IsPublic,
-                IsDeleted = adminSensorViewModel.IsDeleted//,
-                //sensor.IsBoolType = editedSensor.IsBoolType,
-                //sensor.IsShared = editedSensor.IsShared
+                IsDeleted = adminSensorViewModel.IsDeleted,
+                IsBoolType = adminSensorViewModel.IsBoolType
+                //IsShared = adminSensorViewModel.IsShared
             });           
 
             return this.RedirectToAction("AllSensors");

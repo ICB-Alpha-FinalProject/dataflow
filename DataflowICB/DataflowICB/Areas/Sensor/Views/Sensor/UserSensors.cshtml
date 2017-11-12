@@ -1,7 +1,6 @@
 ﻿@model IEnumerable<SensorViewModel>
 
 @Styles.Render("~/bundles/tables-css")
-
 <!-- Example DataTables Card-->
 <div class="card mb-3">
     <div class="card-header">
@@ -29,17 +28,27 @@
                     </tr>
                 </tfoot>
                 <tbody>
-                   @foreach (var sensor in @Model)
-                   {
-                    <tr>
-                        <td>@sensor.Name</td>
-                        <td>@sensor.Description</td>
-                        <td>@sensor.CurrentValue</td>
-                        <td>@sensor.IsPublic</td>
-                        <td>@sensor.IsShared</td>
-                    </tr>
-                   }
-                   
+                    @foreach (var sensor in @Model)
+                    {
+                        <tr>
+                            <td>@sensor.Name</td>
+                            <td>@sensor.Description</td>
+                            <td>@sensor.CurrentValue</td>
+                            <td>@sensor.IsPublic</td>
+                            <td>@sensor.IsShared</td>
+                            <td>
+                                @Ajax.ActionLink("Edit", "EditSensor",
+                                        new { id = sensor.Id },
+                                        new AjaxOptions
+                                        {
+                                            InsertionMode = InsertionMode.Replace,
+                                            UpdateTargetId = sensor.Id.ToString()
+                                        })
+
+                            </td>
+                        </tr>
+                    }
+
                 </tbody>
             </table>
         </div>
@@ -50,8 +59,17 @@
 <!-- /.content-wrapper-->
 
 @section  scripts{
-
     @Scripts.Render("~/bundles/tables-js")
+
+    <script>
+        $('a').on('click', function () {
+            let href = $(this).attr('href')
+            let id = href.split('/').reverse()[0]
+            $('.div-form').attr('hidden', 'hidden')
+            let divId = '#' + id;
+            $(divId).removeAttr('hidden')
+        })
+    </script>
 
 }
 

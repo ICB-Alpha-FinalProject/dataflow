@@ -105,6 +105,27 @@ namespace Dataflow.DataServices
             return sensor;
         }
 
+        public SensorDataModel GetUserSensorById(int id)
+        {
+            var sensor = this.context.Sensors.Where(s => s.Id == id)
+                .Select(m => new SensorDataModel
+                {
+                    Id = m.Id,
+                    Name = m.Name,
+                    Description = m.Description,
+                    URL = m.URL,
+                    PollingInterval = m.PollingInterval,
+                    MeasurementType = m.IsBoolType ? m.BoolTypeSensor.MeasurementType : m.ValueTypeSensor.MeasurementType,
+                    IsBoolType = m.IsBoolType,
+                    IsPublic = m.IsPublic,
+                    IsShared = m.IsShared,
+                    MaxValue = m.ValueTypeSensor.Maxvalue,
+                    MinValue = m.ValueTypeSensor.MinValue
+                }).First();
+
+            return sensor;
+        }
+
         public async Task UpdateSensors()
         {
             var sensorsForUpdate = this.context.Sensors
@@ -160,12 +181,13 @@ namespace Dataflow.DataServices
             var sensorForUser = context.Sensors.Where(s => s.Owner.UserName == username)
                 .Select(sensor => new SensorDataModel
                 {
+                    Id = sensor.Id,
                     Name = sensor.Name,
                     Description = sensor.Description,
                     CurrentValue = sensor.IsBoolType ? sensor.BoolTypeSensor.CurrentValue.ToString() : sensor.ValueTypeSensor.CurrentValue.ToString(),
+                    IsBoolType = sensor.IsBoolType,
                     IsPublic = sensor.IsPublic,
-                    IsShared = sensor.SharedWithUsers.Count() > 0
-
+                    IsShared = sensor.IsShared
                 })
                 .ToList();
 

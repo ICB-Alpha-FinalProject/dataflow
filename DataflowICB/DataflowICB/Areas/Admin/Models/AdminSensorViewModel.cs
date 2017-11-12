@@ -21,6 +21,10 @@ namespace DataflowICB.Areas.Admin.Models
 
         public int PollingInterval { get; set; }
 
+        public double MaxValue { get; set; }
+
+        public double MinValue { get; set; }
+
         public bool IsBoolType { get; set; }
 
         public bool IsPublic { get; set; }
@@ -52,6 +56,8 @@ namespace DataflowICB.Areas.Admin.Models
                     URL = s.URL,
                     PollingInterval = s.PollingInterval,
                     CurrentValue = s.CurrentValue,
+                    MinValue = s.MinValue,
+                    MaxValue = s.MaxValue,
                     IsBoolType = s.IsBoolType,
                     IsPublic = s.IsPublic,
                     IsShared = s.IsShared,
@@ -78,6 +84,8 @@ namespace DataflowICB.Areas.Admin.Models
                     URL = sensor.URL,
                     PollingInterval = sensor.PollingInterval,
                     CurrentValue = sensor.CurrentValue,
+                    MinValue = sensor.MinValue,
+                    MaxValue = sensor.MaxValue,
                     IsBoolType = sensor.IsBoolType,
                     IsPublic = sensor.IsPublic,
                     IsShared = sensor.IsShared,
@@ -103,6 +111,8 @@ namespace DataflowICB.Areas.Admin.Models
                 URL = sensor.URL,
                 PollingInterval = sensor.PollingInterval,
                 CurrentValue = sensor.CurrentValue,
+                MinValue = sensor.MinValue,
+                MaxValue = sensor.MaxValue,
                 IsBoolType = sensor.IsBoolType,
                 IsPublic = sensor.IsPublic,
                 IsShared = sensor.IsShared,

@@ -22,6 +22,10 @@ namespace Dataflow.DataServices.Models
         
         public string CurrentValue { get; set; }
 
+        public double MaxValue { get; set; }
+
+        public double MinValue { get; set; }
+
         public bool IsBoolType { get; set; }
 
         public bool IsPublic { get; set; }
@@ -55,6 +59,8 @@ namespace Dataflow.DataServices.Models
                     URL = s.URL,
                     PollingInterval = s.PollingInterval,
                     CurrentValue = s.IsBoolType ? s.BoolTypeSensor.CurrentValue.ToString() : s.ValueTypeSensor.CurrentValue.ToString(),
+                    MinValue = s.IsBoolType ? 0.0 : s.ValueTypeSensor.MinValue,
+                    MaxValue = s.IsBoolType ? 0.0 : s.ValueTypeSensor.Maxvalue,
                     IsBoolType = s.IsBoolType,
                     IsPublic = s.IsPublic,
                     IsShared = s.IsShared,
@@ -80,6 +86,8 @@ namespace Dataflow.DataServices.Models
                 URL = sensor.URL,
                 PollingInterval = sensor.PollingInterval,
                 CurrentValue = sensor.IsBoolType ? sensor.BoolTypeSensor.CurrentValue.ToString() : sensor.ValueTypeSensor.CurrentValue.ToString(),
+                MinValue = sensor.IsBoolType ? 0.0 : sensor.ValueTypeSensor.MinValue,
+                MaxValue = sensor.IsBoolType ? 0.0 : sensor.ValueTypeSensor.Maxvalue,
                 IsBoolType = sensor.IsBoolType,
                 IsPublic = sensor.IsPublic,
                 IsShared = sensor.IsShared,

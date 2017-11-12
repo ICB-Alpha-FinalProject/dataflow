@@ -167,14 +167,74 @@ namespace DataflowICB.Areas.Sensor.Controllers
             var sensors = this.sensorService.GetAllSensorsForUser(this.User.Identity.Name)
             .Select(sensor => new SensorViewModel
             {
+                Id = sensor.Id,
                 Name = sensor.Name,
                 Description = sensor.Description,
                 CurrentValue = sensor.CurrentValue,
+                IsValueType = !sensor.IsBoolType,
                 IsPublic = sensor.IsPublic,
                 IsShared = sensor.IsShared
             }).ToList();
 
             return View(sensors);
+        }
+
+        
+        [Authorize]
+        public ActionResult EditSensor(int id)
+        {
+            var sensor = this.sensorService.GetSensorById(id);
+
+            var sensorViewModel = new SensorViewModel()
+            {
+                Id = sensor.Id,
+                Name = sensor.Name,
+                Description = sensor.Description,
+                Url = sensor.URL,
+                PollingInterval = sensor.PollingInterval,
+                MeasurementType = sensor.MeasurementType,
+                IsValueType = !sensor.IsBoolType,
+                IsPublic = sensor.IsPublic,
+                IsShared = sensor.IsShared,
+                MaxValue = sensor.MaxValue,
+                MinValue = sensor.MinValue
+            };
+
+            return this.View("EditSensor", sensorViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public ActionResult EditSensor(SensorViewModel viewModel)
+        {
+            this.sensorService.EditSensor(new Dataflow.DataServices.Models.SensorDataModel()
+            {
+                Id = viewModel.Id,
+                Name = viewModel.Name,
+                Description = viewModel.Description,
+                URL = viewModel.Url,
+                PollingInterval = viewModel.PollingInterval,
+                IsBoolType = !viewModel.IsValueType,
+                MeasurementType = viewModel.MeasurementType,
+                IsPublic = viewModel.IsPublic,
+                IsShared = viewModel.IsShared,
+            });
+
+            return this.RedirectToAction("UserSensors");
+        }
+
+
+        [Authorize]
+        public ActionResult ShowDetails()
+        {
+            return View();
+        }
+
+        [Authorize]
+        public ActionResult ShareSensor()
+        {
+            return View();
         }
     }
 }
