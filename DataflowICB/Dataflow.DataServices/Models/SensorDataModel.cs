@@ -12,6 +12,8 @@ namespace Dataflow.DataServices.Models
 
         public string Name { get; set; }
 
+        public string MeasurementType { get; set; }
+
         public string Description { get; set; }
 
         public string URL { get; set; }
@@ -19,7 +21,7 @@ namespace Dataflow.DataServices.Models
         public int PollingInterval { get; set; }
         
         public string CurrentValue { get; set; }
-        
+
         public bool IsBoolType { get; set; }
 
         public bool IsPublic { get; set; }
@@ -48,6 +50,7 @@ namespace Dataflow.DataServices.Models
                 {
                     Id = s.Id,
                     Name = s.Name,
+                    MeasurementType = s.IsBoolType ? s.BoolTypeSensor.MeasurementType : s.ValueTypeSensor.MeasurementType,
                     Description = s.Description,
                     URL = s.URL,
                     PollingInterval = s.PollingInterval,
@@ -72,6 +75,7 @@ namespace Dataflow.DataServices.Models
             {
                 Id = sensor.Id,
                 Name = sensor.Name,
+                MeasurementType = sensor.IsBoolType ? sensor.BoolTypeSensor.MeasurementType : sensor.ValueTypeSensor.MeasurementType,
                 Description = sensor.Description,
                 URL = sensor.URL,
                 PollingInterval = sensor.PollingInterval,

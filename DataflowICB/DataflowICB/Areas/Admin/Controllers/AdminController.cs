@@ -14,19 +14,19 @@ namespace DataflowICB.Areas.Admin.Controllers
     public class AdminController : Controller
     {
         private readonly ApplicationUserManager userManager;
-        private readonly IUserServices services;
-        private readonly ISensorService sensorService;
+        private readonly IUserServices userServices;
+        private readonly ISensorService sensorServices;
 
-        public AdminController(ApplicationUserManager userManager, IUserServices services, ISensorService sensorService)
+        public AdminController(ApplicationUserManager userManager, IUserServices userServices, ISensorService sensorServices)
         {
             this.userManager = userManager;
-            this.services = services;
-            this.sensorService = sensorService;
+            this.userServices = userServices;
+            this.sensorServices = sensorServices;
         }
 
         public ActionResult AllUsers()
         {
-            var applicationUserModel = this.services.GetAllUsers();
+            var applicationUserModel = this.userServices.GetAllUsers();
 
             List<UserViewModel> usersViewModel = UserViewModel.Convert(applicationUserModel).ToList();
             
@@ -35,8 +35,7 @@ namespace DataflowICB.Areas.Admin.Controllers
 
         public ActionResult AllSensors()
         {
-            var sensorDataModel = this.sensorService.GetAllSensors(true);
-
+            var sensorDataModel = this.sensorServices.GetAllSensors(true);
             List<AdminSensorViewModel> sensorViewModel = AdminSensorViewModel.Convert(sensorDataModel).ToList();
 
             return this.View(sensorViewModel);
@@ -64,7 +63,7 @@ namespace DataflowICB.Areas.Admin.Controllers
                 await this.userManager.RemoveFromRoleAsync(userViewModel.Id, "Admin");
             }
 
-            this.services.EditUser(new UserDataModel
+            this.userServices.EditUser(new UserDataModel
             {
                 Id = userViewModel.Id,
                 Username = userViewModel.Username,
@@ -73,6 +72,35 @@ namespace DataflowICB.Areas.Admin.Controllers
             });
 
             return this.RedirectToAction("AllUsers");
+        }
+
+        public ActionResult EditSensor(int id)
+        {
+            var sensor = this.sensorServices.GetSensorById(id);
+            var adminSensorViewModel = AdminSensorViewModel.Convert(sensor);
+
+            return this.PartialView("_EditSensor", adminSensorViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditSensor(AdminSensorViewModel adminSensorViewModel)
+        {
+            this.sensorServices.EditSensor(new SensorDataModel
+            {
+                Id = adminSensorViewModel.Id,
+                Name = adminSensorViewModel.Name,
+                MeasurementType = adminSensorViewModel.MeasurementType,
+                Description = adminSensorViewModel.Description,
+                URL = adminSensorViewModel.URL,
+                PollingInterval = adminSensorViewModel.PollingInterval,
+                IsPublic = adminSensorViewModel.IsPublic,
+                IsDeleted = adminSensorViewModel.IsDeleted//,
+                //sensor.IsBoolType = editedSensor.IsBoolType,
+                //sensor.IsShared = editedSensor.IsShared
+            });           
+
+            return this.RedirectToAction("AllSensors");
         }
 
         public ActionResult AdminPanel()
