@@ -177,6 +177,7 @@ namespace DataflowICB.Areas.Sensor.Controllers
                 Name = sensor.Name,
                 Description = sensor.Description,
                 CurrentValue = sensor.CurrentValue,
+                IsValueType = !sensor.IsBoolType,
                 IsPublic = sensor.IsPublic,
                 IsShared = sensor.IsShared
             }).ToList();
@@ -184,6 +185,7 @@ namespace DataflowICB.Areas.Sensor.Controllers
             return View(sensors);
         }
 
+        
         [Authorize]
         public ActionResult EditSensor(int id)
         {
@@ -197,6 +199,7 @@ namespace DataflowICB.Areas.Sensor.Controllers
                 Url = sensor.URL,
                 PollingInterval = sensor.PollingInterval,
                 MeasurementType = sensor.MeasurementType,
+                IsValueType = !sensor.IsBoolType,
                 IsPublic = sensor.IsPublic,
                 IsShared = sensor.IsShared,
                 MaxValue = sensor.MaxValue,
@@ -213,7 +216,15 @@ namespace DataflowICB.Areas.Sensor.Controllers
         {
             this.sensorService.EditSensor(new Dataflow.DataServices.Models.SensorDataModel()
             {
-                Id = viewModel.Id
+                Id = viewModel.Id,
+                Name = viewModel.Name,
+                Description = viewModel.Description,
+                URL = viewModel.Url,
+                PollingInterval = viewModel.PollingInterval,
+                IsBoolType = !viewModel.IsValueType,
+                MeasurementType = viewModel.MeasurementType,
+                IsPublic = viewModel.IsPublic,
+                IsShared = viewModel.IsShared,
             });
 
             return this.RedirectToAction("UserSensors");

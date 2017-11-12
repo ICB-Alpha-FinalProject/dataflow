@@ -116,6 +116,7 @@ namespace Dataflow.DataServices
                     URL = m.URL,
                     PollingInterval = m.PollingInterval,
                     MeasurementType = m.IsBoolType ? m.BoolTypeSensor.MeasurementType : m.ValueTypeSensor.MeasurementType,
+                    IsBoolType = m.IsBoolType,
                     IsPublic = m.IsPublic,
                     IsShared = m.IsShared,
                     MaxValue = m.ValueTypeSensor.Maxvalue,
@@ -175,7 +176,7 @@ namespace Dataflow.DataServices
 
 
 
-       public IEnumerable<SensorDataModel> GetAllSensorsForUser(string username)
+        public IEnumerable<SensorDataModel> GetAllSensorsForUser(string username)
         {
             var sensorForUser = context.Sensors.Where(s => s.Owner.UserName == username)
                 .Select(sensor => new SensorDataModel
@@ -184,6 +185,7 @@ namespace Dataflow.DataServices
                     Name = sensor.Name,
                     Description = sensor.Description,
                     CurrentValue = sensor.IsBoolType ? sensor.BoolTypeSensor.CurrentValue.ToString() : sensor.ValueTypeSensor.CurrentValue.ToString(),
+                    IsBoolType = sensor.IsBoolType,
                     IsPublic = sensor.IsPublic,
                     IsShared = sensor.IsShared
                 })

@@ -23,23 +23,33 @@
         @Html.LabelFor(m => m.PollingInterval)
         @Html.EditorFor(m => m.PollingInterval)
     </div>
+    <div>
+        @Html.LabelFor(m => m.IsValueType)
+        @Html.EditorFor(m => m.IsValueType)
+    </div>
     //for measurment type
+
     <div>
         @Html.LabelFor(m => m.MeasurementType)
         @Html.EditorFor(m => m.MeasurementType)
     </div>
     <div>
-        @Html.LabelFor(m => m.IsPublic) 
+        @Html.LabelFor(m => m.IsPublic)
         @Html.EditorFor(m => m.IsPublic)
     </div>
-    <div>
-        @Html.LabelFor(m => m.MinValue)
-        @Html.EditorFor(m => m.MinValue)
-    </div>
-    <div>
-        @Html.LabelFor(m => m.MaxValue)
-        @Html.EditorFor(m => m.MaxValue)
-    </div>
+
+    if (Model.IsValueType == true)
+    {
+        <div>
+            @Html.LabelFor(m => m.MinValue)
+            @Html.EditorFor(m => m.MinValue)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.MaxValue)
+            @Html.EditorFor(m => m.MaxValue)
+        </div>
+    }
+
     <div>
         <input type="submit" value="Save" />
     </div>
