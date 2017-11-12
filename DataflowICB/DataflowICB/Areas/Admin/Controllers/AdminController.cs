@@ -15,11 +15,13 @@ namespace DataflowICB.Areas.Admin.Controllers
     {
         private readonly ApplicationUserManager userManager;
         private readonly IUserServices services;
+        private readonly ISensorService sensorService;
 
-        public AdminController(ApplicationUserManager userManager, IUserServices services)
+        public AdminController(ApplicationUserManager userManager, IUserServices services, ISensorService sensorService)
         {
             this.userManager = userManager;
             this.services = services;
+            this.sensorService = sensorService;
         }
 
         public ActionResult AllUsers()
@@ -33,11 +35,11 @@ namespace DataflowICB.Areas.Admin.Controllers
 
         public ActionResult AllSensors()
         {
-            var applicationUserModel = this.services.GetAllUsers();
+            var sensorDataModel = this.sensorService.GetAllSensors(true);
 
-            List<UserViewModel> usersViewModel = UserViewModel.Convert(applicationUserModel).ToList();
+            List<AdminSensorViewModel> sensorViewModel = AdminSensorViewModel.Convert(sensorDataModel).ToList();
 
-            return this.View(usersViewModel);
+            return this.View(sensorViewModel);
         }
 
         public async Task<ActionResult> EditUser(string id)
