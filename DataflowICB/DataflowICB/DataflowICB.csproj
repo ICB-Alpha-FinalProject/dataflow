@@ -323,13 +323,11 @@
     <Content Include="Areas\Sensor\Views\Shared\_CommonSensorForm.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\AllUsers.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_EditUser.cshtml" />
-    <Content Include="Areas\Sensor\Views\Shared\_EditSensor.cshtml" />
-    <Content Include="Areas\Sensor\Views\Shared\_SensorDetails.cshtml" />
-    <Content Include="Areas\Sensor\Views\Shared\_SharedWithUsers.cshtml" />
     <Content Include="Areas\Sensor\Views\Sensor\UserSensors.cshtml" />
-    <Content Include="Areas\Sensor\Views\Shared\_ShareSensors.cshtml" />
     <Content Include="Areas\Sensor\Views\Sensor\SensorHistoryGraph.cshtml" />
-    <Content Include="Areas\Sensor\Views\Shared\_ListAllSensors.cshtml" />
+    <Content Include="Areas\Sensor\Views\Sensor\EditSensor.cshtml" />
+    <Content Include="Areas\Sensor\Views\Sensor\ShowDetails.cshtml" />
+    <Content Include="Areas\Sensor\Views\Sensor\ShareSensor.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

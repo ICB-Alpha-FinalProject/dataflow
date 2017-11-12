@@ -18,52 +18,7 @@ namespace DataflowICB.Database.Migrations
         protected override void Seed(DataflowICB.Database.ApplicationDbContext context)
         {
 
-            //var user = context.Users.FirstOrDefault();
-
-            //var valueTypeSensor = new ValueTypeSensor()
-            //{
-            //    MeasurementType = "Temprature",
-            //    MinValue = 15,
-            //    Maxvalue = 28,
-            //    CurrentValue = 20
-            //};
-
-            //var boolTypeSensor = new BoolTypeSensor()
-            //{
-            //    MeasurementType = "Open/Close",
-            //    CurrentValue = true
-            //};
-
-            //var valueSensor = new Sensor()
-            //{
-            //    Name = "MyTempratureSensor",
-            //    Description = "Sensor which measures temprature",
-            //    URL = "url",
-            //    PollingInterval = 30,
-            //    ValueTypeSensor = valueTypeSensor,
-            //    IsPublic = true,
-            //    Creator = user
-            //};
-
-            //var boolSensor = new Sensor()
-            //{
-            //    Name = "MyDoorSensor",
-            //    Description = "Sensor which indicates whether the door is open",
-            //    URL = "url",
-            //    PollingInterval = 30,
-            //    BoolTypeSensor = boolTypeSensor,
-            //    IsPublic = false,
-            //    Creator = user
-            //};
-
-            //user.MySensors.Add(boolSensor);
-
-            //context.BoolSensors.Add(boolTypeSensor);
-            //context.ValueSensors.Add(valueTypeSensor);
-            //context.Sensors.Add(valueSensor);
-            //context.Sensors.Add(boolSensor);
-            //context.SaveChanges();
-
+          
             //  This method will be called after migrating to the latest version.
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
@@ -98,7 +53,7 @@ namespace DataflowICB.Database.Migrations
 
                 role = context.Roles.Single();
                 var user = context.Users
-                    .Single(u => u.UserName == "test");
+                    .Single(u => u.UserName == "user4");
 
                 user.Roles.Add(new IdentityUserRole()
                 {

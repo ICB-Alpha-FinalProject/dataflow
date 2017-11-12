@@ -19,7 +19,13 @@ namespace Dataflow.DataServices.Models
         public int PollingInterval { get; set; }
         
         public string CurrentValue { get; set; }
-        
+
+        public double MaxValue { get; set; }
+
+        public double MinValue { get; set; }
+
+        public string MeasurementType { get; set; }
+
         public bool IsBoolType { get; set; }
 
         public bool IsPublic { get; set; }

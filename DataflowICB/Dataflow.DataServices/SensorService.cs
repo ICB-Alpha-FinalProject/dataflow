@@ -106,7 +106,7 @@ namespace Dataflow.DataServices
                    Value = s.Value.ToString()
                })
                .ToList();
-            
+
             return boolHistoryData;
         }
 
@@ -130,16 +130,31 @@ namespace Dataflow.DataServices
             var sensorForUser = context.Sensors.Where(s => s.Owner.UserName == username)
                 .Select(sensor => new SensorDataModel
                 {
+                    Id = sensor.Id,
                     Name = sensor.Name,
                     Description = sensor.Description,
                     CurrentValue = sensor.IsBoolType ? sensor.BoolTypeSensor.CurrentValue.ToString() : sensor.ValueTypeSensor.CurrentValue.ToString(),
                     IsPublic = sensor.IsPublic,
-                    IsShared = sensor.SharedWithUsers.Count() > 0 //TODO: link IsShared SensorDataModel property with Sensor database model IsShared property
-
+                    IsShared = sensor.IsShared
                 })
                 .ToList();
 
             return sensorForUser;
+        }
+
+        public void EditSensor(SensorDataModel dataModel)
+        {
+            var sensorDbModel = this.context.Sensors.Where(s => s.Id == dataModel.Id).First();
+            
+            sensorDbModel.Id = dataModel.Id;
+            sensorDbModel.Name = dataModel.Name;
+            sensorDbModel.URL = dataModel.URL;
+            sensorDbModel.Description = dataModel.Description;
+            sensorDbModel.IsPublic = dataModel.IsPublic;
+            sensorDbModel.ValueTypeSensor.Maxvalue = dataModel.MaxValue;
+            sensorDbModel.ValueTypeSensor.MinValue = dataModel.MinValue;
+
+
         }
 
         public SensorDataModel ShareWithUser(string username)
@@ -147,9 +162,25 @@ namespace Dataflow.DataServices
             return new SensorDataModel();
         }
 
-        public Sensor GetSensorById(string id)
+
+
+        public SensorDataModel GetSensorById(int id)
         {
-            var sensor = this.context.Sensors.Find(id);
+            var sensor = this.context.Sensors.Where(s => s.Id == id)
+                .Select(m => new SensorDataModel
+                {
+                    Id = m.Id,
+                    Name = m.Name,
+                    Description = m.Description,
+                    URL = m.URL,
+                    PollingInterval = m.PollingInterval,
+                    MeasurementType = m.IsBoolType ? m.BoolTypeSensor.MeasurementType : m.ValueTypeSensor.MeasurementType,
+                    IsPublic = m.IsPublic,
+                    IsShared = m.IsShared,
+                    MaxValue = m.ValueTypeSensor.Maxvalue,
+                    MinValue = m.ValueTypeSensor.MinValue
+                }).First();
+
             return sensor;
         }
     }

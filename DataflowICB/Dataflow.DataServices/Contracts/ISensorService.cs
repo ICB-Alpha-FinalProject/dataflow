@@ -16,7 +16,8 @@ namespace Dataflow.DataServices.Contracts
         IEnumerable<Sensor> GetAllSensors();
         IEnumerable<SensorDataModel> GetAllSensorsForUser(string username);
         Task UpdateSensors();
-        Sensor GetSensorById(string id);
+        SensorDataModel GetSensorById(int id);
+        void EditSensor(SensorDataModel dataModel);
         IEnumerable<SensorApiUpdate> HistoryDataForBoolSensorsById(int sensorId);
         IEnumerable<SensorApiUpdate> HistoryDataForValueSensorsById(int sensorId);
     }
