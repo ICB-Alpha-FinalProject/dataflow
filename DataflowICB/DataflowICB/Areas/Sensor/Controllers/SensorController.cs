@@ -72,19 +72,7 @@ namespace DataflowICB.Areas.Sensor.Controllers
                     LastUpdate = DateTime.Now
                 };
 
-                if (model.BoolTypeSensor != null)
-                {
-                    var boolType = new BoolTypeSensor()
-                    {
-                        MeasurementType = model.MeasurementType
-                    };
-                    sensor.IsBoolType = true;
-                    sensor.BoolTypeSensor = boolType;
-                }
-
-                
-
-                if (model.ValueTypeSensor != null)
+                if (model.IsValueType)
                 {
                     var valueType = new ValueTypeSensor()
                     {
@@ -95,6 +83,16 @@ namespace DataflowICB.Areas.Sensor.Controllers
                     };
                     sensor.IsBoolType = false;
                     sensor.ValueTypeSensor = valueType;
+                }
+                else
+                {
+                    var boolType = new BoolTypeSensor()
+                    {
+                        MeasurementType = model.MeasurementType
+                    };
+
+                    sensor.IsBoolType = true;
+                    sensor.BoolTypeSensor = boolType;
                 }
 
                 this.sensorService.AddSensor(sensor);
@@ -129,16 +127,10 @@ namespace DataflowICB.Areas.Sensor.Controllers
 
             if (isValueType)
             {
-                var valueTypeSensorVm = new ValueTypeSensorViewModel();
-
-                sensorVm.ValueTypeSensor = valueTypeSensorVm;
                 return this.View("RegisterValueSensor", sensorVm);
             }
             else
             {
-                var boolSensorVm = new BoolTypeSensorViewModel();
-
-                sensorVm.BoolTypeSensor = boolSensorVm;
                 return this.View("RegisterBoolSensor", sensorVm);
             }
         }

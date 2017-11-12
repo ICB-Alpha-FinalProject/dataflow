@@ -394,7 +394,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Account\Edit.cshtml" />
+    <Content Include="Views\Account\UserProfile.cshtml" />
     <Content Include="Areas\Sensor\Views\Sensor\RegisterSensor.cshtml" />
   </ItemGroup>
   <ItemGroup>
