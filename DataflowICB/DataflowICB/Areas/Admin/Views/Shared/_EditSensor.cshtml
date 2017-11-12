@@ -26,6 +26,19 @@
         @Html.LabelFor(m => m.PollingInterval)
         @Html.EditorFor(m => m.PollingInterval)
     </div>
+
+    if (Model.IsBoolType == false)
+    {
+        <div>
+            @Html.LabelFor(m => m.MaxValue)
+            @Html.EditorFor(m => m.MaxValue)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.MinValue)
+            @Html.EditorFor(m => m.MinValue)
+        </div>
+    }
+
     <div>
         @Html.LabelFor(m => m.Owner)
         @Html.DisplayFor(m => m.Owner)
