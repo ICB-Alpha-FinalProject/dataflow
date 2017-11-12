@@ -142,21 +142,7 @@ namespace Dataflow.DataServices
             return sensorForUser;
         }
 
-        public void EditSensor(SensorDataModel dataModel)
-        {
-            var sensorDbModel = this.context.Sensors.Where(s => s.Id == dataModel.Id).First();
-            
-            sensorDbModel.Id = dataModel.Id;
-            sensorDbModel.Name = dataModel.Name;
-            sensorDbModel.URL = dataModel.URL;
-            sensorDbModel.Description = dataModel.Description;
-            sensorDbModel.IsPublic = dataModel.IsPublic;
-            sensorDbModel.ValueTypeSensor.Maxvalue = dataModel.MaxValue;
-            sensorDbModel.ValueTypeSensor.MinValue = dataModel.MinValue;
-
-
-        }
-
+       
         public SensorDataModel ShareWithUser(string username)
         {
             return new SensorDataModel();
