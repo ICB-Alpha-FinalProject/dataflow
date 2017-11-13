@@ -9,86 +9,73 @@
         <i class="fa fa-table"></i> Data Table Example
     </div>
     <td class="card-body">
-        <td class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Measurement Type</th>
-                        <th>Description</th>
-                        <th>Online</th>
-                        <th>Current Value</th>
-                        <th>Public</th>
-                    </tr>
-                </thead>
-                <tfoot>
-                    <tr>
-                        <th>Name</th>
-                        <th>Measurement Type</th>
-                        <th>Description</th>
-                        <th>Online</th>
-                        <th>Current Value</th>
-                        <th>Public</th>
+    <td class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Measurement Type</th>
+                    <th>Description</th>
+                    <th>Online</th>
+                    <th>Current Value</th>
+                    <th>Public</th>
 
-                        @if (Model.IsValueType)
-                        {
-                            <th>Maximumal Value</th>
+                    @if (Model.IsValueType)
+                    {
+                        <th>Maximumal Value</th>
                             <th>Minimal Value</th>
                             <th>Lowest Value</th>
                             <th>Highest Value</th>
-                        }
+                    }
+                </tr>
+            </thead>
+            
+            <tbody>
+                <tr>
+                    <td>@Model.Name</td>
+                    <td>@Model.MeasurementType</td>
+                    <td>@Model.Description</td>
+                    <td>@Model.IsConnected</td>
+                    <td>@Model.CurrentValue</td>
+                    <td>@Model.IsPublic</td>
 
-                    </tr>
-                </tfoot>
-                <tbody>
-                    <tr>
-                        <td>@Model.Name</td>
-                        <td>@Model.MeasurementType</td>
-                        <td>@Model.Description</td>
-                        <td>@Model.IsConnected</td>
-                        <td>@Model.CurrentValue</td>
-                        <td>@Model.IsPublic</td>
+                    @if (Model.IsValueType)
 
-                        @if (Model.IsValueType)
-                      
-                        {
+                    {
 
-                           <td> @Model.MaxValue</td>
-                            <td> @Model.MinValue</td>
+                        <td> @Model.MaxValue</td>
+                        <td> @Model.MinValue</td>
                             <td> @Model.ValueTypeSensor.LowestValue</td>
                             <td> @Model.ValueTypeSensor.HighestValue</td>
-                            @*<td> @Model.ValueTypeSensor.IsInAcceptableRange</td>*@ 
-                          
-
-                        }
-
-                        <td>
-
-                            @Ajax.ActionLink("[Show History...]", "SensorHistoryGraph",
-                                        new { id = @Model.Id },
-                                        new AjaxOptions
-                                        {
-                                            InsertionMode = InsertionMode.Replace,
-                                            UpdateTargetId = @Model.Id.ToString()
-                                        })
-                            @Ajax.ActionLink("[Shared With...]", "SensorHistoryGraph",
-                                        new { id = @Model.Id },
-                                        new AjaxOptions
-                                        {
-                                            InsertionMode = InsertionMode.Replace,
-                                            UpdateTargetId = @Model.Id.ToString()
-                                        })
-
-                        </td>
-                        
-                    </tr>
+                            @*<td> @Model.ValueTypeSensor.IsInAcceptableRange</td>*@
                     }
 
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+                    <td>
+
+                        @Ajax.ActionLink("[Show History...]", "SensorHistoryGraph",
+                                        new { id = @Model.Id },
+                                        new AjaxOptions
+                                        {
+                                            InsertionMode = InsertionMode.Replace,
+                                            UpdateTargetId = @Model.Id.ToString()
+                                        })
+                        @Ajax.ActionLink("[Shared With...]", "SharedWith",
+                                        new { id = @Model.Id },
+                                        new AjaxOptions
+                                        {
+                                            InsertionMode = InsertionMode.Replace,
+                                            UpdateTargetId = @Model.Id.ToString()
+                                        })
+
+                    </td>
+
+                </tr>
+                
+
+            </tbody>
+        </table>
+</div>
+<div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
 </div>
 <!-- /.container-fluid-->
 <!-- /.content-wrapper-->

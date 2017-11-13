@@ -16,6 +16,9 @@ using DataflowICB.Models.DataApi;
 
 namespace DataflowICB.Areas.Sensor.Controllers
 {
+
+    //TODO: Optimization of LINQ queries
+    //TODO: Validation
     public class SensorController : Controller
     {
 
@@ -221,7 +224,7 @@ namespace DataflowICB.Areas.Sensor.Controllers
                 PollingInterval = viewModel.PollingInterval,
                 IsBoolType = !viewModel.IsValueType,
                 MeasurementType = viewModel.MeasurementType,
-                IsPublic = false,
+                IsPublic = viewModel.IsPublic,
                 IsShared = viewModel.IsShared,
             });
 
@@ -229,6 +232,51 @@ namespace DataflowICB.Areas.Sensor.Controllers
 
         }
 
+        [Authorize]
+        public ActionResult ShareSensor(int id)
+        {
+            var sensor = this.sensorService.GetUserSensorById(id);
+
+            var sensorViewModel = new SensorViewModel()
+            {
+                Id = sensor.Id,
+                CurrentValue = sensor.CurrentValue,
+                Name = sensor.Name,
+                Description = sensor.Description,
+                Url = sensor.URL,
+                PollingInterval = sensor.PollingInterval,
+                MeasurementType = sensor.MeasurementType,
+                IsPublic = sensor.IsPublic,
+                IsShared = sensor.IsShared,
+                MaxValue = sensor.MaxValue,
+                MinValue = sensor.MinValue
+            };
+            return View("ShareSensor", sensorViewModel);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public ActionResult ShareSensor(SensorViewModel viewModel)
+        {
+            this.sensorService.ShareSensorWithUser(viewModel.Id, viewModel.ShareWithUser);
+
+            return this.RedirectToAction("UserSensors");
+        }
+
+        //TODO: in detail view listing of who is the sensor shared with
+        //[Authorize]
+        //public ActionResult SharedWith()
+        //{
+        //    var sharedSensorUsers = this.sensorService.
+
+        //        var sharedUsersViewModel = new SensorViewModel()
+        //        {
+        //        };
+
+           
+        //}
 
         [Authorize]
         public ActionResult ShowDetails(int id)
@@ -253,19 +301,7 @@ namespace DataflowICB.Areas.Sensor.Controllers
         }
 
 
-        [Authorize]
-        public ActionResult ShareSensor()
-        {
-            return View();
-        }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize]
-        public ActionResult ShareSensor(SensorViewModel viewModel)
-        {
-            return View();
-        }
 
         public ActionResult PublicSensors()
         {
@@ -284,5 +320,7 @@ namespace DataflowICB.Areas.Sensor.Controllers
 
             return View(sensors);
         }
+
+
     }
 }

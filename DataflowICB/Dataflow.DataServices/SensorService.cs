@@ -130,13 +130,13 @@ namespace Dataflow.DataServices
                     Description = m.Description,
                     URL = m.URL,
                     PollingInterval = m.PollingInterval,
-                    MeasurementType = m.IsBoolType ? m.BoolTypeSensor.MeasurementType: m.ValueTypeSensor.MeasurementType,
+                    MeasurementType = m.IsBoolType ? m.BoolTypeSensor.MeasurementType : m.ValueTypeSensor.MeasurementType,
                     IsBoolType = m.IsBoolType,
                     IsPublic = m.IsPublic,
                     IsShared = m.IsShared,
                     MaxValue = m.IsBoolType ? 0.0 : m.ValueTypeSensor.Maxvalue,
                     MinValue = m.IsBoolType ? 0.0 : m.ValueTypeSensor.MinValue,
-                  
+
                 }).First();
 
             return sensor;
@@ -212,10 +212,25 @@ namespace Dataflow.DataServices
             return sensorForUser;
         }
 
-        public SensorDataModel ShareWithUser(string username)
+        public void ShareSensorWithUser(int id, string username)
         {
-            return new SensorDataModel();
+            var sharedSensor = this.context.Sensors.Where(s => s.Id == id).First();
+
+            var user = this.context.Users.Where(n => n.UserName == username).First();
+
+            sharedSensor.SharedWithUsers.Add(user);
+
+            this.context.SaveChanges();
         }
+
+        //TODO: in detail view listing of who is the sensor shared with
+        //public IEnumerable<UserDataModel> GetUsersSharedSensor(int id, string username)
+        //{
+        //    var sharedSensor = this.context.Sensors.Where(s => s.Id == id).Select(c => c.SharedWithUsers).First();
+
+        //    IEnumerable<UserDataModel> users = new IEnumerable<UserDataModel>()
+
+        //}
 
         public IEnumerable<SensorApiUpdate> HistoryDataForBoolSensorsById(int sensorId)
         {
