@@ -13,7 +13,7 @@ namespace Dataflow.DataServices.Contracts
     public interface ISensorService
     {
         void AddSensor(Sensor sensor);
-        void EditSensor(SensorDataModel editedSensor);
+        void EditSensor(ISensorDataModel editedSensor);
         void ShareSensorWithUser(int id, string username);
         void DeleteSensor(int id);
         SensorDataModel GetUsersSharedSensor(int id);

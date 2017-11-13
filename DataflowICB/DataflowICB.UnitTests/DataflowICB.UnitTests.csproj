@@ -79,6 +79,17 @@
     <Compile Include="DataServices\CustomUserServices\EditUser_Should.cs" />
     <Compile Include="DataServices\CustomUserServices\GetUser_Should.cs" />
     <Compile Include="DataServices\CustomUserServices\GetAllUsers_Should.cs" />
+    <Compile Include="DataServices\SensorService\Constructor_Should.cs" />
+    <Compile Include="DataServices\SensorService\AddSensor_Should.cs" />
+    <Compile Include="DataServices\SensorService\EditSensor_Should.cs" />
+    <Compile Include="DataServices\SensorService\GetAllPublicSensors_Should.cs" />
+    <Compile Include="DataServices\SensorService\GetAllSensors_Should.cs" />
+    <Compile Include="DataServices\SensorService\GetSensorById_Should.cs" />
+    <Compile Include="DataServices\SensorService\GetUserSensorById_Should.cs" />
+    <Compile Include="DataServices\SensorService\GetAllSensorsForUser_Should.cs" />
+    <Compile Include="DataServices\SensorService\ShareSensorWithUser_Should.cs" />
+    <Compile Include="DataServices\SensorService\HistoryDataForBoolSensorsById_Should.cs" />
+    <Compile Include="DataServices\SensorService\HistoryDataForValueSensorsById_Should.cs" />
     <Compile Include="DummyUnitTest\DummyUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -90,6 +101,10 @@
     <ProjectReference Include="..\Dataflow.DataServices\Dataflow.DataServices.csproj">
       <Project>{bda32d80-c003-4cf1-a520-4475a67481de}</Project>
       <Name>Dataflow.DataServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dataflow.Services\Dataflow.Services.csproj">
+      <Project>{8D05B7E6-CF48-4B44-B785-4E7152E057AE}</Project>
+      <Name>Dataflow.Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\DataflowICB.Database\DataflowICB.Database.csproj">
       <Project>{a440899d-495c-4f1a-981c-345561033502}</Project>

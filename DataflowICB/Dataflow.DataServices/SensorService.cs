@@ -33,12 +33,14 @@ namespace Dataflow.DataServices
 
         public void AddSensor(Sensor sensor)
         {
+            Guard.WhenArgument(sensor, "sensor").IsNull().Throw();
+
             this.context.Sensors.Add(sensor);
             this.context.SaveChanges();
 
         }
 
-        public void EditSensor(SensorDataModel editedSensor)
+        public void EditSensor(ISensorDataModel editedSensor)
         {
             Guard.WhenArgument(editedSensor, "editedSensor").IsNull().Throw();
 
@@ -224,6 +226,8 @@ namespace Dataflow.DataServices
 
         public void ShareSensorWithUser(int id, string username)
         {
+            Guard.WhenArgument(username, "username").IsNull().Throw();
+
             var sharedSensor = this.context.Sensors.Single(s => s.Id == id && s.IsDeleted == false);
 
             var user = this.context.Users.Single(n => n.UserName == username);

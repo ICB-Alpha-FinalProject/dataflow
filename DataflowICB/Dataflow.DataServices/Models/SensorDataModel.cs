@@ -1,4 +1,5 @@
-﻿using DataflowICB.Database.Models;
+﻿using Dataflow.DataServices.Contracts;
+using DataflowICB.Database.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Linq.Expressions;
 
 namespace Dataflow.DataServices.Models
 {
-    public class SensorDataModel
+    public class SensorDataModel : ISensorDataModel
     {
         private ICollection<string> sharedWithUsers;
 
