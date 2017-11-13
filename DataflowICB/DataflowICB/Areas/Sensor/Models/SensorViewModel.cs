@@ -1,6 +1,7 @@
 ﻿using Dataflow.DataServices.Models;
 using DataflowICB.App_Start;
 using DataflowICB.Database.Models;
+using SensorApiModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -33,7 +34,7 @@ namespace DataflowICB.Areas.Sensor.Models
         public BoolTypeSensorViewModel BoolTypeSensor { get; set; }
 
         public string CurrentValue { get; set; }
-
+        
         public double MinValue { get; set; }
 
         public double MaxValue { get; set; }
@@ -41,7 +42,7 @@ namespace DataflowICB.Areas.Sensor.Models
         public string MeasurementType { get; set; }
 
         [Required]
-        [Range(1, Constants.MaxPollingInterval)]
+        [Range(1, AppConstants.MaxPollingInterval)]
         public int PollingInterval { get; set; }
 
         [Required]

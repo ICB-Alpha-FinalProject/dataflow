@@ -71,6 +71,10 @@
     <Compile Include="UserServices.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Dataflow.Services\Dataflow.Services.csproj">
+      <Project>{8D05B7E6-CF48-4B44-B785-4E7152E057AE}</Project>
+      <Name>Dataflow.Services</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataflowICB.Database\DataflowICB.Database.csproj">
       <Project>{a440899d-495c-4f1a-981c-345561033502}</Project>
       <Name>DataflowICB.Database</Name>
