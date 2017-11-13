@@ -8,6 +8,13 @@ namespace Dataflow.DataServices.Models
 {
     public class SensorDataModel
     {
+        private ICollection<string> sharedWithUsers;
+
+        public SensorDataModel()
+        {
+            this.sharedWithUsers = new HashSet<string>();
+        }
+
         public int Id { get; set; }
 
         public string Name { get; set; }
@@ -38,7 +45,17 @@ namespace Dataflow.DataServices.Models
 
         public string Owner { get; set; }
 
-        public ICollection<string> SharedWithUsers { get; set; }
+        public ICollection<string> SharedWithUsers
+        {
+            get
+            {
+                return this.sharedWithUsers;
+            }
+            set
+            {
+                this.sharedWithUsers = value;
+            }
+        }
 
         public double SensorCoordinatesX { get; set; }
 

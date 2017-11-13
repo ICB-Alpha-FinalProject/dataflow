@@ -49,8 +49,6 @@ namespace DataflowICB.Database.Models
 
         public virtual ApplicationUser Owner { get; set; }
 
-        //public bool IsShared { get; set; }
-
         public virtual ICollection<ApplicationUser> SharedWithUsers
         {
             get

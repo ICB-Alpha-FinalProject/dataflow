@@ -264,17 +264,19 @@ namespace DataflowICB.Areas.Sensor.Controllers
         }
 
         //TODO: in detail view listing of who is the sensor shared with
-        //[Authorize]
-        //public ActionResult SharedWith()
-        //{
-        //    var sharedSensorUsers = this.sensorService.
+        [Authorize]
+        public ActionResult SharedWith(int id)
+        {
+            var sharedSensorUsers = this.sensorService.GetUsersSharedSensor(id);
 
-        //        var sharedUsersViewModel = new SensorViewModel()
-        //        {
-        //        };
+                var sharedUsersViewModel = new SensorViewModel()
+                {
+                    Id = sharedSensorUsers.Id,
+                    SharedWithUsers = sharedSensorUsers.SharedWithUsers
+                };
 
-           
-        //}
+            return this.View("SharedWith", sharedUsersViewModel);
+        }
 
         [Authorize]
         public ActionResult ShowDetails(int id)
@@ -283,6 +285,7 @@ namespace DataflowICB.Areas.Sensor.Controllers
 
             var sensorViewModel = new SensorViewModel()
             {
+                Id = sensor.Id,
                 CurrentValue = sensor.CurrentValue,
                 Name = sensor.Name,
                 Description = sensor.Description,

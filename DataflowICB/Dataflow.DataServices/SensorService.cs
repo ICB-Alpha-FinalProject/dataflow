@@ -219,9 +219,9 @@ namespace Dataflow.DataServices
 
         public void ShareSensorWithUser(int id, string username)
         {
-            var sharedSensor = this.context.Sensors.Where(s => s.Id == id).First();
+            var sharedSensor = this.context.Sensors.Single(s => s.Id == id);
 
-            var user = this.context.Users.Where(n => n.UserName == username).First();
+            var user = this.context.Users.Single(n => n.UserName == username);
 
             sharedSensor.SharedWithUsers.Add(user);
 
@@ -229,13 +229,24 @@ namespace Dataflow.DataServices
         }
 
         //TODO: in detail view listing of who is the sensor shared with
-        //public IEnumerable<UserDataModel> GetUsersSharedSensor(int id, string username)
-        //{
-        //    var sharedSensor = this.context.Sensors.Where(s => s.Id == id).Select(c => c.SharedWithUsers).First();
 
-        //    IEnumerable<UserDataModel> users = new IEnumerable<UserDataModel>()
+        public SensorDataModel GetUsersSharedSensor(int id)
+        {
+            var sharedSensor = this.context.Sensors.Single(s => s.Id == id).SharedWithUsers.ToList();
 
-        //}
+
+            var sensorDModel = new SensorDataModel()
+            {
+                Id = id,
+            };
+
+            for (int i = 0; i < sharedSensor.Count; i++)
+            {
+                sensorDModel.SharedWithUsers.Add(sharedSensor[i].UserName);
+            }
+
+            return sensorDModel;
+        }
 
         public IEnumerable<SensorApiUpdate> HistoryDataForBoolSensorsById(int sensorId)
         {

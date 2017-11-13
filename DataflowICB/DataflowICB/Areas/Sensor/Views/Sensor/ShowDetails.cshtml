@@ -38,18 +38,6 @@
                     <td>@Model.IsConnected</td>
                     <td>@Model.CurrentValue</td>
                     <td>@Model.IsPublic</td>
-
-                    @if (Model.IsValueType)
-
-                    {
-
-                        <td> @Model.MaxValue</td>
-                        <td> @Model.MinValue</td>
-                            <td> @Model.ValueTypeSensor.LowestValue</td>
-                            <td> @Model.ValueTypeSensor.HighestValue</td>
-                            @*<td> @Model.ValueTypeSensor.IsInAcceptableRange</td>*@
-                    }
-
                     <td>
 
                         @Ajax.ActionLink("[Show History...]", "SensorHistoryGraph",
