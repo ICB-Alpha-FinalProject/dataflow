@@ -13,6 +13,10 @@ using DataflowICB.Database.Models;
 using DataflowICB.Areas.Sensor.Models;
 using Microsoft.AspNet.Identity;
 using DataflowICB.Models.DataApi;
+using Dataflow.Services.Contracts;
+using Bytes2you.Validation;
+using DataflowICB.App_Start;
+using SensorApiModels;
 
 namespace DataflowICB.Areas.Sensor.Controllers
 {
@@ -20,11 +24,14 @@ namespace DataflowICB.Areas.Sensor.Controllers
     {
 
         private readonly ISensorService sensorService;
+        private readonly IHttpClientProvider httpClient;
 
-        public SensorController(ISensorService sensorService)
+        public SensorController(ISensorService sensorService, IHttpClientProvider httpClient)
         {
-            // validation
+            Guard.WhenArgument(sensorService, "sensorService").IsNull().Throw();
+            Guard.WhenArgument(httpClient, "httpClient").IsNull().Throw();
 
+            this.httpClient = httpClient;
             this.sensorService = sensorService;
         }
 
@@ -32,26 +39,17 @@ namespace DataflowICB.Areas.Sensor.Controllers
         //[OutputCache(Duration = 10)]
         public async Task<ActionResult> RegisterSensor()
         {
-            // TODO: depdency inverse HttpClient
-            using (HttpClient hc = new HttpClient())
+            var resp = await httpClient.GetAsync(AppConstants.AllSensorsUrl);
+            var content = await resp.Content.ReadAsStringAsync();
+            var resViewModel = JsonConvert.DeserializeObject<List<SensorApiData>>(content);
+
+            foreach (var sensor in resViewModel)
             {
-                hc.DefaultRequestHeaders.Add("auth-token", "8e4c46fe-5e1d-4382-b7fc-19541f7bf3b0");
-                var resp = await hc.GetAsync("http://telerikacademy.icb.bg/api/sensor/all");
-
-                resp.EnsureSuccessStatusCode();
-
-                string content = await resp.Content.ReadAsStringAsync();
-
-                var resViewModel = JsonConvert.DeserializeObject<List<SensorApiData>>(content);
-
-                foreach (var sensor in resViewModel)
-                {
-                    var isValueTYpe = !sensor.Description.Contains("false");
-                    sensor.IsValueType = isValueTYpe;
-                }
-
-                return this.View(resViewModel);
+                var isValueTYpe = !sensor.Description.Contains("false");
+                sensor.IsValueType = isValueTYpe;
             }
+
+            return this.View(resViewModel);
         }
 
         [HttpPost]

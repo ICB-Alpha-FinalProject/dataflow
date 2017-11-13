@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppConstants.cs" />
     <Compile Include="DataApi\CustomDateTimeConverter.cs" />
     <Compile Include="DataApi\SensorApiData.cs" />
     <Compile Include="DataApi\SensorApiUpdate.cs" />

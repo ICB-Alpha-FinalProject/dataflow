@@ -1,10 +1,12 @@
 ﻿using Bytes2you.Validation;
 using Dataflow.DataServices.Contracts;
 using Dataflow.DataServices.Models;
+using Dataflow.Services.Contracts;
 using DataflowICB.Database;
 using DataflowICB.Database.Models;
 using DataflowICB.Models.DataApi;
 using Newtonsoft.Json;
+using SensorApiModels;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -18,14 +20,15 @@ namespace Dataflow.DataServices
     public class SensorService : ISensorService
     {
         private readonly ApplicationDbContext context;
-        private readonly HttpClient client;
+        private readonly IHttpClientProvider httpClient;
 
-        public SensorService(ApplicationDbContext context, HttpClient client)
+        public SensorService(ApplicationDbContext context, IHttpClientProvider httpClient)
         {
-            this.context = context;
+            Guard.WhenArgument(context, "context").IsNull().Throw();
+            Guard.WhenArgument(httpClient, "httpClient").IsNull().Throw();
 
-            this.client = client;
-            this.client.DefaultRequestHeaders.Add("auth-token", "8e4c46fe-5e1d-4382-b7fc-19541f7bf3b0");
+            this.context = context;
+            this.httpClient = httpClient;
         }
 
         public void AddSensor(Sensor sensor)
@@ -152,7 +155,9 @@ namespace Dataflow.DataServices
             {
                 var url = s.URL;
 
-                var content = await client.GetStringAsync(url);
+                var resp = await httpClient.GetAsync(AppConstants.AllSensorsUrl);
+                var content = await resp.Content.ReadAsStringAsync();
+
                 var updatedValue = JsonConvert.DeserializeObject<SensorApiUpdate>(content);
                 int pollingInterval = s.PollingInterval;
 
