@@ -1,6 +1,11 @@
 ﻿@model SensorViewModel
 
 <h2>Details...</h2>
+<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="https://www.amcharts.com/lib/3/serial.js"></script>
+<script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
 
 @Styles.Render("~/bundles/tables-css")
 <!-- Example DataTables Card-->
@@ -9,94 +14,71 @@
         <i class="fa fa-table"></i> Data Table Example
     </div>
     <td class="card-body">
-        <td class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Measurement Type</th>
-                        <th>Description</th>
-                        <th>Online</th>
-                        <th>Current Value</th>
-                        <th>Public</th>
-                    </tr>
-                </thead>
-                <tfoot>
-                    <tr>
-                        <th>Name</th>
-                        <th>Measurement Type</th>
-                        <th>Description</th>
-                        <th>Online</th>
-                        <th>Current Value</th>
-                        <th>Public</th>
+    <td class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Measurement Type</th>
+                    <th>Description</th>
+                    <th>Online</th>
+                    <th>Current Value</th>
+                    <th>Public</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Model.Name</td>
+                    <td>@Model.MeasurementType</td>
+                    <td>@Model.Description</td>
+                    <td>@Model.IsConnected</td>
+                    <td>@Model.CurrentValue</td>
+                    <td>@Model.IsPublic</td>
 
-                        @if (Model.IsValueType)
-                        {
-                            <th>Maximumal Value</th>
-                            <th>Minimal Value</th>
-                            <th>Lowest Value</th>
-                            <th>Highest Value</th>
-                        }
+                    @if (Model.IsValueType)
 
-                    </tr>
-                </tfoot>
-                <tbody>
-                    <tr>
-                        <td>@Model.Name</td>
-                        <td>@Model.MeasurementType</td>
-                        <td>@Model.Description</td>
-                        <td>@Model.IsConnected</td>
-                        <td>@Model.CurrentValue</td>
-                        <td>@Model.IsPublic</td>
+                    {
 
-                        @if (Model.IsValueType)
-                      
-                        {
-
-                           <td> @Model.MaxValue</td>
-                            <td> @Model.MinValue</td>
+                        <td> @Model.MaxValue</td>
+                        <td> @Model.MinValue</td>
                             <td> @Model.ValueTypeSensor.LowestValue</td>
                             <td> @Model.ValueTypeSensor.HighestValue</td>
-                            @*<td> @Model.ValueTypeSensor.IsInAcceptableRange</td>*@ 
-                          
+                            @*<td> @Model.ValueTypeSensor.IsInAcceptableRange</td>*@
 
-                        }
 
-                        <td>
-
-                            @Ajax.ActionLink("[Show History...]", "SensorHistoryGraph",
-                                        new { id = @Model.Id },
-                                        new AjaxOptions
-                                        {
-                                            InsertionMode = InsertionMode.Replace,
-                                            UpdateTargetId = @Model.Id.ToString()
-                                        })
-                            @Ajax.ActionLink("[Shared With...]", "SensorHistoryGraph",
-                                        new { id = @Model.Id },
-                                        new AjaxOptions
-                                        {
-                                            InsertionMode = InsertionMode.Replace,
-                                            UpdateTargetId = @Model.Id.ToString()
-                                        })
-
-                        </td>
-                        
-                    </tr>
                     }
 
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+                    <td>
+
+                        @Ajax.ActionLink("[Show History...]", "SensorHistoryGraph",
+                                        new { id = @Model.Id },
+                                        new AjaxOptions
+                                        {
+                                            InsertionMode = InsertionMode.Replace,
+                                            UpdateTargetId = @Model.Id.ToString()
+                                        })
+                        @Ajax.ActionLink("[Shared With...]", "SensorHistoryGraph",
+                                        new { id = @Model.Id },
+                                        new AjaxOptions
+                                        {
+                                            InsertionMode = InsertionMode.Replace,
+                                            UpdateTargetId = @Model.Id.ToString()
+                                        })
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 </div>
+
+<div id="chartdiv"></div>
 <!-- /.container-fluid-->
 <!-- /.content-wrapper-->
 
 @section  scripts{
     @Scripts.Render("~/bundles/tables-js")
 
-    <script>
+    <script type="text/javascript">
         $('a').on('click', function () {
             let href = $(this).attr('href')
             let id = href.split('/').reverse()[0]
@@ -104,6 +86,69 @@
             let divId = '#' + id;
             $(divId).removeAttr('hidden')
         })
+
+        var chart;
+         $.ajax({
+             url: "@Url.Action("GetHistoryDataForSensor", "Sensor", 
+                  new {area = "Sensor", sensorId = Model.Id, isValueType = Model.IsValueType })",
+             dataType: "JSON",
+             complete: function (chartData) {
+                 chartData = JSON.parse(chartData.responseJSON);
+                 console.log("chart ", chartData);
+                 chart = AmCharts.makeChart("chartdiv", {
+                     "type": "serial",
+                     "theme": "light",
+                     "marginRight": 80,
+                     "dataProvider": chartData,
+                     "valueAxes": [{
+                         "position": "left",
+                         "title": "Value"
+                     }],
+                     "graphs": [{
+                         "id": "g1",
+                         "fillAlphas": 0.4,
+                         "valueField": "Value",
+                         "balloonText": "<div style='margin:5px; font-size:19px;'>Value:<b>[[value]]</b></div>"
+                     }],
+                     "chartScrollbar": {
+                         "graph": "g1",
+                         "scrollbarHeight": 80,
+                         "backgroundAlpha": 0,
+                         "selectedBackgroundAlpha": 0.1,
+                         "selectedBackgroundColor": "#888888",
+                         "graphFillAlpha": 0,
+                         "graphLineAlpha": 0.5,
+                         "selectedGraphFillAlpha": 0,
+                         "selectedGraphLineAlpha": 1,
+                         "autoGridCount": true,
+                         "color": "#AAAAAA"
+                     },
+                     "chartCursor": {
+                         "categoryBalloonDateFormat": "YYYY-MM-DD HH:NN:SS",
+                         "cursorPosition": "mouse"
+                     },
+                     "categoryField": "timeStamp",
+                     "categoryAxis": {
+                         "minPeriod": "ss",
+                         "parseDates": true
+                     },
+                     "export": {
+                         "enabled": true,
+                         "dateFormat": "YYYY-MM-DD HH:NN:SS"
+                     }
+                 });
+
+                 chart.addListener("dataUpdated", zoomChart);
+                 // when we apply theme, the dataUpdated event is fired even before we add listener, so
+                 // we need to call zoomChart here
+                 zoomChart();
+                 // this method is called when chart is first inited as we listen for "dataUpdated" event
+                 function zoomChart() {
+                     // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
+                     chart.zoomToIndexes(chartData.length - 250, chartData.length - 100);
+                 }
+             }
+         })
     </script>
 
 }
