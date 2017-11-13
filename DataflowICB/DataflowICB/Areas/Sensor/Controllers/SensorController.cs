@@ -50,6 +50,17 @@ namespace DataflowICB.Areas.Sensor.Controllers
             {
                 var isValueTYpe = !sensor.Description.Contains("false");
                 sensor.IsValueType = isValueTYpe;
+                if (isValueTYpe)
+                {
+                    var splitted = sensor.Description.
+                        Split(new string[] { "and", }, StringSplitOptions.RemoveEmptyEntries);
+
+                    var lowest = splitted[0].Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries).Last();
+                    var highest = splitted[splitted.Length - 1];
+
+                    sensor.LowestValue = double.Parse(lowest);
+                    sensor.Highestvalue = double.Parse(highest);
+                }
             }
 
             return this.View(resViewModel);
@@ -78,9 +89,9 @@ namespace DataflowICB.Areas.Sensor.Controllers
                     var valueType = new ValueTypeSensor()
                     {
                         MeasurementType = model.MeasurementType,
-                        IsInAcceptableRange = model.ValueTypeSensor.IsInAcceptableRange,
-                        Maxvalue = model.ValueTypeSensor.Maxvalue,
-                        MinValue = model.ValueTypeSensor.MinValue
+                        //IsInAcceptableRange = model.ValueTypeSensor.IsInAcceptableRange,
+                        Maxvalue = model.MaxValue,
+                        MinValue = model.MinValue
                     };
                     sensor.IsBoolType = false;
                     sensor.ValueTypeSensor = valueType;
@@ -115,19 +126,24 @@ namespace DataflowICB.Areas.Sensor.Controllers
 
         [Authorize]
         [AjaxOnly]
-        public ActionResult GetProperRegView(string sensorId, bool isValueType, string measureType)
+        public ActionResult GetProperRegView(SensorApiData vm)
         {
-
             var sensorVm = new SensorViewModel()
             {
-                Url = "http://telerikacademy.icb.bg/api/sensor/" + sensorId,
-                IsValueType = isValueType,
+                Url = "http://telerikacademy.icb.bg/api/sensor/" + vm.Id,
+                IsValueType = vm.IsValueType,
                 CreatorUsername = this.HttpContext.User.Identity.Name,
-                MeasurementType = measureType
+                MeasurementType = vm.MeasureType,
+                MinPollingInterval = vm.MinPollingIntervalInSeconds,
+                LowestValue = vm.LowestValue,
+                HighestValue = vm.Highestvalue
             };
 
-            if (isValueType)
+            if (vm.IsValueType)
             {
+                //sensorVm.ValueTypeSensor = new ValueTypeSensorViewModel();
+                //sensorVm.ValueTypeSensor.LowestValue = vm.LowestValue;
+                //sensorVm.ValueTypeSensor.HighestValue = vm.Highestvalue;
                 return this.View("RegisterValueSensor", sensorVm);
             }
             else
@@ -142,7 +158,7 @@ namespace DataflowICB.Areas.Sensor.Controllers
             //return this.RedirectToAction("Index", "Home", new { area = "" });
             return new EmptyResult();
         }
-        
+
 
         [AjaxOnly]
         [Authorize]
@@ -202,9 +218,7 @@ namespace DataflowICB.Areas.Sensor.Controllers
                 MeasurementType = sensor.MeasurementType,
                 IsValueType = !sensor.IsBoolType,
                 IsPublic = sensor.IsPublic,
-                IsShared = sensor.IsShared,
-                MaxValue = sensor.MaxValue,
-                MinValue = sensor.MinValue
+                IsShared = sensor.IsShared
             };
 
             return this.View("EditSensor", sensorViewModel);
@@ -249,9 +263,7 @@ namespace DataflowICB.Areas.Sensor.Controllers
                 IsValueType = !sensor.IsBoolType,
                 MeasurementType = sensor.MeasurementType,
                 IsPublic = sensor.IsPublic,
-                IsShared = sensor.IsShared,
-                MaxValue = sensor.MaxValue,
-                MinValue = sensor.MinValue
+                IsShared = sensor.IsShared
             };
             return View("ShareSensor", sensorViewModel);
         }
@@ -273,11 +285,11 @@ namespace DataflowICB.Areas.Sensor.Controllers
         {
             var sharedSensorUsers = this.sensorService.GetUsersSharedSensor(id);
 
-                var sharedUsersViewModel = new SensorViewModel()
-                {
-                    Id = sharedSensorUsers.Id,
-                    SharedWithUsers = sharedSensorUsers.SharedWithUsers
-                };
+            var sharedUsersViewModel = new SensorViewModel()
+            {
+                Id = sharedSensorUsers.Id,
+                SharedWithUsers = sharedSensorUsers.SharedWithUsers
+            };
 
             return this.View("SharedWith", sharedUsersViewModel);
         }
@@ -298,9 +310,7 @@ namespace DataflowICB.Areas.Sensor.Controllers
                 PollingInterval = sensor.PollingInterval,
                 MeasurementType = sensor.MeasurementType,
                 IsPublic = sensor.IsPublic,
-                IsShared = sensor.IsShared,
-                MaxValue = sensor.MaxValue,
-                MinValue = sensor.MinValue
+                IsShared = sensor.IsShared
             };
 
             return this.View("ShowDetails", sensorViewModel);
@@ -330,6 +340,26 @@ namespace DataflowICB.Areas.Sensor.Controllers
              }).ToList();
 
             return View(sensors);
+        }
+
+        public ActionResult CheckLowerRange(double MinValue, double? LowestValue, double? HighestValue)
+        {
+            bool result = false;
+            if (true)
+            {
+                result = MinValue <= HighestValue && MinValue >= LowestValue;
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult CheckUpperRange(double MaxValue, double? LowestValue, double? HighestValue)
+        {
+            bool result = false;
+            if (true)
+            {
+                result = MaxValue >= LowestValue && MaxValue <= HighestValue;
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
 

@@ -13,12 +13,7 @@
             @Ajax.ActionLink("Select",
                 "GetProperRegView",
                 "Sensor",
-                new
-                {
-                    sensorId = sensor.Id,
-                    isValueType = sensor.IsValueType,
-                    measureType = sensor.MeasureType
-                },
+                sensor,
                 new AjaxOptions
                 {
                     UpdateTargetId = "form-container",
@@ -37,4 +32,6 @@
 
     @Scripts.Render("~/bundles/jqueryajax")
     @Scripts.Render("~/bundles/wizard-js")
+    @Scripts.Render("~/bundles/mvcfoolproof")
+
 }

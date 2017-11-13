@@ -2,32 +2,34 @@
 @model SensorViewModel
 
 @using (Ajax.BeginForm("CreateSensor", "Sensor",
-                new AjaxOptions
-                {
-                    HttpMethod = "POST",
-                    UpdateTargetId = "form-container",
-                    InsertionMode = InsertionMode.Replace
-                }))
+                                                    new AjaxOptions
+                                                    {
+                                                        HttpMethod = "POST",
+                                                        UpdateTargetId = "form-container",
+                                                        InsertionMode = InsertionMode.Replace
+                                                    }))
 {
+    @Html.AntiForgeryToken()
     @Html.ValidationSummary(false)
 
-    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.LowestValue)
+    @Html.HiddenFor(m => m.HighestValue)
+    @Html.HiddenFor(m => m.MinPollingInterval)
+
+
     @Html.Partial("_CommonSensorForm", Model)
+        
+    @Html.LabelFor(m => m.MinValue, $"Minimum {Model.MeasurementType}")
+    @Html.EditorFor(m => m.MinValue, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.MinValue, "", new { @class = "text-danger" })
+    <p> <span class="label label-success">Lowest Value</span>  @Html.DisplayFor(m => m.LowestValue) @Model.MeasurementType</p>
+    <br />
+    @Html.LabelFor(m => m.MaxValue, $"Maximum {Model.MeasurementType}")
+    @Html.EditorFor(m => m.MaxValue, new { @class = "form-control" })
+    @Html.ValidationMessageFor(m => m.MaxValue, "", new { @class = "text-danger" })
 
-        @Html.LabelFor(m => m.ValueTypeSensor.MinValue)
-        @Html.EditorFor(m => m.ValueTypeSensor.MinValue, new { @type = "number", @class = "text-danger" })
-        @Html.ValidationMessageFor(m => m.ValueTypeSensor.MinValue)
-        <br />
-        @Html.LabelFor(m => m.ValueTypeSensor.Maxvalue)
-        @Html.EditorFor(m => m.ValueTypeSensor.Maxvalue, new { @type = "number", @class = "text-danger" })
-        @Html.ValidationMessageFor(m => m.ValueTypeSensor.Maxvalue)
+    <p class=""> <span class="label label-warning">Highest Value</span>  @Html.DisplayFor(m => m.HighestValue) @Model.MeasurementType </p>
 
-    <input type="submit" value="Register" class="btn btn-info btn-block" />
+    <input type="submit" value="Register" class="btn btn-primary btn-block" />
 }
 
-@*@section scripts{
-        @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/jqueryval")
-        @Scripts.Render("~/bundles/jqueryajax")
-
-    }*@

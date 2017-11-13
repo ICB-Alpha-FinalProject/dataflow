@@ -30,6 +30,14 @@ namespace DataflowICB
                     "~/Scripts/sb-admin*"
                 ));
 
+            bundles.Add(new ScriptBundle("~/bundles/mvcfoolproof").Include(
+                    "~/Client Scripts/mvcfoolproof.unobtrusive.js",
+                    "~/Client Scripts/mvcfoolproof.unobtrusive.min.js",
+                    "~/Client Scripts/MvcFoolproofJQueryValidation.js",
+                    "~/Client Scripts/MvcFoolproofJQueryValidation.min.js",
+                    "~/Client Scripts/MvcFoolproofValidation.js",
+                    "~/Client Scripts/MvcFoolproofValidation.min.js"));
+
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(

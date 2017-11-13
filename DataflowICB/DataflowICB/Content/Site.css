@@ -198,3 +198,12 @@ body, h1, h2, h3, h4, h5, h6 {
             margin-bottom: 0;
         }
 }
+textarea {
+    width: 400px;
+    height: 100px !important;
+}
+
+span.label{
+    font-size: 15px;
+    width:300px;
+}

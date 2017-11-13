@@ -10,15 +10,10 @@
         }))
 {
     @Html.AntiForgeryToken()
+    
+    @Html.HiddenFor(m=>m.MinPollingInterval)
 
     @Html.Partial("_CommonSensorForm", Model)
 
-    <input type="submit" value="Register" class="" />
-}
-
-@section scripts{
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/jqueryajax")
+    <input type="submit" value="Register" class="btn btn-primary btn-block" />
 }

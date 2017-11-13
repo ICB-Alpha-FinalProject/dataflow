@@ -22,5 +22,10 @@ namespace DataflowICB.Models.DataApi
         public string MeasureType { get; set; }
 
         public bool IsValueType { get; set; }
+
+        public double? LowestValue { get; set; }
+
+        public double? Highestvalue { get; set; }
+
     }
 }
