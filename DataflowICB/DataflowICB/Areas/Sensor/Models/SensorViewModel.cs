@@ -56,6 +56,8 @@ namespace DataflowICB.Areas.Sensor.Models
 
         public string CreatorUsername { get; set; }
 
+        public string ShareWithUser { get; set; }
+
         public ICollection<string> SharedWithUsers { get; set; }
 
     }

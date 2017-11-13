@@ -14,18 +14,18 @@ using Dataflow.DataServices.Models;
 
 namespace Dataflow.DataServices
 {
-    public class UserServices : IUserServices
+    public class CustomUserServicesICB : IUserServices
     {
         private readonly ApplicationDbContext dbContext;
 
-        public UserServices(ApplicationDbContext dbContext)
+        public CustomUserServicesICB(ApplicationDbContext dbContext)
         {
             Guard.WhenArgument(dbContext, "dbContext").IsNull().Throw();
 
             this.dbContext = dbContext;
         }
 
-        public void EditUser(UserDataModel editedUser)
+        public void EditUser(IUserDataModel editedUser)
         {
             Guard.WhenArgument(editedUser, "editedUser").IsNull().Throw();
 

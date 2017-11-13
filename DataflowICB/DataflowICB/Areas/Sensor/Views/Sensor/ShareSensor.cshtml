@@ -1,4 +1,4 @@
-﻿
+﻿@model SensorViewModel
 @{
     ViewBag.Title = "ShareSensor";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,15 +6,101 @@
 
 <h2>Share Sensor...</h2>
 
+@Styles.Render("~/bundles/tables-css")
+<!-- Example DataTables Card-->
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fa fa-table"></i> Data Table Example
+    </div>
+    <td class="card-body">
+    <td class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Measurement Type</th>
+                    <th>Description</th>
+                    <th>Online</th>
+                    <th>Current Value</th>
+                    <th>Public</th>
+
+                    @if (Model.IsValueType)
+                    {
+                        <th>Maximumal Value</th>
+                        <th>Minimal Value</th>
+                        <th>Lowest Value</th>
+                            <th>Highest Value</th>
+                    }
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>@Model.Name</td>
+                    <td>@Model.MeasurementType</td>
+                    <td>@Model.Description</td>
+                    <td>@Model.IsConnected</td>
+                    <td>@Model.CurrentValue</td>
+                    <td>@Model.IsPublic</td>
+
+                    @if (Model.IsValueType)
+
+                    {
+
+                        <td> @Model.MaxValue</td>
+                        <td> @Model.MinValue</td>
+                        <td> @Model.ValueTypeSensor.LowestValue</td>
+                        <td> @Model.ValueTypeSensor.HighestValue</td>
+                            @*<td> @Model.ValueTypeSensor.IsInAcceptableRange</td>*@
+                    }
+
+                </tr>
+
+
+            </tbody>
+        </table>
+</div>
+
+@using (Html.BeginForm("ShareSensor", "Sensor", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.Id)
+    @Html.EditorFor(m => m.ShareWithUser)
+    <div>
+        <p>Share with...</p>
+        <input type="submit" value="Share" />
+    </div>
+}
+
+<div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+</div>
+<!-- /.container-fluid-->
+<!-- /.content-wrapper-->
+
+@section  scripts{
+    @Scripts.Render("~/bundles/tables-js")
+
+    <script>
+        $('a').on('click', function () {
+            let href = $(this).attr('href')
+            let id = href.split('/').reverse()[0]
+            $('.div-form').attr('hidden', 'hidden')
+            let divId = '#' + id;
+            $(divId).removeAttr('hidden')
+        })
+    </script>
+
+}
+
 
 @*for autocomplete for users*@
 @*<script>
-$(document).ready(function(){
-  $("#myInput").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#myTable tr").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    $(document).ready(function(){
+      $("#myInput").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#myTable tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
     });
-  });
-});
-</script>*@
+    </script>*@

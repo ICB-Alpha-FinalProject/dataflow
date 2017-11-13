@@ -20,6 +20,9 @@ using SensorApiModels;
 
 namespace DataflowICB.Areas.Sensor.Controllers
 {
+
+    //TODO: Optimization of LINQ queries
+    //TODO: Validation
     public class SensorController : Controller
     {
 
@@ -222,7 +225,7 @@ namespace DataflowICB.Areas.Sensor.Controllers
                 PollingInterval = viewModel.PollingInterval,
                 IsBoolType = !viewModel.IsValueType,
                 MeasurementType = viewModel.MeasurementType,
-                IsPublic = false,
+                IsPublic = viewModel.IsPublic,
                 IsShared = viewModel.IsShared,
             });
 
@@ -230,9 +233,8 @@ namespace DataflowICB.Areas.Sensor.Controllers
 
         }
 
-
         [Authorize]
-        public ActionResult ShowDetails(int id)
+        public ActionResult ShareSensor(int id)
         {
             var sensor = this.sensorService.GetSensorById(id);
 
@@ -251,24 +253,60 @@ namespace DataflowICB.Areas.Sensor.Controllers
                 MaxValue = sensor.MaxValue,
                 MinValue = sensor.MinValue
             };
-
-            return this.View("ShowDetails", sensorViewModel);
+            return View("ShareSensor", sensorViewModel);
         }
 
-
-        [Authorize]
-        public ActionResult ShareSensor()
-        {
-            return View();
-        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
         public ActionResult ShareSensor(SensorViewModel viewModel)
         {
-            return View();
+            this.sensorService.ShareSensorWithUser(viewModel.Id, viewModel.ShareWithUser);
+
+            return this.RedirectToAction("UserSensors");
         }
+
+        //TODO: in detail view listing of who is the sensor shared with
+        [Authorize]
+        public ActionResult SharedWith(int id)
+        {
+            var sharedSensorUsers = this.sensorService.GetUsersSharedSensor(id);
+
+                var sharedUsersViewModel = new SensorViewModel()
+                {
+                    Id = sharedSensorUsers.Id,
+                    SharedWithUsers = sharedSensorUsers.SharedWithUsers
+                };
+
+            return this.View("SharedWith", sharedUsersViewModel);
+        }
+
+        [Authorize]
+        public ActionResult ShowDetails(int id)
+        {
+            var sensor = this.sensorService.GetUserSensorById(id);
+
+            var sensorViewModel = new SensorViewModel()
+            {
+                Id = sensor.Id,
+                CurrentValue = sensor.CurrentValue,
+                Name = sensor.Name,
+                Description = sensor.Description,
+                Url = sensor.URL,
+                PollingInterval = sensor.PollingInterval,
+                MeasurementType = sensor.MeasurementType,
+                IsPublic = sensor.IsPublic,
+                IsShared = sensor.IsShared,
+                MaxValue = sensor.MaxValue,
+                MinValue = sensor.MinValue
+            };
+
+            return this.View("ShowDetails", sensorViewModel);
+        }
+
+
+
 
         public ActionResult PublicSensors()
         {
@@ -287,5 +325,7 @@ namespace DataflowICB.Areas.Sensor.Controllers
 
             return View(sensors);
         }
+
+
     }
 }
