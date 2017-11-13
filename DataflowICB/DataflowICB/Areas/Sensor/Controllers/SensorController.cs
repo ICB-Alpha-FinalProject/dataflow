@@ -294,6 +294,7 @@ namespace DataflowICB.Areas.Sensor.Controllers
                 Name = sensor.Name,
                 Description = sensor.Description,
                 Url = sensor.URL,
+                IsValueType = !sensor.IsBoolType,
                 PollingInterval = sensor.PollingInterval,
                 MeasurementType = sensor.MeasurementType,
                 IsPublic = sensor.IsPublic,

@@ -69,8 +69,7 @@
 
         var chart;
          $.ajax({
-             url: "@Url.Action("GetHistoryDataForSensor", "Sensor", 
-                  new {area = "Sensor", sensorId = Model.Id, isValueType = Model.IsValueType })",
+             url: "@Html.Raw(@Url.Action("GetHistoryDataForSensor", "Sensor", new {area = "Sensor", sensorId = Model.Id, isValueType = Model.IsValueType }))",
              dataType: "JSON",
              complete: function (chartData) {
                  chartData = JSON.parse(chartData.responseJSON);
