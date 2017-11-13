@@ -175,6 +175,7 @@ namespace Dataflow.DataServices
                             Value = updatedValue.Value.ToLower() == "true" ? 1 : 0
                         };
                         s.BoolTypeSensor.BoolHistory.Add(valueHistory);
+                        s.BoolTypeSensor.CurrentValue = bool.Parse(updatedValue.Value);
                     }
                 }
                 else
@@ -188,6 +189,7 @@ namespace Dataflow.DataServices
                             Value = double.Parse(updatedValue.Value)
                         };
                         s.ValueTypeSensor.ValueHistory.Add(valueHistory);
+                        s.ValueTypeSensor.CurrentValue = double.Parse(updatedValue.Value);
                     }
 
                 }

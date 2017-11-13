@@ -20,6 +20,7 @@
                 <tr>
                     <th>Name</th>
                     <th>Measurement Type</th>
+                    <th>Polling Interval</th>
                     <th>Description</th>
                     <th>Online</th>
                     <th>Current Value</th>
@@ -27,6 +28,7 @@
                     {
                         <th>Public</th>
                     }
+                    <th>Funcionality</th>
 
                 </tr>
             </thead>
@@ -34,21 +36,23 @@
                 <tr>
                     <td>@Model.Name</td>
                     <td>@Model.MeasurementType</td>
+                    <td>@Model.PollingInterval</td>
                     <td>@Model.Description</td>
                     <td>@Model.IsConnected</td>
                     <td>@Model.CurrentValue</td>
-                    @if (Model.IsPublic == false)
+                    @if (!Model.IsPublic)
                     {
                         <td>@Model.IsPublic</td>
-                        <td>
-                            @Ajax.ActionLink("[Shared With...]", "SharedWith",
+                    }
+                    <td>
+                        @Ajax.ActionLink("[Shared With...]", "SharedWith",
                                         new { id = @Model.Id },
                                         new AjaxOptions
                                         {
                                             InsertionMode = InsertionMode.Replace,
                                             UpdateTargetId = @Model.Id.ToString()
                                         })
-                            @Ajax.ActionLink("[X]", "DeleteUserSensor",
+                        @Ajax.ActionLink("[X]", "DeleteUserSensor",
 
                                         new { id = @Model.Id },
                                         new AjaxOptions
@@ -58,7 +62,6 @@
                                         })
 
                     </td>
-                    }
                 </tr>
             </tbody>
         </table>
