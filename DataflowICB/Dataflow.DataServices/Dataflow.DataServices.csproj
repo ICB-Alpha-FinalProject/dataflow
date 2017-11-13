@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\ISensorDataModel.cs" />
     <Compile Include="Contracts\ISensorService.cs" />
     <Compile Include="Contracts\IUserDataModel.cs" />
     <Compile Include="Contracts\IUserServices.cs" />
