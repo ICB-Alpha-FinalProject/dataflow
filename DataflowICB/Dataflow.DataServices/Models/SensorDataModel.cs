@@ -32,6 +32,8 @@ namespace Dataflow.DataServices.Models
 
         public bool IsShared { get; set; }
 
+        public bool IsConnected { get; set; }
+
         public string OwnerId { get; set; }
 
         public string Owner { get; set; }

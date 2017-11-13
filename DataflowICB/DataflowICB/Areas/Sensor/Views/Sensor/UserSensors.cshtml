@@ -12,18 +12,22 @@
                 <thead>
                     <tr>
                         <th>Name</th>
+                        <th>Measurement Type</th>
                         <th>Description</th>
+                        <th>Online</th>
                         <th>Current Value</th>
-                        <th>Access level</th>
+                        <th>Public</th>
                         <th>Shared</th>
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
                         <th>Name</th>
+                        <th>Measurement Type</th>
                         <th>Description</th>
+                        <th>Online</th>
                         <th>Current Value</th>
-                        <th>Access level</th>
+                        <th>Public</th>
                         <th>Shared</th>
                     </tr>
                 </tfoot>
@@ -32,7 +36,9 @@
                     {
                         <tr>
                             <td>@sensor.Name</td>
+                            <td>@sensor.MeasurementType</td>
                             <td>@sensor.Description</td>
+                            <td>@sensor.IsConnected</td>
                             <td>@sensor.CurrentValue</td>
                             <td>@sensor.IsPublic</td>
                             <td>@sensor.IsShared</td>

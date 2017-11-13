@@ -2,21 +2,108 @@
 
 <h2>Details...</h2>
 
+@Styles.Render("~/bundles/tables-css")
+<!-- Example DataTables Card-->
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fa fa-table"></i> Data Table Example
+    </div>
+    <td class="card-body">
+        <td class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Measurement Type</th>
+                        <th>Description</th>
+                        <th>Online</th>
+                        <th>Current Value</th>
+                        <th>Public</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Name</th>
+                        <th>Measurement Type</th>
+                        <th>Description</th>
+                        <th>Online</th>
+                        <th>Current Value</th>
+                        <th>Public</th>
 
+                        @if (Model.IsValueType)
+                        {
+                            <th>Maximumal Value</th>
+                            <th>Minimal Value</th>
+                            <th>Lowest Value</th>
+                            <th>Highest Value</th>
+                        }
 
-<div>Current Value : @Model.CurrentValue</div>
-<div>Measurement Type : @Model.MeasurementType</div>
-<div>Name : @Model.Name</div>
-<div>Description : @Model.Description</div>
-<div>Polling Interval : @Model.PollingInterval</div>
-<div>Public Sensor : @Model.IsPublic</div>
-<div>Shared Sensor : @Model.IsShared</div>
-@if (Model.IsValueType)
-{
-    <div>Maximum Value : @Model.MaxValue</div>
-    <div>Minimum Value : @Model.MinValue</div>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    <tr>
+                        <td>@Model.Name</td>
+                        <td>@Model.MeasurementType</td>
+                        <td>@Model.Description</td>
+                        <td>@Model.IsConnected</td>
+                        <td>@Model.CurrentValue</td>
+                        <td>@Model.IsPublic</td>
+
+                        @if (Model.IsValueType)
+                      
+                        {
+
+                           <td> @Model.MaxValue</td>
+                            <td> @Model.MinValue</td>
+                            <td> @Model.ValueTypeSensor.LowestValue</td>
+                            <td> @Model.ValueTypeSensor.HighestValue</td>
+                            @*<td> @Model.ValueTypeSensor.IsInAcceptableRange</td>*@ 
+                          
+
+                        }
+
+                        <td>
+
+                            @Ajax.ActionLink("[Show History...]", "SensorHistoryGraph",
+                                        new { id = @Model.Id },
+                                        new AjaxOptions
+                                        {
+                                            InsertionMode = InsertionMode.Replace,
+                                            UpdateTargetId = @Model.Id.ToString()
+                                        })
+                            @Ajax.ActionLink("[Shared With...]", "SensorHistoryGraph",
+                                        new { id = @Model.Id },
+                                        new AjaxOptions
+                                        {
+                                            InsertionMode = InsertionMode.Replace,
+                                            UpdateTargetId = @Model.Id.ToString()
+                                        })
+
+                        </td>
+                        
+                    </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+</div>
+<!-- /.container-fluid-->
+<!-- /.content-wrapper-->
+
+@section  scripts{
+    @Scripts.Render("~/bundles/tables-js")
+
+    <script>
+        $('a').on('click', function () {
+            let href = $(this).attr('href')
+            let id = href.split('/').reverse()[0]
+            $('.div-form').attr('hidden', 'hidden')
+            let divId = '#' + id;
+            $(divId).removeAttr('hidden')
+        })
+    </script>
 
 }
-
-
-   

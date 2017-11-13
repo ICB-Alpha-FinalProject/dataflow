@@ -51,6 +51,8 @@ namespace DataflowICB.Areas.Sensor.Models
 
         public bool IsValueType { get; set; }
 
+        public bool IsConnected { get; set; }
+
         public string CreatorUsername { get; set; }
 
         public ICollection<string> SharedWithUsers { get; set; }
