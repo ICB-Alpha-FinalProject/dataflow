@@ -3,7 +3,7 @@
 <head>
     <title>dataflow.</title>
     @Styles.Render("~/Content/css")
-    @Styles.Render("~/bundles/vendor-css");
+    @Styles.Render("~/bundles/vendor-css")
 </head>
 @*http://fontawesome.io/icons/*@
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
@@ -41,7 +41,7 @@
                                 @Html.ActionLink("My Sensors", "UserSensors", "Sensor", new { area = "Sensor" }, new { })
                             </li>
                             <li>
-                                @Html.ActionLink("Shared Sensors", "UserSensors", "Sensor", new { area = "Sensor" }, new { })
+                                @Html.ActionLink("Shared Sensors", "SharedSensors", "Sensor", new { area = "Sensor" }, new { })
                             </li>
                             <li>
                                 @Html.ActionLink("Register New Sensor", "RegisterSensor", "Sensor", new { area = "Sensor" }, new { })
@@ -182,7 +182,7 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Edit", "Account")">
+                        <a class="nav-link" href="@Url.Action("UserProfile", "Account")">
                             <i class="fa fa-fw fa-user"></i> @User.Identity.Name
                         </a>
                     </li>

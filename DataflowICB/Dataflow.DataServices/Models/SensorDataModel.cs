@@ -22,15 +22,17 @@ namespace Dataflow.DataServices.Models
         
         public string CurrentValue { get; set; }
 
-        public double MinValue { get; set; }
-
         public double MaxValue { get; set; }
+
+        public double MinValue { get; set; }
 
         public bool IsBoolType { get; set; }
 
         public bool IsPublic { get; set; }
 
         public bool IsShared { get; set; }
+
+        public bool IsConnected { get; set; }
 
         public string OwnerId { get; set; }
 

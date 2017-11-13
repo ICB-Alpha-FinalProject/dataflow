@@ -16,8 +16,6 @@ namespace Dataflow.DataServices.Models
 
         public bool IsInAcceptableRange { get; set; }
 
-        public bool IsConnected { get; set; }
-
         public double CurrentValue { get; set; }
 
         public ICollection<ValueHistoryDataModel> ValueHistory { get; set; }

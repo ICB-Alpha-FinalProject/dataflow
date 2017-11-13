@@ -13,45 +13,46 @@ using DataflowICB.Database.Models;
 using DataflowICB.Areas.Sensor.Models;
 using Microsoft.AspNet.Identity;
 using DataflowICB.Models.DataApi;
+using Dataflow.Services.Contracts;
+using Bytes2you.Validation;
+using DataflowICB.App_Start;
+using SensorApiModels;
 
 namespace DataflowICB.Areas.Sensor.Controllers
 {
+
+    //TODO: Optimization of LINQ queries
+    //TODO: Validation
     public class SensorController : Controller
     {
 
         private readonly ISensorService sensorService;
+        private readonly IHttpClientProvider httpClient;
 
-        public SensorController(ISensorService sensorService)
+        public SensorController(ISensorService sensorService, IHttpClientProvider httpClient)
         {
-            // validation
+            Guard.WhenArgument(sensorService, "sensorService").IsNull().Throw();
+            Guard.WhenArgument(httpClient, "httpClient").IsNull().Throw();
 
+            this.httpClient = httpClient;
             this.sensorService = sensorService;
         }
 
         [Authorize]
-        [OutputCache(Duration = 10)]
+        //[OutputCache(Duration = 10)]
         public async Task<ActionResult> RegisterSensor()
         {
-            // TODO: depdency inverse HttpClient
-            using (HttpClient hc = new HttpClient())
+            var resp = await httpClient.GetAsync(AppConstants.AllSensorsUrl);
+            var content = await resp.Content.ReadAsStringAsync();
+            var resViewModel = JsonConvert.DeserializeObject<List<SensorApiData>>(content);
+
+            foreach (var sensor in resViewModel)
             {
-                hc.DefaultRequestHeaders.Add("auth-token", "8e4c46fe-5e1d-4382-b7fc-19541f7bf3b0");
-                var resp = await hc.GetAsync("http://telerikacademy.icb.bg/api/sensor/all");
-
-                resp.EnsureSuccessStatusCode();
-
-                string content = await resp.Content.ReadAsStringAsync();
-
-                var resViewModel = JsonConvert.DeserializeObject<List<SensorApiData>>(content);
-
-                foreach (var sensor in resViewModel)
-                {
-                    var isValueTYpe = !sensor.Description.Contains("false");
-                    sensor.IsValueType = isValueTYpe;
-                }
-
-                return this.View(resViewModel);
+                var isValueTYpe = !sensor.Description.Contains("false");
+                sensor.IsValueType = isValueTYpe;
             }
+
+            return this.View(resViewModel);
         }
 
         [HttpPost]
@@ -72,17 +73,7 @@ namespace DataflowICB.Areas.Sensor.Controllers
                     LastUpdate = DateTime.Now
                 };
 
-                if (model.BoolTypeSensor != null)
-                {
-                    var boolType = new BoolTypeSensor()
-                    {
-                        MeasurementType = model.MeasurementType
-                    };
-                    sensor.IsBoolType = true;
-                    sensor.BoolTypeSensor = boolType;
-                }
-
-                if (model.ValueTypeSensor != null)
+                if (model.IsValueType)
                 {
                     var valueType = new ValueTypeSensor()
                     {
@@ -91,8 +82,18 @@ namespace DataflowICB.Areas.Sensor.Controllers
                         Maxvalue = model.ValueTypeSensor.Maxvalue,
                         MinValue = model.ValueTypeSensor.MinValue
                     };
-
+                    sensor.IsBoolType = false;
                     sensor.ValueTypeSensor = valueType;
+                }
+                else
+                {
+                    var boolType = new BoolTypeSensor()
+                    {
+                        MeasurementType = model.MeasurementType
+                    };
+
+                    sensor.IsBoolType = true;
+                    sensor.BoolTypeSensor = boolType;
                 }
 
                 this.sensorService.AddSensor(sensor);
@@ -127,16 +128,10 @@ namespace DataflowICB.Areas.Sensor.Controllers
 
             if (isValueType)
             {
-                var valueTypeSensorVm = new ValueTypeSensorViewModel();
-
-                sensorVm.ValueTypeSensor = valueTypeSensorVm;
                 return this.View("RegisterValueSensor", sensorVm);
             }
             else
             {
-                var boolSensorVm = new BoolTypeSensorViewModel();
-
-                sensorVm.BoolTypeSensor = boolSensorVm;
                 return this.View("RegisterBoolSensor", sensorVm);
             }
         }
@@ -172,15 +167,158 @@ namespace DataflowICB.Areas.Sensor.Controllers
         {
             var sensors = this.sensorService.GetAllSensorsForUser(this.User.Identity.Name)
             .Select(sensor => new SensorViewModel
+            {
+                Id = sensor.Id,
+                Name = sensor.Name,
+                Description = sensor.Description,
+                CurrentValue = sensor.CurrentValue,
+                IsValueType = !sensor.IsBoolType,
+                IsPublic = sensor.IsPublic,
+                IsShared = sensor.IsShared,
+                IsConnected = sensor.IsConnected,
+                MeasurementType = sensor.MeasurementType
+
+            }).ToList();
+
+            return View(sensors);
+        }
+
+
+        [Authorize]
+        public ActionResult EditSensor(int id)
+        {
+            var sensor = this.sensorService.GetSensorById(id);
+
+            var sensorViewModel = new SensorViewModel()
+            {
+                Id = sensor.Id,
+                Name = sensor.Name,
+                Description = sensor.Description,
+                Url = sensor.URL,
+                PollingInterval = sensor.PollingInterval,
+                MeasurementType = sensor.MeasurementType,
+                IsValueType = !sensor.IsBoolType,
+                IsPublic = sensor.IsPublic,
+                IsShared = sensor.IsShared,
+                MaxValue = sensor.MaxValue,
+                MinValue = sensor.MinValue
+            };
+
+            return this.View("EditSensor", sensorViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public ActionResult EditSensor(SensorViewModel viewModel)
+        {
+
+            this.sensorService.EditSensor(new Dataflow.DataServices.Models.SensorDataModel()
+            {
+                Id = viewModel.Id,
+                Name = viewModel.Name,
+                Description = viewModel.Description,
+                URL = viewModel.Url,
+                PollingInterval = viewModel.PollingInterval,
+                IsBoolType = !viewModel.IsValueType,
+                MeasurementType = viewModel.MeasurementType,
+                IsPublic = viewModel.IsPublic,
+                IsShared = viewModel.IsShared,
+            });
+
+            return this.RedirectToAction("UserSensors");
+
+        }
+
+        [Authorize]
+        public ActionResult ShareSensor(int id)
+        {
+            var sensor = this.sensorService.GetSensorById(id);
+
+            var sensorViewModel = new SensorViewModel()
+            {
+                Id = sensor.Id,
+                CurrentValue = sensor.CurrentValue,
+                Name = sensor.Name,
+                Description = sensor.Description,
+                Url = sensor.URL,
+                PollingInterval = sensor.PollingInterval,
+                MeasurementType = sensor.MeasurementType,
+                IsPublic = sensor.IsPublic,
+                IsShared = sensor.IsShared,
+                MaxValue = sensor.MaxValue,
+                MinValue = sensor.MinValue
+            };
+            return View("ShareSensor", sensorViewModel);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public ActionResult ShareSensor(SensorViewModel viewModel)
+        {
+            this.sensorService.ShareSensorWithUser(viewModel.Id, viewModel.ShareWithUser);
+
+            return this.RedirectToAction("UserSensors");
+        }
+
+        //TODO: in detail view listing of who is the sensor shared with
+        //[Authorize]
+        //public ActionResult SharedWith()
+        //{
+        //    var sharedSensorUsers = this.sensorService.
+
+        //        var sharedUsersViewModel = new SensorViewModel()
+        //        {
+        //        };
+
+           
+        //}
+
+        [Authorize]
+        public ActionResult ShowDetails(int id)
+        {
+            var sensor = this.sensorService.GetUserSensorById(id);
+
+            var sensorViewModel = new SensorViewModel()
+            {
+                CurrentValue = sensor.CurrentValue,
+                Name = sensor.Name,
+                Description = sensor.Description,
+                Url = sensor.URL,
+                PollingInterval = sensor.PollingInterval,
+                MeasurementType = sensor.MeasurementType,
+                IsPublic = sensor.IsPublic,
+                IsShared = sensor.IsShared,
+                MaxValue = sensor.MaxValue,
+                MinValue = sensor.MinValue
+            };
+
+            return this.View("ShowDetails", sensorViewModel);
+        }
+
+
+
+
+        public ActionResult PublicSensors()
+        {
+            var sensors = this.sensorService.GetAllPublicSensors()
+             .Select(sensor => new SensorViewModel
              {
+
+                 Id = sensor.Id,
+                 CreatorUsername = sensor.Owner,
                  Name = sensor.Name,
                  Description = sensor.Description,
-                 CurrentValue = sensor.CurrentValue,
-                 IsPublic = sensor.IsPublic,
-                 IsShared = sensor.IsShared
+                 MeasurementType = sensor.MeasurementType,
+                 IsConnected = sensor.IsConnected
+
              }).ToList();
 
             return View(sensors);
         }
+
+
     }
 }

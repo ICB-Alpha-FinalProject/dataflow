@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace DataflowICB.App_Start
+namespace SensorApiModels
 {
-    public static class Constants
+    public static class AppConstants
     {
         public const int MaxPollingInterval = 86400;
+        public const string AllSensorsUrl = "http://telerikacademy.icb.bg/api/sensor/all";
     }
 }

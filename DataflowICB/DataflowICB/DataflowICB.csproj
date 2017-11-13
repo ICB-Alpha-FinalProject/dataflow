@@ -47,6 +47,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Bytes2you.Validation, Version=2.0.0.0, Culture=neutral, PublicKeyToken=a7d501dd757e0442, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bytes2you.Validation.2.0.0.0\lib\portable-win+net40+sl40+wp+Xbox40\Bytes2you.Validation.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.2.2\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
     </Reference>
@@ -210,7 +213,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
-    <Compile Include="App_Start\Constants.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
@@ -331,15 +333,16 @@
     <Content Include="Areas\Sensor\Views\Shared\_CommonSensorForm.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\AllUsers.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_EditUser.cshtml" />
-    <Content Include="Areas\Sensor\Views\Shared\_EditSensor.cshtml" />
-    <Content Include="Areas\Sensor\Views\Shared\_SensorDetails.cshtml" />
-    <Content Include="Areas\Sensor\Views\Shared\_SharedWithUsers.cshtml" />
     <Content Include="Areas\Sensor\Views\Sensor\UserSensors.cshtml" />
-    <Content Include="Areas\Sensor\Views\Shared\_ShareSensors.cshtml" />
     <Content Include="Areas\Sensor\Views\Sensor\SensorHistoryGraph.cshtml" />
-    <Content Include="Areas\Sensor\Views\Shared\_ListAllSensors.cshtml" />
+    <Content Include="Areas\Sensor\Views\Sensor\EditSensor.cshtml" />
+    <Content Include="Areas\Sensor\Views\Sensor\ShowDetails.cshtml" />
+    <Content Include="Areas\Sensor\Views\Sensor\ShareSensor.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_EditSensor.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\AllSensors.cshtml" />
+    <Content Include="Areas\Sensor\Views\Sensor\PublicSensors.cshtml" />
+    <Content Include="Areas\Sensor\Views\Sensor\SharedSensors.cshtml" />
+    <Content Include="Areas\Sensor\Views\Sensor\SharedWith.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -395,7 +398,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Account\Edit.cshtml" />
+    <Content Include="Views\Account\UserProfile.cshtml" />
     <Content Include="Areas\Sensor\Views\Sensor\RegisterSensor.cshtml" />
   </ItemGroup>
   <ItemGroup>

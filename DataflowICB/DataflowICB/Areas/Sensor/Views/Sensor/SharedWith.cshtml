@@ -1,0 +1,14 @@
+﻿@model SensorViewModel
+@{
+    ViewBag.Title = "SharedWith";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Shared With...</h2>
+
+@Html.HiddenFor(m => m.Id)
+
+@foreach (var user in Model.SharedWithUsers)
+{
+    <div>@user</div>
+}

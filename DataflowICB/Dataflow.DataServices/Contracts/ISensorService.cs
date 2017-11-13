@@ -13,10 +13,13 @@ namespace Dataflow.DataServices.Contracts
     public interface ISensorService
     {
         void AddSensor(Sensor sensor);
-        IEnumerable<SensorDataModel> GetAllSensors(bool IsAdmin);
-        Task UpdateSensors();
-        SensorDataModel GetSensorById(int Id);
         void EditSensor(SensorDataModel editedSensor);
+        void ShareSensorWithUser(int id, string username);
+        IEnumerable<SensorDataModel> GetAllSensors(bool IsAdmin);
+        IEnumerable<SensorDataModel> GetAllPublicSensors();
+        Task UpdateSensors();
+        SensorDataModel GetSensorById(int id);
+        SensorDataModel GetUserSensorById(int id);
         IEnumerable<SensorDataModel> GetAllSensorsForUser(string name);
         IEnumerable<SensorApiUpdate> HistoryDataForBoolSensorsById(int sensorId);
         IEnumerable<SensorApiUpdate> HistoryDataForValueSensorsById(int sensorId);

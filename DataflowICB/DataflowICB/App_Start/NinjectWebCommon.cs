@@ -15,6 +15,8 @@ namespace DataflowICB.App_Start
     using Dataflow.DataServices.Contracts;
     using Dataflow.DataServices;
     using System.Net.Http;
+    using Dataflow.Services.Contracts;
+    using Dataflow.Services;
 
     public static class NinjectWebCommon
     {
@@ -86,7 +88,8 @@ namespace DataflowICB.App_Start
                 .To<SensorService>()
                 .InRequestScope();
 
-            kernel.Bind<HttpClient>().ToSelf()
+            kernel.Bind<IHttpClientProvider>()
+                .To<HttpClientProvider>()
                 .InRequestScope();
         }
     }
