@@ -183,7 +183,7 @@ namespace DataflowICB.Areas.Sensor.Controllers
         [Authorize]
         public ActionResult EditSensor(int id)
         {
-            var sensor = this.sensorService.GetUserSensorById(id);
+            var sensor = this.sensorService.GetSensorById(id);
 
             var sensorViewModel = new SensorViewModel()
             {
@@ -230,7 +230,7 @@ namespace DataflowICB.Areas.Sensor.Controllers
         [Authorize]
         public ActionResult ShowDetails(int id)
         {
-            var sensor = this.sensorService.GetUserSensorById(id);
+            var sensor = this.sensorService.GetSensorById(id);
 
             var sensorViewModel = new SensorViewModel()
             {
