@@ -1,11 +1,12 @@
-﻿using DataflowICB.Database.Models;
+﻿using Dataflow.DataServices.Contracts;
+using DataflowICB.Database.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
 namespace Dataflow.DataServices.Models
 {
-    public class UserDataModel
+    public class UserDataModel : IUserDataModel
     {
         public string Id { get; set; }
 

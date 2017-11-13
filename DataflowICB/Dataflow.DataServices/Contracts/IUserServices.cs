@@ -14,6 +14,6 @@ namespace Dataflow.DataServices.Contracts
 
         ICollection<UserDataModel> GetAllUsers();
 
-        void EditUser(UserDataModel editedUser);
+        void EditUser(IUserDataModel editedUser);
     }
 }
