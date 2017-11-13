@@ -17,20 +17,9 @@
                         <th>Online</th>
                         <th>Current Value</th>
                         <th>Public</th>
-                        <th>Shared</th>
+                        <th>Functionality</th>
                     </tr>
                 </thead>
-                <tfoot>
-                    <tr>
-                        <th>Name</th>
-                        <th>Measurement Type</th>
-                        <th>Description</th>
-                        <th>Online</th>
-                        <th>Current Value</th>
-                        <th>Public</th>
-                        <th>Shared</th>
-                    </tr>
-                </tfoot>
                 <tbody>
                     @foreach (var sensor in @Model)
                     {
@@ -41,7 +30,6 @@
                             <td>@sensor.IsConnected</td>
                             <td>@sensor.CurrentValue</td>
                             <td>@sensor.IsPublic</td>
-                            <td>@sensor.IsShared</td>
                             <td>
                                 @Ajax.ActionLink("[Edit]", "EditSensor",
                                         new { id = sensor.Id },

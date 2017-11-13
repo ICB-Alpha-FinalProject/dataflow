@@ -84,13 +84,15 @@ namespace Dataflow.DataServices
 
         public IEnumerable<SensorDataModel> GetAllPublicSensors()
         {
-            var publicSenors = this.context.Sensors.Where(m => m.IsPublic == true)
+            var publicSenors = this.context.Sensors.Where(m => m.IsPublic == true && m.IsDeleted == false)
                 .Select(m => new SensorDataModel
                 {
                     Id = m.Id,
                     Owner = m.Owner.UserName,
                     Name = m.Name,
-                    Description = m.Description
+                    Description = m.Description,
+                    MeasurementType = m.IsBoolType ? m.BoolTypeSensor.MeasurementType : m.ValueTypeSensor.MeasurementType,
+                    CurrentValue = m.IsBoolType ? m.BoolTypeSensor.CurrentValue.ToString() : m.ValueTypeSensor.CurrentValue.ToString()
 
                 }).ToList();
 
@@ -127,10 +129,11 @@ namespace Dataflow.DataServices
 
         public SensorDataModel GetUserSensorById(int id)
         {
-            var sensor = this.context.Sensors.Where(s => s.Id == id)
+            var sensor = this.context.Sensors.Where(s => s.Id == id && s.IsDeleted == false)
                 .Select(m => new SensorDataModel
                 {
                     Id = m.Id,
+                    CurrentValue = m.IsBoolType ? m.BoolTypeSensor.CurrentValue.ToString() : m.ValueTypeSensor.CurrentValue.ToString(),
                     Name = m.Name,
                     Description = m.Description,
                     URL = m.URL,
@@ -157,7 +160,7 @@ namespace Dataflow.DataServices
             {
                 var url = s.URL;
 
-                var resp = await httpClient.GetAsync(AppConstants.AllSensorsUrl);
+                var resp = await httpClient.GetAsync(url);
                 var content = await resp.Content.ReadAsStringAsync();
 
                 var updatedValue = JsonConvert.DeserializeObject<SensorApiUpdate>(content);
@@ -167,13 +170,14 @@ namespace Dataflow.DataServices
                 {
                     if (s.BoolTypeSensor.CurrentValue != bool.Parse(updatedValue.Value))
                     {
-                        var valueHistory = new ValueHistory()
+                       var valueHistory = new ValueHistory()
                         {
                             BoolSensor = s.BoolTypeSensor,
                             Date = updatedValue.TimeStamp,
-                            Value = double.Parse(updatedValue.Value)
+                            Value = updatedValue.Value.ToLower() == "true" ? 1 : 0
                         };
                         s.BoolTypeSensor.BoolHistory.Add(valueHistory);
+                        s.BoolTypeSensor.CurrentValue = bool.Parse(updatedValue.Value);
                     }
                 }
                 else
@@ -187,6 +191,7 @@ namespace Dataflow.DataServices
                             Value = double.Parse(updatedValue.Value)
                         };
                         s.ValueTypeSensor.ValueHistory.Add(valueHistory);
+                        s.ValueTypeSensor.CurrentValue = double.Parse(updatedValue.Value);
                     }
 
                 }
@@ -201,7 +206,7 @@ namespace Dataflow.DataServices
 
         public IEnumerable<SensorDataModel> GetAllSensorsForUser(string username)
         {
-            var sensorForUser = context.Sensors.Where(s => s.Owner.UserName == username)
+            var sensorForUser = context.Sensors.Where(s => s.Owner.UserName == username && s.IsDeleted == false)
                 .Select(sensor => new SensorDataModel
                 {
                     Id = sensor.Id,
@@ -223,23 +228,41 @@ namespace Dataflow.DataServices
         {
             Guard.WhenArgument(username, "username").IsNull().Throw();
 
-            var sharedSensor = this.context.Sensors.Where(s => s.Id == id).First();
+            var sharedSensor = this.context.Sensors.Single(s => s.Id == id && s.IsDeleted == false);
 
-            var user = this.context.Users.Where(n => n.UserName == username).First();
+            var user = this.context.Users.Single(n => n.UserName == username);
 
             sharedSensor.SharedWithUsers.Add(user);
 
             this.context.SaveChanges();
         }
 
-        //TODO: in detail view listing of who is the sensor shared with
-        //public IEnumerable<UserDataModel> GetUsersSharedSensor(int id, string username)
-        //{
-        //    var sharedSensor = this.context.Sensors.Where(s => s.Id == id).Select(c => c.SharedWithUsers).First();
+        public void DeleteSensor(int id)
+        {
+            var sensorToDelete = this.context.Sensors.Single(s => s.Id == id);
 
-        //    IEnumerable<UserDataModel> users = new IEnumerable<UserDataModel>()
+            sensorToDelete.IsDeleted = true;
 
-        //}
+            this.context.SaveChanges();
+        }
+
+        public SensorDataModel GetUsersSharedSensor(int id)
+        {
+            var sharedSensor = this.context.Sensors.Single(s => s.Id == id && s.IsDeleted == false).SharedWithUsers.ToList();
+
+
+            var sensorDModel = new SensorDataModel()
+            {
+                Id = id,
+            };
+
+            for (int i = 0; i < sharedSensor.Count; i++)
+            {
+                sensorDModel.SharedWithUsers.Add(sharedSensor[i].UserName);
+            }
+
+            return sensorDModel;
+        }
 
         public IEnumerable<SensorApiUpdate> HistoryDataForBoolSensorsById(int sensorId)
         {

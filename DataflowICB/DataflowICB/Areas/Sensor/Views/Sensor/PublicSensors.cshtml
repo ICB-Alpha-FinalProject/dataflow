@@ -20,18 +20,9 @@
                         <th>Description</th>
                         <th>Online</th>
                         <th>Current Value</th>
+                        <th>Functionality</th>
                     </tr>
                 </thead>
-                <tfoot>
-                    <tr>
-                        <th>Owner</th>
-                        <th>Name</th>
-                        <th>Measurement Type</th>
-                        <th>Description</th>
-                        <th>Online</th>
-                        <th>Current Value</th>
-                    </tr>
-                </tfoot>
                 <tbody>
                     @foreach (var sensor in @Model)
                     {
@@ -65,7 +56,7 @@
 <!-- /.container-fluid-->
 <!-- /.content-wrapper-->
 
-@section  scripts{
+@section scripts{
     @Scripts.Render("~/bundles/tables-js")
 
     <script>

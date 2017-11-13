@@ -15,6 +15,8 @@ namespace Dataflow.DataServices.Contracts
         void AddSensor(Sensor sensor);
         void EditSensor(ISensorDataModel editedSensor);
         void ShareSensorWithUser(int id, string username);
+        void DeleteSensor(int id);
+        SensorDataModel GetUsersSharedSensor(int id);
         IEnumerable<SensorDataModel> GetAllSensors(bool IsAdmin);
         IEnumerable<SensorDataModel> GetAllPublicSensors();
         Task UpdateSensors();

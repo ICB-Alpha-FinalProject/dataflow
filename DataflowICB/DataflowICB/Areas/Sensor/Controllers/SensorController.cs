@@ -142,18 +142,21 @@ namespace DataflowICB.Areas.Sensor.Controllers
             //return this.RedirectToAction("Index", "Home", new { area = "" });
             return new EmptyResult();
         }
-
-        [Authorize]
-        public ActionResult SensorHistoryGraph(string sensorId)
-        {
-            return this.View();
-        }
+        
 
         [AjaxOnly]
         [Authorize]
-        public JsonResult GetHistoryDataForSensor(int sensorId)
+        public JsonResult GetHistoryDataForSensor(int sensorId, bool isValueType)
         {
-            var sensors = this.sensorService.HistoryDataForValueSensorsById(sensorId);
+            IEnumerable<SensorApiUpdate> sensors;
+            if (isValueType)
+            {
+                sensors = this.sensorService.HistoryDataForValueSensorsById(sensorId);
+            }
+            else
+            {
+                sensors = this.sensorService.HistoryDataForBoolSensorsById(sensorId);
+            }
             var serialized = JsonConvert.SerializeObject(sensors);
 
             return this.Json(serialized, JsonRequestBehavior.AllowGet);
@@ -161,7 +164,7 @@ namespace DataflowICB.Areas.Sensor.Controllers
 
         // http://blog.danielcorreia.net/asp-net-mvc-vary-by-current-user/
         // so it doesnt cache info for one user for all others
-        [OutputCache(Duration = 30, VaryByCustom = "User")]
+        //[OutputCache(Duration = 30, VaryByCustom = "User")]
         [Authorize]
         public ActionResult UserSensors()
         {
@@ -243,6 +246,7 @@ namespace DataflowICB.Areas.Sensor.Controllers
                 Description = sensor.Description,
                 Url = sensor.URL,
                 PollingInterval = sensor.PollingInterval,
+                IsValueType = !sensor.IsBoolType,
                 MeasurementType = sensor.MeasurementType,
                 IsPublic = sensor.IsPublic,
                 IsShared = sensor.IsShared,
@@ -264,17 +268,19 @@ namespace DataflowICB.Areas.Sensor.Controllers
         }
 
         //TODO: in detail view listing of who is the sensor shared with
-        //[Authorize]
-        //public ActionResult SharedWith()
-        //{
-        //    var sharedSensorUsers = this.sensorService.
+        [Authorize]
+        public ActionResult SharedWith(int id)
+        {
+            var sharedSensorUsers = this.sensorService.GetUsersSharedSensor(id);
 
-        //        var sharedUsersViewModel = new SensorViewModel()
-        //        {
-        //        };
+                var sharedUsersViewModel = new SensorViewModel()
+                {
+                    Id = sharedSensorUsers.Id,
+                    SharedWithUsers = sharedSensorUsers.SharedWithUsers
+                };
 
-           
-        //}
+            return this.View("SharedWith", sharedUsersViewModel);
+        }
 
         [Authorize]
         public ActionResult ShowDetails(int id)
@@ -283,10 +289,12 @@ namespace DataflowICB.Areas.Sensor.Controllers
 
             var sensorViewModel = new SensorViewModel()
             {
+                Id = sensor.Id,
                 CurrentValue = sensor.CurrentValue,
                 Name = sensor.Name,
                 Description = sensor.Description,
                 Url = sensor.URL,
+                IsValueType = !sensor.IsBoolType,
                 PollingInterval = sensor.PollingInterval,
                 MeasurementType = sensor.MeasurementType,
                 IsPublic = sensor.IsPublic,
@@ -298,7 +306,12 @@ namespace DataflowICB.Areas.Sensor.Controllers
             return this.View("ShowDetails", sensorViewModel);
         }
 
+        public ActionResult DeleteUserSensor(int id)
+        {
+            this.sensorService.DeleteSensor(id);
 
+            return this.RedirectToAction("UserSensors");
+        }
 
 
         public ActionResult PublicSensors()
@@ -306,7 +319,7 @@ namespace DataflowICB.Areas.Sensor.Controllers
             var sensors = this.sensorService.GetAllPublicSensors()
              .Select(sensor => new SensorViewModel
              {
-
+                 CurrentValue = sensor.CurrentValue,
                  Id = sensor.Id,
                  CreatorUsername = sensor.Owner,
                  Name = sensor.Name,

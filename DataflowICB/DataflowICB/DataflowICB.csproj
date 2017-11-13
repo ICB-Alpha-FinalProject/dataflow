@@ -334,7 +334,6 @@
     <Content Include="Areas\Admin\Views\Admin\AllUsers.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_EditUser.cshtml" />
     <Content Include="Areas\Sensor\Views\Sensor\UserSensors.cshtml" />
-    <Content Include="Areas\Sensor\Views\Sensor\SensorHistoryGraph.cshtml" />
     <Content Include="Areas\Sensor\Views\Sensor\EditSensor.cshtml" />
     <Content Include="Areas\Sensor\Views\Sensor\ShowDetails.cshtml" />
     <Content Include="Areas\Sensor\Views\Sensor\ShareSensor.cshtml" />
