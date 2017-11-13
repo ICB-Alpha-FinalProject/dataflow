@@ -161,7 +161,7 @@ namespace DataflowICB.Areas.Sensor.Controllers
 
         // http://blog.danielcorreia.net/asp-net-mvc-vary-by-current-user/
         // so it doesnt cache info for one user for all others
-        [OutputCache(Duration = 30, VaryByCustom = "User")]
+        //[OutputCache(Duration = 30, VaryByCustom = "User")]
         [Authorize]
         public ActionResult UserSensors()
         {
@@ -301,7 +301,12 @@ namespace DataflowICB.Areas.Sensor.Controllers
             return this.View("ShowDetails", sensorViewModel);
         }
 
+        public ActionResult DeleteUserSensor(int id)
+        {
+            this.sensorService.DeleteSensor(id);
 
+            return this.RedirectToAction("UserSensors");
+        }
 
 
         public ActionResult PublicSensors()
@@ -309,7 +314,7 @@ namespace DataflowICB.Areas.Sensor.Controllers
             var sensors = this.sensorService.GetAllPublicSensors()
              .Select(sensor => new SensorViewModel
              {
-
+                 CurrentValue = sensor.CurrentValue,
                  Id = sensor.Id,
                  CreatorUsername = sensor.Owner,
                  Name = sensor.Name,

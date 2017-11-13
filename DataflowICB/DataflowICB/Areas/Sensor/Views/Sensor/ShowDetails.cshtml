@@ -18,18 +18,14 @@
                     <th>Description</th>
                     <th>Online</th>
                     <th>Current Value</th>
-                    <th>Public</th>
-
-                    @if (Model.IsValueType)
+                    @if (Model.IsPublic == false)
                     {
-                        <th>Maximumal Value</th>
-                            <th>Minimal Value</th>
-                            <th>Lowest Value</th>
-                            <th>Highest Value</th>
+                        <th>Public</th>
                     }
+
                 </tr>
             </thead>
-            
+
             <tbody>
                 <tr>
                     <td>@Model.Name</td>
@@ -37,17 +33,18 @@
                     <td>@Model.Description</td>
                     <td>@Model.IsConnected</td>
                     <td>@Model.CurrentValue</td>
-                    <td>@Model.IsPublic</td>
-                    <td>
-
-                        @Ajax.ActionLink("[Show History...]", "SensorHistoryGraph",
+                    @if (Model.IsPublic == false)
+                    {
+                        <td>@Model.IsPublic</td>
+                        <td>
+                            @Ajax.ActionLink("[Shared With...]", "SharedWith",
                                         new { id = @Model.Id },
                                         new AjaxOptions
                                         {
                                             InsertionMode = InsertionMode.Replace,
                                             UpdateTargetId = @Model.Id.ToString()
                                         })
-                        @Ajax.ActionLink("[Shared With...]", "SharedWith",
+                            @Ajax.ActionLink("[X]", "DeleteUserSensor",
                                         new { id = @Model.Id },
                                         new AjaxOptions
                                         {
@@ -55,10 +52,11 @@
                                             UpdateTargetId = @Model.Id.ToString()
                                         })
 
-                    </td>
+                        </td>
+                    }
 
                 </tr>
-                
+
 
             </tbody>
         </table>
