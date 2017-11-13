@@ -82,13 +82,16 @@ namespace Dataflow.DataServices
 
         public IEnumerable<SensorDataModel> GetAllPublicSensors()
         {
-            var publicSenors = this.context.Sensors.Where(m => m.IsPublic == true)
+            var publicSenors = this.context.Sensors.Where(m => m.IsPublic == true && m.IsDeleted == false)
                 .Select(m => new SensorDataModel
                 {
                     Id = m.Id,
                     Owner = m.Owner.UserName,
                     Name = m.Name,
-                    Description = m.Description
+                    Description = m.Description,
+                    MeasurementType = m.IsBoolType ? m.BoolTypeSensor.MeasurementType : m.ValueTypeSensor.MeasurementType,
+                    CurrentValue = m.IsBoolType ? m.BoolTypeSensor.CurrentValue.ToString() : m.ValueTypeSensor.CurrentValue.ToString()
+
                 }).ToList();
 
             return publicSenors;
@@ -124,10 +127,11 @@ namespace Dataflow.DataServices
 
         public SensorDataModel GetUserSensorById(int id)
         {
-            var sensor = this.context.Sensors.Where(s => s.Id == id)
+            var sensor = this.context.Sensors.Where(s => s.Id == id && s.IsDeleted == false)
                 .Select(m => new SensorDataModel
                 {
                     Id = m.Id,
+                    CurrentValue = m.IsBoolType ? m.BoolTypeSensor.CurrentValue.ToString() : m.ValueTypeSensor.CurrentValue.ToString(),
                     Name = m.Name,
                     Description = m.Description,
                     URL = m.URL,
@@ -198,7 +202,7 @@ namespace Dataflow.DataServices
 
         public IEnumerable<SensorDataModel> GetAllSensorsForUser(string username)
         {
-            var sensorForUser = context.Sensors.Where(s => s.Owner.UserName == username)
+            var sensorForUser = context.Sensors.Where(s => s.Owner.UserName == username && s.IsDeleted == false)
                 .Select(sensor => new SensorDataModel
                 {
                     Id = sensor.Id,
@@ -218,7 +222,7 @@ namespace Dataflow.DataServices
 
         public void ShareSensorWithUser(int id, string username)
         {
-            var sharedSensor = this.context.Sensors.Single(s => s.Id == id);
+            var sharedSensor = this.context.Sensors.Single(s => s.Id == id && s.IsDeleted == false);
 
             var user = this.context.Users.Single(n => n.UserName == username);
 
@@ -227,11 +231,18 @@ namespace Dataflow.DataServices
             this.context.SaveChanges();
         }
 
-        //TODO: in detail view listing of who is the sensor shared with
+        public void DeleteSensor(int id)
+        {
+            var sensorToDelete = this.context.Sensors.Single(s => s.Id == id);
+
+            sensorToDelete.IsDeleted = true;
+
+            this.context.SaveChanges();
+        }
 
         public SensorDataModel GetUsersSharedSensor(int id)
         {
-            var sharedSensor = this.context.Sensors.Single(s => s.Id == id).SharedWithUsers.ToList();
+            var sharedSensor = this.context.Sensors.Single(s => s.Id == id && s.IsDeleted == false).SharedWithUsers.ToList();
 
 
             var sensorDModel = new SensorDataModel()

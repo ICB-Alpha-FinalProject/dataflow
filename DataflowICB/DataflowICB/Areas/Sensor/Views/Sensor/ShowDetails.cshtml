@@ -23,7 +23,11 @@
                     <th>Description</th>
                     <th>Online</th>
                     <th>Current Value</th>
-                    <th>Public</th>
+                    @if (!Model.IsPublic)
+                    {
+                        <th>Public</th>
+                    }
+
                 </tr>
             </thead>
             <tbody>
@@ -33,10 +37,19 @@
                     <td>@Model.Description</td>
                     <td>@Model.IsConnected</td>
                     <td>@Model.CurrentValue</td>
-                    <td>@Model.IsPublic</td>
-                    <td>
+                    @if (Model.IsPublic == false)
+                    {
+                        <td>@Model.IsPublic</td>
+                        <td>
+                            @Ajax.ActionLink("[Shared With...]", "SharedWith",
+                                        new { id = @Model.Id },
+                                        new AjaxOptions
+                                        {
+                                            InsertionMode = InsertionMode.Replace,
+                                            UpdateTargetId = @Model.Id.ToString()
+                                        })
+                            @Ajax.ActionLink("[X]", "DeleteUserSensor",
 
-                        @Ajax.ActionLink("[Shared With...]", "SharedWith",
                                         new { id = @Model.Id },
                                         new AjaxOptions
                                         {
@@ -45,6 +58,7 @@
                                         })
 
                     </td>
+                    }
                 </tr>
             </tbody>
         </table>
