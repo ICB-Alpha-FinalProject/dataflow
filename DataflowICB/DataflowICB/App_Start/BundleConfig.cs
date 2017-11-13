@@ -57,13 +57,13 @@ namespace DataflowICB
               ));
 
             bundles.Add(new StyleBundle("~/bundles/tables-css").Include(
+                "~/Content/vendor/bootstrap/css/bootstrap-*",
                 "~/Content/vendor/datatables/dataTables.bootstrap4.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/tables-js").Include(
                 "~/Content/vendor/datatables/dataTables.bootstrap4.js",
                 "~/Content/vendor/datatables/jquery.dataTables.js",
-                "~/Content/tables/js/sb-admin-datatables.js",
-                "~/Content/tables/js/sb-admin-datatables.min.js"
+                "~/Content/tables/js/sb-admin-*"
                ));
 
         }

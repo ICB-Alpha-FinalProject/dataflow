@@ -89,7 +89,6 @@ namespace Dataflow.DataServices
                     Owner = m.Owner.UserName,
                     Name = m.Name,
                     Description = m.Description
-
                 }).ToList();
 
             return publicSenors;
@@ -155,7 +154,7 @@ namespace Dataflow.DataServices
             {
                 var url = s.URL;
 
-                var resp = await httpClient.GetAsync(AppConstants.AllSensorsUrl);
+                var resp = await httpClient.GetAsync(url);
                 var content = await resp.Content.ReadAsStringAsync();
 
                 var updatedValue = JsonConvert.DeserializeObject<SensorApiUpdate>(content);
@@ -165,11 +164,11 @@ namespace Dataflow.DataServices
                 {
                     if (s.BoolTypeSensor.CurrentValue != bool.Parse(updatedValue.Value))
                     {
-                        var valueHistory = new ValueHistory()
+                       var valueHistory = new ValueHistory()
                         {
                             BoolSensor = s.BoolTypeSensor,
                             Date = updatedValue.TimeStamp,
-                            Value = double.Parse(updatedValue.Value)
+                            Value = updatedValue.Value.ToLower() == "true" ? 1 : 0
                         };
                         s.BoolTypeSensor.BoolHistory.Add(valueHistory);
                     }
