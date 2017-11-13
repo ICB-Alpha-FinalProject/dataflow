@@ -142,18 +142,21 @@ namespace DataflowICB.Areas.Sensor.Controllers
             //return this.RedirectToAction("Index", "Home", new { area = "" });
             return new EmptyResult();
         }
-
-        [Authorize]
-        public ActionResult SensorHistoryGraph(string sensorId)
-        {
-            return this.View();
-        }
+        
 
         [AjaxOnly]
         [Authorize]
-        public JsonResult GetHistoryDataForSensor(int sensorId)
+        public JsonResult GetHistoryDataForSensor(int sensorId, bool isValueType)
         {
-            var sensors = this.sensorService.HistoryDataForValueSensorsById(sensorId);
+            IEnumerable<SensorApiUpdate> sensors;
+            if (isValueType)
+            {
+                sensors = this.sensorService.HistoryDataForValueSensorsById(sensorId);
+            }
+            else
+            {
+                sensors = this.sensorService.HistoryDataForBoolSensorsById(sensorId);
+            }
             var serialized = JsonConvert.SerializeObject(sensors);
 
             return this.Json(serialized, JsonRequestBehavior.AllowGet);
@@ -243,6 +246,7 @@ namespace DataflowICB.Areas.Sensor.Controllers
                 Description = sensor.Description,
                 Url = sensor.URL,
                 PollingInterval = sensor.PollingInterval,
+                IsValueType = !sensor.IsBoolType,
                 MeasurementType = sensor.MeasurementType,
                 IsPublic = sensor.IsPublic,
                 IsShared = sensor.IsShared,
@@ -290,6 +294,7 @@ namespace DataflowICB.Areas.Sensor.Controllers
                 Name = sensor.Name,
                 Description = sensor.Description,
                 Url = sensor.URL,
+                IsValueType = !sensor.IsBoolType,
                 PollingInterval = sensor.PollingInterval,
                 MeasurementType = sensor.MeasurementType,
                 IsPublic = sensor.IsPublic,

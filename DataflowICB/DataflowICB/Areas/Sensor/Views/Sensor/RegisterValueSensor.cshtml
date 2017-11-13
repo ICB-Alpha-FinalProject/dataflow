@@ -14,7 +14,7 @@
     @Html.AntiForgeryToken()
     @Html.Partial("_CommonSensorForm", Model)
 
-          @Html.LabelFor(m => m.ValueTypeSensor.MinValue)
+        @Html.LabelFor(m => m.ValueTypeSensor.MinValue)
         @Html.EditorFor(m => m.ValueTypeSensor.MinValue, new { @type = "number", @class = "text-danger" })
         @Html.ValidationMessageFor(m => m.ValueTypeSensor.MinValue)
         <br />
