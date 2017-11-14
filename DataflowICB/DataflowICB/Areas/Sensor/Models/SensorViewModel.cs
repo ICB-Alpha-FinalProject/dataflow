@@ -1,7 +1,6 @@
 ﻿using Dataflow.DataServices.Models;
 using DataflowICB.App_Start;
 using DataflowICB.Database.Models;
-using Foolproof;
 using SensorApiModels;
 using System;
 using System.Collections.Generic;
@@ -32,11 +31,11 @@ namespace DataflowICB.Areas.Sensor.Models
         
         public string CurrentValue { get; set; }
         
-        [Remote("CheckLowerRange","Sensor","Sensor", AdditionalFields = "LowestValue,HighestValue",
+        [Remote("CheckLowerRange","Sensor","Sensor", AdditionalFields = "LowestValue,HighestValue,MaxValue",
             ErrorMessage = "Minimum must be between LOWEST and HIGHEST value!")]
         public double MinValue { get; set; }
 
-        [Remote("CheckUpperRange", "Sensor", "Sensor", AdditionalFields = "LowestValue,HighestValue",
+        [Remote("CheckUpperRange", "Sensor", "Sensor", AdditionalFields = "LowestValue,HighestValue,MinValue",
             ErrorMessage = "Maximum must be between LOWEST and HIGHEST value!")]
         public double MaxValue { get; set; }
 
@@ -48,7 +47,8 @@ namespace DataflowICB.Areas.Sensor.Models
         public string MeasurementType { get; set; }
 
         [Required]
-        [GreaterThanOrEqualTo("MinPollingInterval")]
+        [Remote("CheckPollingInterval", "Sensor","Sensor",AdditionalFields = "MinPollingInterval",
+            ErrorMessage = "Polling interval must be greater than Min Polling Interval")]
         public int PollingInterval { get; set; }
 
         public int MinPollingInterval { get; set; }

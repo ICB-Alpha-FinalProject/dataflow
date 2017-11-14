@@ -141,9 +141,6 @@ namespace DataflowICB.Areas.Sensor.Controllers
 
             if (vm.IsValueType)
             {
-                //sensorVm.ValueTypeSensor = new ValueTypeSensorViewModel();
-                //sensorVm.ValueTypeSensor.LowestValue = vm.LowestValue;
-                //sensorVm.ValueTypeSensor.HighestValue = vm.Highestvalue;
                 return this.View("RegisterValueSensor", sensorVm);
             }
             else
@@ -347,16 +344,46 @@ namespace DataflowICB.Areas.Sensor.Controllers
             return View(sensors);
         }
 
-        public ActionResult CheckLowerRange(double MinValue, double? LowestValue, double? HighestValue)
+        public ActionResult CheckLowerRange(double MinValue, double? LowestValue,
+            double? HighestValue, double MaxValue)
         {
             var inRange = MinValue <= HighestValue && MinValue >= LowestValue;
-            return Json(inRange, JsonRequestBehavior.AllowGet);
+            if (!inRange)
+            {
+                return Json($"Max value should be between {LowestValue} and {HighestValue}", JsonRequestBehavior.AllowGet);
+            }
+            if (MaxValue < MinValue)
+            {
+                return Json($"Min Value cannot be less than Max Value", JsonRequestBehavior.AllowGet);
+
+            }
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult CheckUpperRange(double MaxValue, double? LowestValue, double? HighestValue)
+        public ActionResult CheckUpperRange(double MaxValue, double? LowestValue, double? HighestValue,
+            double MinValue)
         {
             var inRange = MaxValue >= LowestValue && MaxValue <= HighestValue;
-            return Json(inRange, JsonRequestBehavior.AllowGet);
+            if (!inRange)
+            {
+                return Json($"Min value should be between {LowestValue} and {HighestValue}", JsonRequestBehavior.AllowGet);
+            }
+            if (MaxValue < MinValue)
+            {
+                return Json($"Max Value should be greater than Min Value", JsonRequestBehavior.AllowGet);
+
+            }
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult CheckPollingInterval(int PollingInterval, int MinPollingInterval)
+        {
+            var inRange = PollingInterval >= MinPollingInterval;
+            if (!inRange)
+            {
+                return Json($"Polling interval should be greather than {MinPollingInterval}", JsonRequestBehavior.AllowGet);
+            }
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
     }
 }

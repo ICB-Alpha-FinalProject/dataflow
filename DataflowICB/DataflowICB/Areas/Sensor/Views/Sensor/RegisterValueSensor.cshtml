@@ -2,12 +2,13 @@
 @model SensorViewModel
 
 @using (Ajax.BeginForm("CreateSensor", "Sensor",
-                                                    new AjaxOptions
-                                                    {
-                                                        HttpMethod = "POST",
-                                                        UpdateTargetId = "form-container",
-                                                        InsertionMode = InsertionMode.Replace
-                                                    }))
+                                                                                                                            new AjaxOptions
+                                                                                                                            {
+                                                                                                                                HttpMethod = "POST",
+                                                                                                                                UpdateTargetId = "form-container",
+                                                                                                                                InsertionMode = InsertionMode.Replace
+                                                                                                                            },
+                                                                                                                            new { @class = "main-login main-center" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(false)
@@ -18,17 +19,18 @@
 
 
     @Html.Partial("_CommonSensorForm", Model)
-        
-    @Html.LabelFor(m => m.MinValue, $"Minimum {Model.MeasurementType}")
+
+    @Html.LabelFor(m => m.MinValue, $"Minimum {Model.MeasurementType}", new { @class = "cols-sm-2 control-label" })
     @Html.EditorFor(m => m.MinValue, new { @class = "form-control" })
-    @Html.ValidationMessageFor(m => m.MinValue, "", new { @class = "text-danger" })
-    <p> <span class="label label-success">Lowest Value</span>  @Html.DisplayFor(m => m.LowestValue) @Model.MeasurementType</p>
     <br />
+    @Html.ValidationMessageFor(m => m.MinValue, "", new { @class = "text-danger" })
+
+    <br />
+
     @Html.LabelFor(m => m.MaxValue, $"Maximum {Model.MeasurementType}")
     @Html.EditorFor(m => m.MaxValue, new { @class = "form-control" })
+    <br />
     @Html.ValidationMessageFor(m => m.MaxValue, "", new { @class = "text-danger" })
-
-    <p class=""> <span class="label label-warning">Highest Value</span>  @Html.DisplayFor(m => m.HighestValue) @Model.MeasurementType </p>
 
     <input type="submit" value="Register" class="btn btn-primary btn-block" />
 }

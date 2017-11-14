@@ -9,6 +9,7 @@
             <small class="fade-text">@sensor.Tag</small>
             <p>@sensor.Description</p>
             <p class="fade-text">Measurement type: @sensor.MeasureType</p>
+            <p class="fade-text">Min Polling Interval: @sensor.MinPollingIntervalInSeconds s</p>
 
             @Ajax.ActionLink("Select",
                 "GetProperRegView",
@@ -17,9 +18,10 @@
                 new AjaxOptions
                 {
                     UpdateTargetId = "form-container",
-                    InsertionMode = InsertionMode.Replace
+                    InsertionMode = InsertionMode.Replace,
+                    OnComplete = "scrollTop"
                 },
-                new { @class = "btn" })
+                new { @class = "btn reg-select-btn" })
         </div>
     }
 
@@ -32,6 +34,12 @@
 
     @Scripts.Render("~/bundles/jqueryajax")
     @Scripts.Render("~/bundles/wizard-js")
-    @Scripts.Render("~/bundles/mvcfoolproof")
 
+
+    <script>
+        function scrollTop() {
+            $("html, body").animate({ scrollTop: 0 }, 600);
+            return false;
+        }
+    </script>
 }
