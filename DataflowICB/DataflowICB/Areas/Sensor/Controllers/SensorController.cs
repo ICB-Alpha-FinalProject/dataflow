@@ -344,24 +344,14 @@ namespace DataflowICB.Areas.Sensor.Controllers
 
         public ActionResult CheckLowerRange(double MinValue, double? LowestValue, double? HighestValue)
         {
-            bool result = false;
-            if (true)
-            {
-                result = MinValue <= HighestValue && MinValue >= LowestValue;
-            }
-            return Json(result, JsonRequestBehavior.AllowGet);
+            var inRange = MinValue <= HighestValue && MinValue >= LowestValue;
+            return Json(inRange, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult CheckUpperRange(double MaxValue, double? LowestValue, double? HighestValue)
         {
-            bool result = false;
-            if (true)
-            {
-                result = MaxValue >= LowestValue && MaxValue <= HighestValue;
-            }
-            return Json(result, JsonRequestBehavior.AllowGet);
+            var inRange = MaxValue >= LowestValue && MaxValue <= HighestValue;
+            return Json(inRange, JsonRequestBehavior.AllowGet);
         }
-
-
     }
 }
