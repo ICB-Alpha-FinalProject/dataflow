@@ -141,9 +141,6 @@ namespace DataflowICB.Areas.Sensor.Controllers
 
             if (vm.IsValueType)
             {
-                //sensorVm.ValueTypeSensor = new ValueTypeSensorViewModel();
-                //sensorVm.ValueTypeSensor.LowestValue = vm.LowestValue;
-                //sensorVm.ValueTypeSensor.HighestValue = vm.Highestvalue;
                 return this.View("RegisterValueSensor", sensorVm);
             }
             else
@@ -184,6 +181,7 @@ namespace DataflowICB.Areas.Sensor.Controllers
         [Authorize]
         public ActionResult UserSensors()
         {
+            //TODO REFACTORING getallsensorsForUSer method
             var sensors = this.sensorService.GetAllSensorsForUser(this.User.Identity.Name)
             .Select(sensor => new SensorViewModel
             {
@@ -205,10 +203,17 @@ namespace DataflowICB.Areas.Sensor.Controllers
         }
 
 
+
         [Authorize]
         public ActionResult EditSensor(int id)
         {
             var sensor = this.sensorService.GetSensorById(id);
+
+
+            if (this.User.Identity.GetUserId() != sensor.OwnerId)
+            {
+                return View("NotAutheticated");
+            }
 
             var sensorViewModel = new SensorViewModel()
             {
@@ -254,6 +259,11 @@ namespace DataflowICB.Areas.Sensor.Controllers
         {
             var sensor = this.sensorService.GetSensorById(id);
 
+            if (this.User.Identity.GetUserId() != sensor.OwnerId)
+            {
+                return View("NotAutheticated");
+            }
+
             var sensorViewModel = new SensorViewModel()
             {
                 Id = sensor.Id,
@@ -270,6 +280,33 @@ namespace DataflowICB.Areas.Sensor.Controllers
             return View("ShareSensor", sensorViewModel);
         }
 
+        [Authorize]
+        public ActionResult SharedSensors()
+        {
+
+            //if (this.User.Identity.GetUserId() != sharedSensorUsers.OwnerId)
+            //{
+            //    return View("NotAutheticated");
+            //}
+
+            var sharedSensors = this.sensorService.GetSharedWithUserSensors(this.User.Identity.GetUserName())
+            .Select(sensor => new SensorViewModel
+             {
+                 Id = sensor.Id,
+                 Name = sensor.Name,
+                 Description = sensor.Description,
+                 CurrentValue = sensor.CurrentValue,
+                 IsValueType = !sensor.IsBoolType,
+                 IsPublic = sensor.IsPublic,
+                 IsShared = sensor.IsShared,
+                 IsConnected = sensor.IsConnected,
+                 MeasurementType = sensor.MeasurementType
+
+             }).ToList();
+
+            return View(sharedSensors);
+
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -285,7 +322,13 @@ namespace DataflowICB.Areas.Sensor.Controllers
         [Authorize]
         public ActionResult SharedWith(int id)
         {
+
             var sharedSensorUsers = this.sensorService.GetUsersSharedSensor(id);
+
+            if (this.User.Identity.GetUserId() != sharedSensorUsers.OwnerId)
+            {
+                return View("NotAutheticated");
+            }
 
             var sharedUsersViewModel = new SensorViewModel()
             {
@@ -299,7 +342,13 @@ namespace DataflowICB.Areas.Sensor.Controllers
         [Authorize]
         public ActionResult ShowDetails(int id)
         {
+                       
             var sensor = this.sensorService.GetUserSensorById(id);
+
+            if (this.User.Identity.GetUserId() != sensor.OwnerId)
+            {
+                return View("NotAutheticated");
+            }
 
             var sensorViewModel = new SensorViewModel()
             {
@@ -321,6 +370,7 @@ namespace DataflowICB.Areas.Sensor.Controllers
         public ActionResult DeleteUserSensor(int id)
         {
             this.sensorService.DeleteSensor(id);
+
 
             return this.RedirectToAction("UserSensors");
         }
@@ -347,16 +397,46 @@ namespace DataflowICB.Areas.Sensor.Controllers
             return View(sensors);
         }
 
-        public ActionResult CheckLowerRange(double MinValue, double? LowestValue, double? HighestValue)
+        public ActionResult CheckLowerRange(double MinValue, double? LowestValue,
+            double? HighestValue, double MaxValue)
         {
             var inRange = MinValue <= HighestValue && MinValue >= LowestValue;
-            return Json(inRange, JsonRequestBehavior.AllowGet);
+            if (!inRange)
+            {
+                return Json($"Max value should be between {LowestValue} and {HighestValue}", JsonRequestBehavior.AllowGet);
+            }
+            if (MaxValue < MinValue)
+            {
+                return Json($"Min Value cannot be less than Max Value", JsonRequestBehavior.AllowGet);
+
+            }
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult CheckUpperRange(double MaxValue, double? LowestValue, double? HighestValue)
+        public ActionResult CheckUpperRange(double MaxValue, double? LowestValue, double? HighestValue,
+            double MinValue)
         {
             var inRange = MaxValue >= LowestValue && MaxValue <= HighestValue;
-            return Json(inRange, JsonRequestBehavior.AllowGet);
+            if (!inRange)
+            {
+                return Json($"Min value should be between {LowestValue} and {HighestValue}", JsonRequestBehavior.AllowGet);
+            }
+            if (MaxValue < MinValue)
+            {
+                return Json($"Max Value should be greater than Min Value", JsonRequestBehavior.AllowGet);
+
+            }
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult CheckPollingInterval(int PollingInterval, int MinPollingInterval)
+        {
+            var inRange = PollingInterval >= MinPollingInterval;
+            if (!inRange)
+            {
+                return Json($"Polling interval should be greather than {MinPollingInterval}", JsonRequestBehavior.AllowGet);
+            }
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
     }
 }

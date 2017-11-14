@@ -13,19 +13,18 @@
 <div class="form-group">
     @Html.LabelFor(m => m.Description)
     @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+    <br />
     @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
 </div>
 
 <div class="form-group">
     @Html.LabelFor(m => m.PollingInterval, $"Interval in seconds")
     @Html.EditorFor(m => m.PollingInterval, new { @class = "form-control" })
+    <br />
     @Html.ValidationMessageFor(m => m.PollingInterval, "", new { @class = "text-danger" })
-
-    <p><span class="label label-success">Min Polling Interval</span> @Html.DisplayFor(m => m.MinPollingInterval) s </p>
 </div>
 
 <div class="form-group">
     @Html.LabelFor(m => m.IsPublic, "Visible to all Users ")
     @Html.EditorFor(m => m.IsPublic, new { @class = "form-control" })
-    @Html.ValidationMessageFor(m => m.IsPublic, "", new { @class = "text-danger" })
 </div>
