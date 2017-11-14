@@ -8,6 +8,7 @@ using DataflowICB.Database.Models;
 using Dataflow.Services.Contracts;
 using Dataflow.DataServices.Models;
 using System.Linq;
+using DataflowICB.App_Start.Contracts;
 
 namespace DataflowICB.UnitTests.DataServices.SensorService
 {
@@ -20,6 +21,7 @@ namespace DataflowICB.UnitTests.DataServices.SensorService
             //Arrange
             var dbContextMock = new Mock<ApplicationDbContext>();
             var httpClientMock = new Mock<IHttpClientProvider>();
+            var emailServiceMock = new Mock<IEmailService>();
             var userMock = new Mock<ApplicationUser>();
             string username = "Username";
             userMock.SetupGet(u => u.UserName).Returns(username);
@@ -53,7 +55,7 @@ namespace DataflowICB.UnitTests.DataServices.SensorService
 
             dbContextMock.SetupGet(m => m.Sensors).Returns(sensorsSetMock.Object);
 
-            var sensorServices = new Dataflow.DataServices.SensorService(dbContextMock.Object, httpClientMock.Object);
+            var sensorServices = new Dataflow.DataServices.SensorService(dbContextMock.Object, httpClientMock.Object, emailServiceMock.Object);
 
             //Act
             sensorServices.GetAllPublicSensors();
@@ -68,6 +70,7 @@ namespace DataflowICB.UnitTests.DataServices.SensorService
             //Arrange
             var dbContextMock = new Mock<ApplicationDbContext>();
             var httpClientMock = new Mock<IHttpClientProvider>();
+            var emailServiceMock = new Mock<IEmailService>();
             var userMock = new Mock<ApplicationUser>();
             string username = "Username";
             userMock.SetupGet(u => u.UserName).Returns(username);
@@ -123,7 +126,7 @@ namespace DataflowICB.UnitTests.DataServices.SensorService
 
             dbContextMock.SetupGet(m => m.Sensors).Returns(sensorsSetMock.Object);
 
-            var sensorServices = new Dataflow.DataServices.SensorService(dbContextMock.Object, httpClientMock.Object);
+            var sensorServices = new Dataflow.DataServices.SensorService(dbContextMock.Object, httpClientMock.Object, emailServiceMock.Object);
 
             //Act
             List<SensorDataModel> result = sensorServices.GetAllPublicSensors().ToList();

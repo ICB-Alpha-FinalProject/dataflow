@@ -2,6 +2,8 @@
 using Dataflow.DataServices.Contracts;
 using Dataflow.DataServices.Models;
 using Dataflow.Services.Contracts;
+using DataflowICB.App_Start.Contracts;
+using DataflowICB.App_Start.Models;
 using DataflowICB.Database;
 using DataflowICB.Database.Models;
 using DataflowICB.Models.DataApi;
@@ -21,14 +23,17 @@ namespace Dataflow.DataServices
     {
         private readonly ApplicationDbContext context;
         private readonly IHttpClientProvider httpClient;
+        private readonly IEmailService emailService;
 
-        public SensorService(ApplicationDbContext context, IHttpClientProvider httpClient)
+        public SensorService(ApplicationDbContext context, IHttpClientProvider httpClient, IEmailService emailService)
         {
             Guard.WhenArgument(context, "context").IsNull().Throw();
             Guard.WhenArgument(httpClient, "httpClient").IsNull().Throw();
+            Guard.WhenArgument(emailService, "emailService").IsNull().Throw();
 
             this.context = context;
             this.httpClient = httpClient;
+            this.emailService = emailService;
         }
 
         public void AddSensor(Sensor sensor)
@@ -37,7 +42,6 @@ namespace Dataflow.DataServices
 
             this.context.Sensors.Add(sensor);
             this.context.SaveChanges();
-
         }
 
         public void EditSensor(ISensorDataModel editedSensor)
@@ -162,6 +166,8 @@ namespace Dataflow.DataServices
 
             foreach (Sensor s in sensorsForUpdate)
             {
+                SendEmailToTheUserOfTheOfflineSensor(s);
+
                 var url = s.URL;
 
                 var resp = await httpClient.GetAsync(url);
@@ -206,7 +212,17 @@ namespace Dataflow.DataServices
             this.context.SaveChanges();
         }
 
+        public void SendEmailToTheUserOfTheOfflineSensor(Sensor sensor)
+        {
+            var message = new EmailMessage();
+            message.ToEmail = sensor.Owner.Email;
+            message.Subject = $"Sensor offline";
+            message.IsHtml = true;
+            message.Body =
+                String.Format($"Sensor {sensor.Name} is offline");
 
+            var status = emailService.SendEmailMessage(message);
+        }
 
         public IEnumerable<SensorDataModel> GetAllSensorsForUser(string username)
         {
