@@ -225,7 +225,10 @@
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Areas\Admin\Models\AdminSensorViewModel.cs" />
     <Compile Include="Areas\Admin\Models\UserViewModel.cs" />
+    <Compile Include="Areas\Sensor\Controllers\HistoryController.cs" />
+    <Compile Include="Areas\Sensor\Controllers\RegistrationController.cs" />
     <Compile Include="Areas\Sensor\Controllers\SensorController.cs" />
+    <Compile Include="Areas\Sensor\Controllers\ShareController.cs" />
     <Compile Include="Areas\Sensor\Models\BoolTypeSensorViewModel.cs" />
     <Compile Include="Areas\Sensor\Models\SensorViewModel.cs" />
     <Compile Include="Areas\Sensor\Models\ValueTypeSensorViewModel.cs" />
