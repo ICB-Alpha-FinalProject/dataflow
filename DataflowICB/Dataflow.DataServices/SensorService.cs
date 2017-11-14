@@ -133,6 +133,7 @@ namespace Dataflow.DataServices
                 .Select(m => new SensorDataModel
                 {
                     Id = m.Id,
+                    OwnerId = m.OwnerId,
                     CurrentValue = m.IsBoolType ? m.BoolTypeSensor.CurrentValue.ToString() : m.ValueTypeSensor.CurrentValue.ToString(),
                     Name = m.Name,
                     Description = m.Description,
@@ -170,7 +171,7 @@ namespace Dataflow.DataServices
                 {
                     if (s.BoolTypeSensor.CurrentValue != bool.Parse(updatedValue.Value))
                     {
-                       var valueHistory = new ValueHistory()
+                        var valueHistory = new ValueHistory()
                         {
                             BoolSensor = s.BoolTypeSensor,
                             Date = updatedValue.TimeStamp,
@@ -250,7 +251,6 @@ namespace Dataflow.DataServices
         {
             var sharedSensor = this.context.Sensors.Single(s => s.Id == id && s.IsDeleted == false).SharedWithUsers.ToList();
 
-
             var sensorDModel = new SensorDataModel()
             {
                 Id = id,
@@ -263,6 +263,28 @@ namespace Dataflow.DataServices
 
             return sensorDModel;
         }
+
+        //TODO : questionable query !!!
+        public IEnumerable<SensorDataModel> GetSharedWithUserSensors(string username)
+        {
+            var userSharedSensors = this.context.Users.First(n => n.UserName == username).SharedSensors
+                .Select(sensor => new SensorDataModel()
+                {
+                    Id = sensor.Id,
+                    Name = sensor.Name,
+                    Description = sensor.Description,
+                    CurrentValue = sensor.IsBoolType ? sensor.BoolTypeSensor.CurrentValue.ToString() : sensor.ValueTypeSensor.CurrentValue.ToString(),
+                    IsBoolType = sensor.IsBoolType,
+                    IsPublic = sensor.IsPublic,
+                    IsShared = sensor.IsShared,
+                    IsConnected = sensor.IsBoolType ? sensor.BoolTypeSensor.IsConnected : sensor.ValueTypeSensor.IsConnected,
+                    MeasurementType = sensor.IsBoolType ? sensor.BoolTypeSensor.MeasurementType : sensor.ValueTypeSensor.MeasurementType
+                }).ToList();
+
+            return userSharedSensors;
+        }
+
+
 
         public IEnumerable<SensorApiUpdate> HistoryDataForBoolSensorsById(int sensorId)
         {
@@ -291,5 +313,7 @@ namespace Dataflow.DataServices
 
             return valueHistoryData;
         }
+
     }
 }
+
