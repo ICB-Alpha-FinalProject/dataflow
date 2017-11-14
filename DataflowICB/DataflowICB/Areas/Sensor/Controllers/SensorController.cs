@@ -195,7 +195,9 @@ namespace DataflowICB.Areas.Sensor.Controllers
                 IsPublic = sensor.IsPublic,
                 IsShared = sensor.IsShared,
                 IsConnected = sensor.IsConnected,
-                MeasurementType = sensor.MeasurementType
+                MeasurementType = sensor.MeasurementType,
+                MinValue = sensor.MinValue,
+                MaxValue = sensor.MaxValue
 
             }).ToList();
 
@@ -335,7 +337,10 @@ namespace DataflowICB.Areas.Sensor.Controllers
                  Name = sensor.Name,
                  Description = sensor.Description,
                  MeasurementType = sensor.MeasurementType,
-                 IsConnected = sensor.IsConnected
+                 IsConnected = sensor.IsConnected,
+                 IsValueType = !sensor.IsBoolType,
+                 MinValue = sensor.MinValue,
+                 MaxValue = sensor.MaxValue
 
              }).ToList();
 

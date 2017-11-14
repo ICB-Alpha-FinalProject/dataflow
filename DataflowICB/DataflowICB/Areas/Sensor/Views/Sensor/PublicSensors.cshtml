@@ -26,13 +26,15 @@
                 <tbody>
                     @foreach (var sensor in @Model)
                     {
+                        
                         <tr>
                             <td>@sensor.CreatorUsername</td>
                             <td>@sensor.Name</td>
                             <td>@sensor.MeasurementType</td>
                             <td>@sensor.Description</td>
                             <td>@sensor.IsConnected</td>
-                            <td>@sensor.CurrentValue</td>
+
+                            <td>@Html.ValueRange(sensor.CurrentValue,sensor.MinValue,sensor.MaxValue)</td>
                             <td>
 
                                 @Ajax.ActionLink("[Details]", "ShowDetails",
