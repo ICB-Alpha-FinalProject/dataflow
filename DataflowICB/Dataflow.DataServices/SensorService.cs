@@ -92,7 +92,10 @@ namespace Dataflow.DataServices
                     Name = m.Name,
                     Description = m.Description,
                     MeasurementType = m.IsBoolType ? m.BoolTypeSensor.MeasurementType : m.ValueTypeSensor.MeasurementType,
-                    CurrentValue = m.IsBoolType ? m.BoolTypeSensor.CurrentValue.ToString() : m.ValueTypeSensor.CurrentValue.ToString()
+                    CurrentValue = m.IsBoolType ? m.BoolTypeSensor.CurrentValue.ToString() : m.ValueTypeSensor.CurrentValue.ToString(),
+                    IsBoolType = m.IsBoolType,
+                    MinValue = m.IsBoolType ? 0 : m.ValueTypeSensor.MinValue,
+                    MaxValue = m.IsBoolType ? 0 : m.ValueTypeSensor.Maxvalue
 
                 }).ToList();
 
@@ -217,7 +220,9 @@ namespace Dataflow.DataServices
                     IsPublic = sensor.IsPublic,
                     IsShared = sensor.IsShared,
                     IsConnected = sensor.IsBoolType ? sensor.BoolTypeSensor.IsConnected : sensor.ValueTypeSensor.IsConnected,
-                    MeasurementType = sensor.IsBoolType ? sensor.BoolTypeSensor.MeasurementType : sensor.ValueTypeSensor.MeasurementType
+                    MeasurementType = sensor.IsBoolType ? sensor.BoolTypeSensor.MeasurementType : sensor.ValueTypeSensor.MeasurementType,
+                    MaxValue = sensor.IsBoolType ? 0 : sensor.ValueTypeSensor.Maxvalue,
+                    MinValue = sensor.IsBoolType ? 0 : sensor.ValueTypeSensor.MinValue
                 })
                 .ToList();
 
