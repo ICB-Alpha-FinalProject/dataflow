@@ -101,19 +101,23 @@ namespace DataflowICB.UnitTests.DataServices.SensorService
             sensorMock.Setup(x => x.Id).Returns(Id);
 
             var userMock = new Mock<ApplicationUser>();
+            string username = "Username";
+            userMock.SetupGet(u => u.UserName).Returns(username);
 
             var termometer = new ValueTypeSensor()
             {
                 MinValue = 15,
                 Maxvalue = 30,
                 CurrentValue = 20,
-                MeasurementType = "Temperatura"
+                MeasurementType = "Temperatura",
+                IsConnected = true
             };
 
             var door = new BoolTypeSensor()
             {
                 CurrentValue = true,
-                MeasurementType = "Open/Close"
+                MeasurementType = "Open/Close",
+                IsConnected = true
             };
 
             List<Sensor> sensors = new List<Sensor>()
@@ -130,7 +134,7 @@ namespace DataflowICB.UnitTests.DataServices.SensorService
                     IsShared = false,
                     OwnerId = "stringId",
                     Owner = userMock.Object,
-                    IsDeleted = true
+                    IsDeleted = true,                    
                 },
 
                 new Sensor()
@@ -151,9 +155,6 @@ namespace DataflowICB.UnitTests.DataServices.SensorService
 
             var sensorsSetMock = new Mock<DbSet<Sensor>>().SetupData(sensors);
 
-            string username = "Test";
-            userMock.SetupGet(u => u.UserName).Returns(username);
-
             dbContextMock.SetupGet(m => m.Sensors).Returns(sensorsSetMock.Object);
 
             var sensorServices = new Dataflow.DataServices.SensorService(dbContextMock.Object, httpClientMock.Object);
@@ -162,7 +163,7 @@ namespace DataflowICB.UnitTests.DataServices.SensorService
             List<SensorDataModel> result = sensorServices.GetAllSensorsForUser(username).ToList();
 
             //Assert
-            Assert.AreEqual(2, result.Count());
+            Assert.AreEqual(1, result.Count());
         }
     }
 }

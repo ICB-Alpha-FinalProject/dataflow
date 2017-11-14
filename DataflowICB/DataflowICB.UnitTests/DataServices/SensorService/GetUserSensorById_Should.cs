@@ -53,7 +53,7 @@ namespace DataflowICB.UnitTests.DataServices.SensorService
                     IsShared = false,
                     OwnerId = "stringId",
                     Owner = userMock.Object,
-                    IsDeleted = true
+                    IsDeleted = false
                 },
 
                 new Sensor()

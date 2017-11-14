@@ -21,6 +21,16 @@ namespace DataflowICB.UnitTests.DataServices.SensorService
             var dbContextMock = new Mock<ApplicationDbContext>();
             var httpClientMock = new Mock<IHttpClientProvider>();
             var userMock = new Mock<ApplicationUser>();
+            string username = "Username";
+            userMock.SetupGet(u => u.UserName).Returns(username);
+
+            var termometer = new ValueTypeSensor()
+            {
+                MinValue = 15,
+                Maxvalue = 30,
+                CurrentValue = 20,
+                MeasurementType = "Temperatura"
+            };
 
             List<Sensor> sensors = new List<Sensor>()
             {
@@ -32,7 +42,10 @@ namespace DataflowICB.UnitTests.DataServices.SensorService
                     URL = "theGreatUrl",
                     PollingInterval = 20,
                     IsPublic = true,
-                    OwnerId = "stringId"
+                    IsDeleted = false,
+                    OwnerId = "stringId",
+                    ValueTypeSensor = termometer,
+                    IsBoolType = false
                 }
             };
 
@@ -56,6 +69,24 @@ namespace DataflowICB.UnitTests.DataServices.SensorService
             var dbContextMock = new Mock<ApplicationDbContext>();
             var httpClientMock = new Mock<IHttpClientProvider>();
             var userMock = new Mock<ApplicationUser>();
+            string username = "Username";
+            userMock.SetupGet(u => u.UserName).Returns(username);
+
+            var termometer = new ValueTypeSensor()
+            {
+                MinValue = 15,
+                Maxvalue = 30,
+                CurrentValue = 20,
+                MeasurementType = "Temperatura"
+            };
+
+            var wetness = new ValueTypeSensor()
+            {
+                MinValue = 15,
+                Maxvalue = 30,
+                CurrentValue = 20,
+                MeasurementType = "Vlajnost"
+            };
 
             List<Sensor> sensors = new List<Sensor>()
             {
@@ -67,7 +98,10 @@ namespace DataflowICB.UnitTests.DataServices.SensorService
                     URL = "theGreatUrl",
                     PollingInterval = 20,
                     IsPublic = true,
-                    OwnerId = "stringId"
+                    IsDeleted = false,
+                    OwnerId = "stringId",
+                    ValueTypeSensor = termometer,
+                    IsBoolType = false
                 },
 
                 new Sensor()
@@ -78,7 +112,10 @@ namespace DataflowICB.UnitTests.DataServices.SensorService
                     URL = "theGreatUrlPart2",
                     PollingInterval = 25,
                     IsPublic = false,
-                    OwnerId = "stringId"
+                    IsDeleted = false,
+                    OwnerId = "stringId",
+                    ValueTypeSensor = wetness,
+                    IsBoolType = false
                 },
             };
 
