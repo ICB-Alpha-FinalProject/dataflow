@@ -232,6 +232,7 @@
     <Compile Include="Areas\Sensor\SensorAreaRegistration.cs" />
     <Compile Include="Attributes\AjaxOnlyAttributecs.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="CustomHelpers\ValueInRange.cs" />
@@ -404,7 +405,9 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Account\UserProfile.cshtml" />
     <Content Include="Areas\Sensor\Views\Sensor\RegisterSensor.cshtml" />
-    <Content Include="Views\Shared\Custom404.cshtml" />
+    <Content Include="Views\Error\Custom404.cshtml" />
+    <Content Include="Views\Error\Custom403.cshtml" />
+    <Content Include="Views\Error\Default.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

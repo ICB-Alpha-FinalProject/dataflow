@@ -1,4 +1,9 @@
-﻿@model AdminSensorViewModel
+﻿@{
+    ViewBag.Title = "_EditSensor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model AdminSensorViewModel
 
 <h3>Edit sensor:</h3>
 @using (Html.BeginForm("EditSensor", "Admin", FormMethod.Post))
