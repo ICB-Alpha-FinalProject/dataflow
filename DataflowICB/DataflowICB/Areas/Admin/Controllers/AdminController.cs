@@ -11,6 +11,8 @@ using System.Web.Mvc;
 
 namespace DataflowICB.Areas.Admin.Controllers
 {
+    [RouteArea("Admin")]
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private readonly ApplicationUserManager userManager;
