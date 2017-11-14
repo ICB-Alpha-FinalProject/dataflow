@@ -181,6 +181,7 @@ namespace DataflowICB.Areas.Sensor.Controllers
         [Authorize]
         public ActionResult UserSensors()
         {
+            //TODO REFACTORING getallsensorsForUSer method
             var sensors = this.sensorService.GetAllSensorsForUser(this.User.Identity.Name)
             .Select(sensor => new SensorViewModel
             {
@@ -202,10 +203,17 @@ namespace DataflowICB.Areas.Sensor.Controllers
         }
 
 
+
         [Authorize]
         public ActionResult EditSensor(int id)
         {
             var sensor = this.sensorService.GetSensorById(id);
+
+
+            if (this.User.Identity.GetUserId() != sensor.OwnerId)
+            {
+                return View("NotAutheticated");
+            }
 
             var sensorViewModel = new SensorViewModel()
             {
@@ -251,6 +259,11 @@ namespace DataflowICB.Areas.Sensor.Controllers
         {
             var sensor = this.sensorService.GetSensorById(id);
 
+            if (this.User.Identity.GetUserId() != sensor.OwnerId)
+            {
+                return View("NotAutheticated");
+            }
+
             var sensorViewModel = new SensorViewModel()
             {
                 Id = sensor.Id,
@@ -267,6 +280,33 @@ namespace DataflowICB.Areas.Sensor.Controllers
             return View("ShareSensor", sensorViewModel);
         }
 
+        [Authorize]
+        public ActionResult SharedSensors()
+        {
+
+            //if (this.User.Identity.GetUserId() != sharedSensorUsers.OwnerId)
+            //{
+            //    return View("NotAutheticated");
+            //}
+
+            var sharedSensors = this.sensorService.GetSharedWithUserSensors(this.User.Identity.GetUserName())
+            .Select(sensor => new SensorViewModel
+             {
+                 Id = sensor.Id,
+                 Name = sensor.Name,
+                 Description = sensor.Description,
+                 CurrentValue = sensor.CurrentValue,
+                 IsValueType = !sensor.IsBoolType,
+                 IsPublic = sensor.IsPublic,
+                 IsShared = sensor.IsShared,
+                 IsConnected = sensor.IsConnected,
+                 MeasurementType = sensor.MeasurementType
+
+             }).ToList();
+
+            return View(sharedSensors);
+
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -282,7 +322,13 @@ namespace DataflowICB.Areas.Sensor.Controllers
         [Authorize]
         public ActionResult SharedWith(int id)
         {
+
             var sharedSensorUsers = this.sensorService.GetUsersSharedSensor(id);
+
+            if (this.User.Identity.GetUserId() != sharedSensorUsers.OwnerId)
+            {
+                return View("NotAutheticated");
+            }
 
             var sharedUsersViewModel = new SensorViewModel()
             {
@@ -296,7 +342,13 @@ namespace DataflowICB.Areas.Sensor.Controllers
         [Authorize]
         public ActionResult ShowDetails(int id)
         {
+                       
             var sensor = this.sensorService.GetUserSensorById(id);
+
+            if (this.User.Identity.GetUserId() != sensor.OwnerId)
+            {
+                return View("NotAutheticated");
+            }
 
             var sensorViewModel = new SensorViewModel()
             {
@@ -318,6 +370,7 @@ namespace DataflowICB.Areas.Sensor.Controllers
         public ActionResult DeleteUserSensor(int id)
         {
             this.sensorService.DeleteSensor(id);
+
 
             return this.RedirectToAction("UserSensors");
         }
