@@ -11,10 +11,9 @@
 <!-- Example DataTables Card-->
 <div class="card mb-3">
     <div class="card-header">
-        <i class="fa fa-table"></i> Data Table Example
+        <i class="fa fa-table"></i> My Sensors
     </div>
-    <td class="card-body">
-    <td class="table-responsive">
+    <div class="table-responsive">
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead>
                 <tr>
@@ -41,7 +40,7 @@
                     <td>@Model.PollingInterval</td>
                     <td>@Model.Description</td>
                     <td>@Model.IsConnected</td>
-                    <td>@Model.CurrentValue</td>
+                    <td id="@Model.Id">@Model.CurrentValue</td>
                     @if (!Model.IsPublic)
                     {
                         <td>@Model.IsPublic</td>
@@ -60,84 +59,94 @@
             </tbody>
         </table>
 
-</div>
+    </div>
 
-<div id="chartdiv"></div>
-<!-- /.container-fluid-->
-<!-- /.content-wrapper-->
-@section scripts{
-    @Scripts.Render("~/bundles/tables-js")
+    <div id="chartdiv"></div>
 
-    <script type="text/javascript">
+    <!-- /.container-fluid-->
+    <!-- /.content-wrapper-->
+
+    @section  scripts{
+        @Scripts.Render("~/bundles/tables-js")
+        <script src="~/Scripts/jquery.signalR-2.2.2.js"></script>
+        <script src="~/signalr/hubs"></script>
+        <script src="~/Scripts/update-db.js"></script>
+
+        <script type="text/javascript">
+
+        startSignalRUpdate([@Model.Id]);
+
         $('a').on('click', function () {
             let href = $(this).attr('href')
+            data.push(@Model.Id);
             let id = href.split('/').reverse()[0]
             $('.div-form').attr('hidden', 'hidden')
             let divId = '#' + id;
             $(divId).removeAttr('hidden')
-        })
+            })
 
+            
         var chart;
          $.ajax({
-             url: "@Html.Raw(@Url.Action("GetHistoryDataForSensor", "Sensor", new {area = "Sensor", sensorId = Model.Id, isValueType = Model.IsValueType }))",
-             dataType: "JSON",
-             complete: function (chartData) {
-                 chartData = JSON.parse(chartData.responseJSON);
-                 console.log("chart ", chartData);
-                 chart = AmCharts.makeChart("chartdiv", {
-                     "type": "serial",
-                     "theme": "light",
-                     "marginRight": 80,
-                     "dataProvider": chartData,
-                     "valueAxes": [{
-                         "position": "left",
-                         "title": "Value"
-                     }],
-                     "graphs": [{
-                         "id": "g1",
-                         "fillAlphas": 0.4,
-                         "valueField": "Value",
-                         "balloonText": "<div style='margin:5px; font-size:19px;'>Value:<b>[[value]]</b></div>"
-                     }],
-                     "chartScrollbar": {
-                         "graph": "g1",
-                         "scrollbarHeight": 80,
-                         "backgroundAlpha": 0,
-                         "selectedBackgroundAlpha": 0.1,
-                         "selectedBackgroundColor": "#888888",
-                         "graphFillAlpha": 0,
-                         "graphLineAlpha": 0.5,
-                         "selectedGraphFillAlpha": 0,
-                         "selectedGraphLineAlpha": 1,
-                         "autoGridCount": true,
-                         "color": "#AAAAAA"
-                     },
-                     "chartCursor": {
-                         "categoryBalloonDateFormat": "YYYY-MM-DD HH:NN:SS",
-                         "cursorPosition": "mouse"
-                     },
-                     "categoryField": "timeStamp",
-                     "categoryAxis": {
-                         "minPeriod": "ss",
-                         "parseDates": true
-                     },
-                     "export": {
-                         "enabled": true,
-                         "dateFormat": "YYYY-MM-DD HH:NN:SS"
-                     }
-                 });
+             url: "@Html.Raw(@Url.Action("GetHistoryDataForSensor", "History", new {area = "Sensor", sensorId = Model.Id, isValueType = Model.IsValueType }))",
+            dataType: "JSON",
+            complete: function (chartData) {
+                chartData = JSON.parse(chartData.responseJSON);
+                console.log("chart ", chartData);
+                chart = AmCharts.makeChart("chartdiv", {
+                    "type": "serial",
+                    "theme": "light",
+                    "marginRight": 80,
+                    "dataProvider": chartData,
+                    "valueAxes": [{
+                        "position": "left",
+                        "title": "Value"
+                    }],
+                    "graphs": [{
+                        "id": "g1",
+                        "fillAlphas": 0.4,
+                        "valueField": "Value",
+                        "balloonText": "<div style='margin:5px; font-size:19px;'>Value:<b>[[value]]</b></div>"
+                    }],
+                    "chartScrollbar": {
+                        "graph": "g1",
+                        "scrollbarHeight": 80,
+                        "backgroundAlpha": 0,
+                        "selectedBackgroundAlpha": 0.1,
+                        "selectedBackgroundColor": "#888888",
+                        "graphFillAlpha": 0,
+                        "graphLineAlpha": 0.5,
+                        "selectedGraphFillAlpha": 0,
+                        "selectedGraphLineAlpha": 1,
+                        "autoGridCount": true,
+                        "color": "#AAAAAA"
+                    },
+                    "chartCursor": {
+                        "categoryBalloonDateFormat": "YYYY-MM-DD HH:NN:SS",
+                        "cursorPosition": "mouse"
+                    },
+                    "categoryField": "timeStamp",
+                    "categoryAxis": {
+                        "minPeriod": "ss",
+                        "parseDates": true
+                    },
+                    "export": {
+                        "enabled": true,
+                        "dateFormat": "YYYY-MM-DD HH:NN:SS"
+                    }
+                });
 
-                 chart.addListener("dataUpdated", zoomChart);
-                 // when we apply theme, the dataUpdated event is fired even before we add listener, so
-                 // we need to call zoomChart here
-                 zoomChart();
-                 // this method is called when chart is first inited as we listen for "dataUpdated" event
-                 function zoomChart() {
-                     // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
-                     chart.zoomToIndexes(chartData.length - 250, chartData.length - 100);
-                 }
-             }
-         })
-    </script>
+                chart.addListener("dataUpdated", zoomChart);
+                // when we apply theme, the dataUpdated event is fired even before we add listener, so
+                // we need to call zoomChart here
+                zoomChart();
+                // this method is called when chart is first inited as we listen for "dataUpdated" event
+                function zoomChart() {
+                    // different zoom methods can be used - zoomToIndexes, zoomToDates, zoomToCategoryValues
+                    chart.zoomToIndexes(chartData.length - 250, chartData.length - 100);
+                }
+            }
+            })
+        </script>
 
-}
+    }

@@ -34,7 +34,7 @@ namespace DataflowICB.CustomHelpers
             }
             else
             {
-                classValue = currValueStr.ToString() == "0" ? "fa fa-window-close" : "fa fa-check";
+                classValue = currValueStr.ToString() == "False" ? "fa fa-window-close" : "fa fa-check";
             }
             spanTag.AddCssClass(classValue);
 
