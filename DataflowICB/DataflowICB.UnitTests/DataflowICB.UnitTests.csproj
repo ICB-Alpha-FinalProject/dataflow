@@ -90,6 +90,12 @@
     <Compile Include="DataServices\SensorService\ShareSensorWithUser_Should.cs" />
     <Compile Include="DataServices\SensorService\HistoryDataForBoolSensorsById_Should.cs" />
     <Compile Include="DataServices\SensorService\HistoryDataForValueSensorsById_Should.cs" />
+    <Compile Include="DataServices\SensorService\SendEmailToTheUserOfTheOfflineSensor_Should.cs" />
+    <Compile Include="DataServices\SensorService\DeleteSensor_Should.cs" />
+    <Compile Include="DataServices\SensorService\GetUsersSharedSensor_Should.cs" />
+    <Compile Include="DataServices\SensorService\GetSharedWithUserSensors_Should.cs" />
+    <Compile Include="DataServices\SensorService\SendEmailIfNeeded_Should.cs" />
+    <Compile Include="DataServices\SensorService\UpdateSensors_Should.cs" />
     <Compile Include="DummyUnitTest\DummyUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

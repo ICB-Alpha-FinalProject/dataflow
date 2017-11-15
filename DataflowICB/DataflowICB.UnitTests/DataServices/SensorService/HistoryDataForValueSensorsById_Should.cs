@@ -70,6 +70,7 @@ namespace DataflowICB.UnitTests.DataServices.SensorService
 
             //Assert
             Assert.AreEqual(3, result.Count());
+            Assert.AreEqual(valueHistory[0].Value.ToString(), result[0].Value);
         }
 
         [TestMethod]

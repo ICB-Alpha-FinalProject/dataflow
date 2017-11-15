@@ -68,6 +68,7 @@ namespace DataflowICB.UnitTests.DataServices.SensorService
 
             //Assert
             Assert.AreEqual(3, result.Count());
+            Assert.AreEqual(valueHistory[0].Value.ToString(), result[0].Value);
         }
 
         [TestMethod]
@@ -126,3 +127,16 @@ namespace DataflowICB.UnitTests.DataServices.SensorService
     }
 }
 
+//public IEnumerable<SensorApiUpdate> HistoryDataForBoolSensorsById(int sensorId)
+//{
+//    var boolHistoryData = this.context.ValueHistory
+//        .Where(h => h.BoolSensorId == sensorId)
+//       .Select(s => new SensorApiUpdate
+//       {
+//           TimeStamp = s.Date,
+//           Value = s.Value.ToString()
+//       })
+//       .ToList();
+
+//    return boolHistoryData;
+//}

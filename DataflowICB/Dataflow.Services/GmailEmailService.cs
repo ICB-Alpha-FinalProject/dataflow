@@ -67,7 +67,6 @@ namespace Dataflow.Services
             }
             catch (Exception ex)
             {
-                //todo: add logging integration
                 //throw;
             }
 

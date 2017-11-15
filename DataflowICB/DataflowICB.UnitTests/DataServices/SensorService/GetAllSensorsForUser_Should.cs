@@ -107,6 +107,10 @@ namespace DataflowICB.UnitTests.DataServices.SensorService
             string username = "Username";
             userMock.SetupGet(u => u.UserName).Returns(username);
 
+            var secondUserMock = new Mock<ApplicationUser>();
+            string secondUsername = "Username2";
+            secondUserMock.SetupGet(u => u.UserName).Returns(secondUsername);
+
             var termometer = new ValueTypeSensor()
             {
                 MinValue = 15,
@@ -154,6 +158,21 @@ namespace DataflowICB.UnitTests.DataServices.SensorService
                     Owner = userMock.Object,
                     IsDeleted = false
                 },
+
+                new Sensor()
+                {
+                    Id = 9,
+                    Name = "Door",
+                    IsBoolType = true,
+                    URL = "theGreatUrlPart2",
+                    PollingInterval = 25,
+                    BoolTypeSensor = door,
+                    IsPublic = false,
+                    IsShared = false,
+                    OwnerId = "stringId",
+                    Owner = secondUserMock.Object,
+                    IsDeleted = false
+                },
             };
 
             var sensorsSetMock = new Mock<DbSet<Sensor>>().SetupData(sensors);
@@ -167,6 +186,7 @@ namespace DataflowICB.UnitTests.DataServices.SensorService
 
             //Assert
             Assert.AreEqual(1, result.Count());
+            Assert.AreEqual(sensors[1].Id, result[0].Id);
         }
     }
 }

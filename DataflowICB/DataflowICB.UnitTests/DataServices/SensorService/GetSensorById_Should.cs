@@ -16,7 +16,7 @@ namespace DataflowICB.UnitTests.DataServices.SensorService
     public class GetSensorById_Should
     {
         [TestMethod]
-        public void CallSensorsOnce_WhenSensorIsExistent()
+        public void CallSensorsOnceAndReturnSensorWithId_WhenSensorIsExistent()
         {
             //Arrange
             var dbContextMock = new Mock<ApplicationDbContext>();
@@ -82,9 +82,10 @@ namespace DataflowICB.UnitTests.DataServices.SensorService
             var sensorServices = new Dataflow.DataServices.SensorService(dbContextMock.Object, httpClientMock.Object, emailServiceMock.Object);
 
             //Act
-            sensorServices.GetSensorById(Id);
+            var resultSensor = sensorServices.GetSensorById(Id);
 
             //Assert
+            Assert.AreEqual(Id, resultSensor.Id);
             dbContextMock.Verify(d => d.Sensors, Times.Once());
         }
     }

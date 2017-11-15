@@ -24,6 +24,7 @@ namespace Dataflow.DataServices
         private readonly ApplicationDbContext context;
         private readonly IHttpClientProvider httpClient;
         private readonly IEmailService emailService;
+        private bool valueHasAlreadyBeenChangedForThisInvalidValue;
 
         public SensorService(ApplicationDbContext context, IHttpClientProvider httpClient, IEmailService emailService)
         {
@@ -166,8 +167,6 @@ namespace Dataflow.DataServices
 
             foreach (Sensor s in sensorsForUpdate)
             {
-                SendEmailToTheUserOfTheOfflineSensor(s);
-
                 var url = s.URL;
 
                 var resp = await httpClient.GetAsync(url);
@@ -202,8 +201,9 @@ namespace Dataflow.DataServices
                         };
                         s.ValueTypeSensor.ValueHistory.Add(valueHistory);
                         s.ValueTypeSensor.CurrentValue = double.Parse(updatedValue.Value);
-                    }
 
+                        SendEmailIfNeeded(s);
+                    }
                 }
 
                 s.LastUpdate = updatedValue.TimeStamp;
@@ -212,8 +212,26 @@ namespace Dataflow.DataServices
             this.context.SaveChanges();
         }
 
+        public void SendEmailIfNeeded(Sensor sensor)
+        {
+            Guard.WhenArgument(sensor, "sensor").IsNull().Throw();
+
+            if ((sensor.ValueTypeSensor.CurrentValue <= sensor.ValueTypeSensor.Maxvalue && sensor.ValueTypeSensor.CurrentValue >= sensor.ValueTypeSensor.MinValue) && valueHasAlreadyBeenChangedForThisInvalidValue == false)
+            {
+                valueHasAlreadyBeenChangedForThisInvalidValue = false;
+            }
+
+            if ((sensor.ValueTypeSensor.CurrentValue > sensor.ValueTypeSensor.Maxvalue || sensor.ValueTypeSensor.CurrentValue < sensor.ValueTypeSensor.MinValue) && valueHasAlreadyBeenChangedForThisInvalidValue == false)
+            {
+                SendEmailToTheUserOfTheOfflineSensor(sensor);
+                valueHasAlreadyBeenChangedForThisInvalidValue = true;
+            }
+        }
+
         public void SendEmailToTheUserOfTheOfflineSensor(Sensor sensor)
         {
+            Guard.WhenArgument(sensor, "sensor").IsNull().Throw();
+
             var message = new EmailMessage();
             message.ToEmail = sensor.Owner.Email;
             message.Subject = $"Sensor offline";
@@ -285,9 +303,10 @@ namespace Dataflow.DataServices
             return sensorDModel;
         }
 
-        //TODO : questionable query !!!
         public IEnumerable<SensorDataModel> GetSharedWithUserSensors(string username)
         {
+            Guard.WhenArgument(username, "username").IsNull().Throw();
+
             var userSharedSensors = this.context.Users.First(n => n.UserName == username).SharedSensors
                 .Select(sensor => new SensorDataModel()
                 {
@@ -335,6 +354,7 @@ namespace Dataflow.DataServices
             return valueHistoryData;
         }
 
+        public bool ValueHasAlreadyBeenChangedForThisInvalidValue { get; }
     }
 }
 

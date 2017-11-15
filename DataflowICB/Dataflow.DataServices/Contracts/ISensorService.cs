@@ -26,6 +26,7 @@ namespace Dataflow.DataServices.Contracts
         IEnumerable<SensorDataModel> GetAllSensorsForUser(string name);
         IEnumerable<SensorApiUpdate> HistoryDataForBoolSensorsById(int sensorId);
         IEnumerable<SensorApiUpdate> HistoryDataForValueSensorsById(int sensorId);
-
+        void SendEmailIfNeeded(Sensor sensor);
+        bool ValueHasAlreadyBeenChangedForThisInvalidValue { get; }
     }
 }

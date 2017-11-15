@@ -1,44 +1,45 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Dataflow.Services.Contracts;
 using DataflowICB.Database;
 using Moq;
-using Dataflow.DataServices.Contracts;
+using Dataflow.Services.Contracts;
+using DataflowICB.App_Start.Contracts;
 using DataflowICB.Database.Models;
 using System.Collections.Generic;
 using System.Data.Entity;
-using DataflowICB.App_Start.Contracts;
+using Dataflow.DataServices.Models;
+using System.Linq;
 
 namespace DataflowICB.UnitTests.DataServices.SensorService
 {
     [TestClass]
-    public class GetUserSensorById_Should
+    public class GetUsersSharedSensor_Should
     {
         [TestMethod]
-        public void CallSensorsOnceAndReturnSensorWithId_WhenSensorIsExistent()
+        public void ReturnSensorDataModelWithSharedUsersName()
         {
             //Arrange
             var dbContextMock = new Mock<ApplicationDbContext>();
             var httpClientMock = new Mock<IHttpClientProvider>();
             var emailServiceMock = new Mock<IEmailService>();
-            var sensorMock = new Mock<ISensorDataModel>();
-            int Id = 2;
-            sensorMock.Setup(x => x.Id).Returns(Id);
+            var ownerMock = new Mock<ApplicationUser>();
+            var userToShareWithMock = new Mock<ApplicationUser>();
+            int Id = 4;
 
-            var userMock = new Mock<ApplicationUser>();
+            var sensorServices = new Dataflow.DataServices.SensorService(dbContextMock.Object, httpClientMock.Object, emailServiceMock.Object);
 
-            var termometer = new ValueTypeSensor()
+            List<ApplicationUser> users = new List<ApplicationUser>
             {
-                MinValue = 15,
-                Maxvalue = 30,
-                CurrentValue = 20,
-                MeasurementType = "Temperatura"
+                new ApplicationUser { UserName = "Ivan", Email = "ivan@ivan.com" },
+                new ApplicationUser { UserName = "Mariq", Email = "mariq@mariq.com" },
+                new ApplicationUser { UserName = "Prolet", Email = "prolet@prolet.com" }
             };
 
-            var door = new BoolTypeSensor()
+            List<string> usernames = new List<string>
             {
-                CurrentValue = true,
-                MeasurementType = "Open/Close"
+                "Ivan",
+                "Mariq",
+                "Prolet"
             };
 
             List<Sensor> sensors = new List<Sensor>()
@@ -50,12 +51,12 @@ namespace DataflowICB.UnitTests.DataServices.SensorService
                     IsBoolType = false,
                     URL = "theGreatUrl",
                     PollingInterval = 20,
-                    ValueTypeSensor = termometer,
                     IsPublic = true,
-                    IsShared = false,
+                    IsShared = true,
                     OwnerId = "stringId",
-                    Owner = userMock.Object,
-                    IsDeleted = false
+                    Owner = ownerMock.Object,
+                    IsDeleted = false,
+                    SharedWithUsers = users
                 },
 
                 new Sensor()
@@ -65,11 +66,10 @@ namespace DataflowICB.UnitTests.DataServices.SensorService
                     IsBoolType = true,
                     URL = "theGreatUrlPart2",
                     PollingInterval = 25,
-                    BoolTypeSensor = door,
                     IsPublic = false,
                     IsShared = false,
                     OwnerId = "stringId",
-                    Owner = userMock.Object,
+                    Owner = ownerMock.Object,
                     IsDeleted = false
                 },
             };
@@ -78,14 +78,13 @@ namespace DataflowICB.UnitTests.DataServices.SensorService
 
             dbContextMock.SetupGet(m => m.Sensors).Returns(sensorsSetMock.Object);
 
-            var sensorServices = new Dataflow.DataServices.SensorService(dbContextMock.Object, httpClientMock.Object, emailServiceMock.Object);
-
             //Act
-            var resultSensor = sensorServices.GetUserSensorById(Id);
+            SensorDataModel result = sensorServices.GetUsersSharedSensor(Id);
 
             //Assert
-            Assert.AreEqual(Id, resultSensor.Id);
-            dbContextMock.Verify(d => d.Sensors, Times.Once());
+            Assert.AreEqual(usernames.Count, result.SharedWithUsers.Count);
+            Assert.AreEqual(usernames.First(), result.SharedWithUsers.First());
+            dbContextMock.Verify(d => d.Sensors, Times.Once);
         }
     }
 }

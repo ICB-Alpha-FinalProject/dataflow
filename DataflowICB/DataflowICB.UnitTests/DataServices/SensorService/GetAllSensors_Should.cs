@@ -158,6 +158,7 @@ namespace DataflowICB.UnitTests.DataServices.SensorService
 
             //Assert
             Assert.AreEqual(1, result.Count());
+            Assert.AreEqual(sensors[1].Name, result[0].Name);
             dbContextMock.Verify(d => d.Sensors, Times.Once());
         }
     }
