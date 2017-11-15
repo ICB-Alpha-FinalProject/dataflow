@@ -31,7 +31,7 @@
                         <li>
                             @Html.ActionLink("Public Sensors", "PublicSensors", "sensor", new { area = "Sensor" }, new { })
                             @Html.ActionLink("MANUAL UpdateSensors (for test)", "UpdateSensors", "Sensor", new { area = "Sensor" }, new { })
-                
+
                         </li>
                         @if (User.Identity.IsAuthenticated)
                         {
@@ -185,7 +185,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
+                        <a class="nav-link" href="@Url.Action("LogOff","Account", new { area = ""})" data-toggle="modal" data-target="#exampleModal">
                             <i class="fa fa-fw fa-sign-out"></i>Logout
                         </a>
                     </li>
@@ -238,7 +238,7 @@
                     <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post))
+                        @using (Html.BeginForm("LogOff", "Account", new { area = "" }, FormMethod.Post))
                         {
                             @Html.AntiForgeryToken();
                             <input type="submit" class="btn btn-primary" value="Log off" />
