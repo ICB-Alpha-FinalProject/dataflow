@@ -84,7 +84,6 @@
     <Compile Include="DataServices\SensorService\EditSensor_Should.cs" />
     <Compile Include="DataServices\SensorService\GetAllPublicSensors_Should.cs" />
     <Compile Include="DataServices\SensorService\GetAllSensors_Should.cs" />
-    <Compile Include="DataServices\SensorService\GetSensorById_Should.cs" />
     <Compile Include="DataServices\SensorService\GetUserSensorById_Should.cs" />
     <Compile Include="DataServices\SensorService\GetAllSensorsForUser_Should.cs" />
     <Compile Include="DataServices\SensorService\ShareSensorWithUser_Should.cs" />
