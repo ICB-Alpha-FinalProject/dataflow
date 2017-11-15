@@ -20,6 +20,7 @@ namespace DataflowICB.App_Start
     using Microsoft.AspNet.SignalR;
     using DataflowICB.App_Start.Dependency_Resolvers;
     using DataflowICB.Hubs;
+    using DataflowICB.App_Start.Contracts;
 
     public static class NinjectWebCommon
     {
@@ -102,7 +103,9 @@ namespace DataflowICB.App_Start
                 .To<HttpClientProvider>()
                 .InRequestScope();
 
-
+            kernel.Bind<IEmailService>()
+                .To<GmailEmailService>()
+                .InRequestScope();
         }
     }
 }

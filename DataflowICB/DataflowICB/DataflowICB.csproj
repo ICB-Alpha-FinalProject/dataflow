@@ -81,6 +81,9 @@
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
+    <Reference Include="SendGrid, Version=9.8.0.0, Culture=neutral, PublicKeyToken=4f047e93159395ca, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sendgrid.9.9.0\lib\net452\SendGrid.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -223,13 +226,18 @@
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Areas\Admin\Models\AdminSensorViewModel.cs" />
     <Compile Include="Areas\Admin\Models\UserViewModel.cs" />
+    <Compile Include="Areas\Sensor\Controllers\HistoryController.cs" />
+    <Compile Include="Areas\Sensor\Controllers\PublicController.cs" />
+    <Compile Include="Areas\Sensor\Controllers\RegistrationController.cs" />
     <Compile Include="Areas\Sensor\Controllers\SensorController.cs" />
+    <Compile Include="Areas\Sensor\Controllers\ShareController.cs" />
     <Compile Include="Areas\Sensor\Models\BoolTypeSensorViewModel.cs" />
     <Compile Include="Areas\Sensor\Models\SensorViewModel.cs" />
     <Compile Include="Areas\Sensor\Models\ValueTypeSensorViewModel.cs" />
     <Compile Include="Areas\Sensor\SensorAreaRegistration.cs" />
     <Compile Include="Attributes\AjaxOnlyAttributecs.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="CustomHelpers\ValueInRange.cs" />
@@ -330,21 +338,21 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Areas\Sensor\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Sensor\Views\Sensor\RegisterValueSensor.cshtml" />
-    <Content Include="Areas\Sensor\Views\Sensor\RegisterBoolSensor.cshtml" />
+    <Content Include="Areas\Sensor\Views\Registration\RegisterValueSensor.cshtml" />
+    <Content Include="Areas\Sensor\Views\Registration\RegisterBoolSensor.cshtml" />
     <Content Include="Areas\Sensor\Views\Shared\_CommonSensorForm.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\AllUsers.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_EditUser.cshtml" />
     <Content Include="Areas\Sensor\Views\Sensor\UserSensors.cshtml" />
     <Content Include="Areas\Sensor\Views\Sensor\EditSensor.cshtml" />
-    <Content Include="Areas\Sensor\Views\Sensor\ShowDetails.cshtml" />
-    <Content Include="Areas\Sensor\Views\Sensor\ShareSensor.cshtml" />
+    <Content Include="Areas\Sensor\Views\Shared\ShowDetails.cshtml" />
+    <Content Include="Areas\Sensor\Views\Share\ShareSensor.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_EditSensor.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\AllSensors.cshtml" />
-    <Content Include="Areas\Sensor\Views\Sensor\PublicSensors.cshtml" />
-    <Content Include="Areas\Sensor\Views\Sensor\SharedSensors.cshtml" />
-    <Content Include="Areas\Sensor\Views\Sensor\SharedWith.cshtml" />
-    <Content Include="Areas\Sensor\Views\Sensor\NotAutheticated.cshtml" />
+    <Content Include="Areas\Sensor\Views\Public\PublicSensors.cshtml" />
+    <Content Include="Areas\Sensor\Views\Share\SharedSensors.cshtml" />
+    <Content Include="Areas\Sensor\Views\Share\SharedWith.cshtml" />
+    <Content Include="Areas\Sensor\Views\Shared\NotAutheticated.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -404,10 +412,16 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Account\UserProfile.cshtml" />
-    <Content Include="Areas\Sensor\Views\Sensor\RegisterSensor.cshtml" />
+    <Content Include="Areas\Sensor\Views\Registration\RegisterSensor.cshtml" />
+    <Content Include="Views\Error\Custom404.cshtml" />
+    <Content Include="Views\Error\Custom403.cshtml" />
+    <Content Include="Views\Error\Default.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="App_Start\Contracts\" />
+    <Folder Include="App_Start\Models\" />
+    <Folder Include="Areas\Sensor\Views\History\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

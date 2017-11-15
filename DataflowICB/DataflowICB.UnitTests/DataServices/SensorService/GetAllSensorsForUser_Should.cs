@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using Dataflow.DataServices.Models;
 using System.Linq;
+using DataflowICB.App_Start.Contracts;
 
 namespace DataflowICB.UnitTests.DataServices.SensorService
 {
@@ -21,6 +22,7 @@ namespace DataflowICB.UnitTests.DataServices.SensorService
             //Arrange
             var dbContextMock = new Mock<ApplicationDbContext>();
             var httpClientMock = new Mock<IHttpClientProvider>();
+            var emailServiceMock = new Mock<IEmailService>();
             var sensorMock = new Mock<ISensorDataModel>();
             int Id = 2;
             sensorMock.Setup(x => x.Id).Returns(Id);
@@ -81,7 +83,7 @@ namespace DataflowICB.UnitTests.DataServices.SensorService
 
             dbContextMock.SetupGet(m => m.Sensors).Returns(sensorsSetMock.Object);
 
-            var sensorServices = new Dataflow.DataServices.SensorService(dbContextMock.Object, httpClientMock.Object);
+            var sensorServices = new Dataflow.DataServices.SensorService(dbContextMock.Object, httpClientMock.Object, emailServiceMock.Object);
 
             //Act
             sensorServices.GetAllSensorsForUser(username);
@@ -96,6 +98,7 @@ namespace DataflowICB.UnitTests.DataServices.SensorService
             //Arrange
             var dbContextMock = new Mock<ApplicationDbContext>();
             var httpClientMock = new Mock<IHttpClientProvider>();
+            var emailServiceMock = new Mock<IEmailService>();
             var sensorMock = new Mock<ISensorDataModel>();
             int Id = 2;
             sensorMock.Setup(x => x.Id).Returns(Id);
@@ -157,7 +160,7 @@ namespace DataflowICB.UnitTests.DataServices.SensorService
 
             dbContextMock.SetupGet(m => m.Sensors).Returns(sensorsSetMock.Object);
 
-            var sensorServices = new Dataflow.DataServices.SensorService(dbContextMock.Object, httpClientMock.Object);
+            var sensorServices = new Dataflow.DataServices.SensorService(dbContextMock.Object, httpClientMock.Object, emailServiceMock.Object);
 
             //Act
             List<SensorDataModel> result = sensorServices.GetAllSensorsForUser(username).ToList();

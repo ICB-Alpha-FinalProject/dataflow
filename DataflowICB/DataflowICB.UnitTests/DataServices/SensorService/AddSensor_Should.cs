@@ -7,6 +7,7 @@ using Dataflow.Services.Contracts;
 using DataflowICB.Database.Models;
 using System.Collections.Generic;
 using System.Data.Entity;
+using DataflowICB.App_Start.Contracts;
 
 namespace DataflowICB.UnitTests.DataServices.SensorService
 {
@@ -19,7 +20,9 @@ namespace DataflowICB.UnitTests.DataServices.SensorService
             //Arrange
             var dbContextMock = new Mock<ApplicationDbContext>();
             var httpClientMock = new Mock<IHttpClientProvider>();
-            var sensorServices = new Dataflow.DataServices.SensorService(dbContextMock.Object, httpClientMock.Object);
+            var emailServiceMock = new Mock<IEmailService>();
+
+            var sensorServices = new Dataflow.DataServices.SensorService(dbContextMock.Object, httpClientMock.Object, emailServiceMock.Object);
 
             //Act && Assert
             Assert.ThrowsException<ArgumentNullException>(() => sensorServices.AddSensor(null));
@@ -31,6 +34,7 @@ namespace DataflowICB.UnitTests.DataServices.SensorService
             //Arrange
             var dbContextMock = new Mock<ApplicationDbContext>();
             var httpClientMock = new Mock<IHttpClientProvider>();
+            var emailServiceMock = new Mock<IEmailService>();
 
             List<Sensor> sensors = new List<Sensor>();
             Sensor sensor = new Sensor()
@@ -47,7 +51,7 @@ namespace DataflowICB.UnitTests.DataServices.SensorService
 
             dbContextMock.SetupGet(m => m.Sensors).Returns(sensorSetMock.Object);
 
-            var sensorServices = new Dataflow.DataServices.SensorService(dbContextMock.Object, httpClientMock.Object);
+            var sensorServices = new Dataflow.DataServices.SensorService(dbContextMock.Object, httpClientMock.Object, emailServiceMock.Object);
 
             //Act
             sensorServices.AddSensor(sensor);

@@ -10,6 +10,7 @@ using System.Globalization;
 using System.Data.Entity;
 using System.Linq;
 using DataflowICB.Models.DataApi;
+using DataflowICB.App_Start.Contracts;
 
 namespace DataflowICB.UnitTests.DataServices.SensorService
 {
@@ -22,9 +23,10 @@ namespace DataflowICB.UnitTests.DataServices.SensorService
             //Arrange
             var dbContextMock = new Mock<ApplicationDbContext>();
             var httpClientMock = new Mock<IHttpClientProvider>();
+            var emailServiceMock = new Mock<IEmailService>();
             int id = 1;
 
-            var sensorServices = new Dataflow.DataServices.SensorService(dbContextMock.Object, httpClientMock.Object);
+            var sensorServices = new Dataflow.DataServices.SensorService(dbContextMock.Object, httpClientMock.Object, emailServiceMock.Object);
 
             var valueHistory = new List<ValueHistory>()
             {
@@ -75,9 +77,10 @@ namespace DataflowICB.UnitTests.DataServices.SensorService
             //Arrange
             var dbContextMock = new Mock<ApplicationDbContext>();
             var httpClientMock = new Mock<IHttpClientProvider>();
+            var emailServiceMock = new Mock<IEmailService>();
             int id = 1;
 
-            var sensorServices = new Dataflow.DataServices.SensorService(dbContextMock.Object, httpClientMock.Object);
+            var sensorServices = new Dataflow.DataServices.SensorService(dbContextMock.Object, httpClientMock.Object, emailServiceMock.Object);
 
             var valueHistory = new List<ValueHistory>()
             {

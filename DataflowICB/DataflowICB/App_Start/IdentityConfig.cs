@@ -1,21 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using System.Web;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
-using DataflowICB.Models;
 using DataflowICB.Database;
 using DataflowICB.Database.Models;
+using System.Net;
+using System.Configuration;
+using System.Net.Mail;
+using DataflowICB.App_Start.Contracts;
+using DataflowICB.App_Start.Models;
 
 namespace DataflowICB
 {
+    
+
     public class EmailService : IIdentityMessageService
     {
         public Task SendAsync(IdentityMessage message)
@@ -116,7 +118,7 @@ namespace DataflowICB
             }
             else
             {
-                
+
             }
         }
     }

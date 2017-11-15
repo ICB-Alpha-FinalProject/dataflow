@@ -11,6 +11,8 @@ using System.Web.Mvc;
 
 namespace DataflowICB.Areas.Admin.Controllers
 {
+    [RouteArea("Admin")]
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private readonly ApplicationUserManager userManager;
@@ -76,7 +78,7 @@ namespace DataflowICB.Areas.Admin.Controllers
 
         public ActionResult EditSensor(int id)
         {
-            var sensor = this.sensorServices.GetSensorById(id);
+            var sensor = this.sensorServices.GetAdminSensorById(id);
             var adminSensorViewModel = AdminSensorViewModel.Convert(sensor);
 
             return this.PartialView("_EditSensor", adminSensorViewModel);

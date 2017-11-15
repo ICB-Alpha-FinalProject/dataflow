@@ -1,4 +1,9 @@
-﻿@model UserViewModel
+﻿@{
+    ViewBag.Title = "_EditUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model UserViewModel
 <h3>Edit user:</h3>
 @using (Html.BeginForm("EditUser", "Admin", FormMethod.Post))
 {

@@ -2,6 +2,8 @@
 using Dataflow.DataServices.Contracts;
 using Dataflow.DataServices.Models;
 using Dataflow.Services.Contracts;
+using DataflowICB.App_Start.Contracts;
+using DataflowICB.App_Start.Models;
 using DataflowICB.Database;
 using DataflowICB.Database.Models;
 using DataflowICB.Models.DataApi;
@@ -21,14 +23,17 @@ namespace Dataflow.DataServices
     {
         private readonly ApplicationDbContext context;
         private readonly IHttpClientProvider httpClient;
+        private readonly IEmailService emailService;
 
-        public SensorService(ApplicationDbContext context, IHttpClientProvider httpClient)
+        public SensorService(ApplicationDbContext context, IHttpClientProvider httpClient, IEmailService emailService)
         {
             Guard.WhenArgument(context, "context").IsNull().Throw();
             Guard.WhenArgument(httpClient, "httpClient").IsNull().Throw();
+            Guard.WhenArgument(emailService, "emailService").IsNull().Throw();
 
             this.context = context;
             this.httpClient = httpClient;
+            this.emailService = emailService;
         }
 
         public void AddSensor(Sensor sensor)
@@ -37,7 +42,6 @@ namespace Dataflow.DataServices
 
             this.context.Sensors.Add(sensor);
             this.context.SaveChanges();
-
         }
 
         public void EditSensor(ISensorDataModel editedSensor)
@@ -122,7 +126,7 @@ namespace Dataflow.DataServices
             }
         }
 
-        public SensorDataModel GetSensorById(int Id)
+        public SensorDataModel GetAdminSensorById(int Id)
         {
             Sensor sensorModel = this.context.Sensors.First(s => s.Id == Id);
             SensorDataModel sensor = SensorDataModel.Convert(sensorModel);
@@ -132,6 +136,7 @@ namespace Dataflow.DataServices
 
         public SensorDataModel GetUserSensorById(int id)
         {
+
             var sensor = this.context.Sensors.Where(s => s.Id == id && s.IsDeleted == false)
                 .Select(m => new SensorDataModel
                 {
@@ -149,7 +154,7 @@ namespace Dataflow.DataServices
                     MaxValue = m.IsBoolType ? 0.0 : m.ValueTypeSensor.Maxvalue,
                     MinValue = m.IsBoolType ? 0.0 : m.ValueTypeSensor.MinValue,
 
-                }).First();
+                }).FirstOrDefault();
 
             return sensor;
         }
@@ -162,6 +167,8 @@ namespace Dataflow.DataServices
 
             foreach (Sensor s in sensorsForUpdate)
             {
+                SendEmailToTheUserOfTheOfflineSensor(s);
+
                 var url = s.URL;
 
                 var resp = await httpClient.GetAsync(url);
@@ -206,7 +213,17 @@ namespace Dataflow.DataServices
             this.context.SaveChanges();
         }
 
+        public void SendEmailToTheUserOfTheOfflineSensor(Sensor sensor)
+        {
+            var message = new EmailMessage();
+            message.ToEmail = sensor.Owner.Email;
+            message.Subject = $"Sensor offline";
+            message.IsHtml = true;
+            message.Body =
+                String.Format($"Sensor {sensor.Name} is offline");
 
+            var status = emailService.SendEmailMessage(message);
+        }
 
         public IEnumerable<SensorDataModel> GetAllSensorsForUser(string username)
         {

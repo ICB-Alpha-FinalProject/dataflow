@@ -20,7 +20,7 @@ namespace Dataflow.DataServices.Contracts
         IEnumerable<SensorDataModel> GetAllSensors(bool IsAdmin);
         IEnumerable<SensorDataModel> GetAllPublicSensors();
         Task UpdateSensors();
-        SensorDataModel GetSensorById(int id);
+        SensorDataModel GetAdminSensorById(int id);
         SensorDataModel GetUserSensorById(int id);
         IEnumerable<SensorDataModel> GetSharedWithUserSensors(string username);
         IEnumerable<SensorDataModel> GetAllSensorsForUser(string name);

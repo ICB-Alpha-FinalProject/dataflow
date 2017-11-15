@@ -27,8 +27,10 @@
                     {
                         <th>Public</th>
                     }
-                    <th>Funcionality</th>
-
+                    @if (!Model.IsReadOnly)
+                    {
+                        <th>Funcionality</th>
+                    }
                 </tr>
             </thead>
             <tbody>
@@ -44,22 +46,14 @@
                         <td>@Model.IsPublic</td>
                     }
                     <td>
-                        @Ajax.ActionLink("[Shared With...]", "SharedWith",
-                                        new { id = @Model.Id },
-                                        new AjaxOptions
-                                        {
-                                            InsertionMode = InsertionMode.Replace,
-                                            UpdateTargetId = @Model.Id.ToString()
-                                        })
-                        @Ajax.ActionLink("[X]", "DeleteUserSensor",
+                        @if (!Model.IsReadOnly)
+                        {
+                            @Html.ActionLink("[Shared With...]", "Sensor", "SharedWith",
+                                        new { id = @Model.Id })
 
-                                        new { id = @Model.Id },
-                                        new AjaxOptions
-                                        {
-                                            InsertionMode = InsertionMode.Replace,
-                                            UpdateTargetId = @Model.Id.ToString()
-                                        })
-
+                            @Html.ActionLink("[X]", "Sensor", "DeleteUserSensor",
+                                        new { id = @Model.Id })
+                        }
                     </td>
                 </tr>
             </tbody>
@@ -74,8 +68,6 @@
 
     @section  scripts{
         @Scripts.Render("~/bundles/tables-js")
-
-
         <script src="~/Scripts/jquery.signalR-2.2.2.js"></script>
         <script src="~/signalr/hubs"></script>
         <script src="~/Scripts/update-db.js"></script>
@@ -93,9 +85,6 @@
             $(divId).removeAttr('hidden')
             })
 
-            let data = []
-
-        startSignalRUpdate(data);
             
         var chart;
          $.ajax({

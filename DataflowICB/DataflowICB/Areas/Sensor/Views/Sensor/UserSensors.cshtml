@@ -31,15 +31,14 @@
                             <td id="@sensor.Id"></td>
                             <td>@sensor.IsPublic</td>
                             <td>
-                                @Html.ActionLink("[Edit]", "EditSensor",
+                                @Html.ActionLink("[Edit]", "EditSensor", 
                                         new { id = sensor.Id })
 
                                 @Html.ActionLink("[Details]", "ShowDetails",
                                         new { id = sensor.Id })
-
+                                       
                                 @Html.ActionLink("[Share]", "ShareSensor",
                                         new { id = sensor.Id })
-
                             </td>
                         </tr>
                     }

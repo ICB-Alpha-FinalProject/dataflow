@@ -68,5 +68,7 @@ namespace DataflowICB.Areas.Sensor.Models
 
         public ICollection<string> SharedWithUsers { get; set; }
 
+        public bool IsReadOnly { get; set; }
+
     }
 }
