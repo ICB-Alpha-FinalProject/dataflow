@@ -366,6 +366,7 @@
     <Content Include="Scripts\sb-admin-datatables.min.js" />
     <Content Include="Scripts\sb-admin.js" />
     <Content Include="Scripts\sb-admin.min.js" />
+    <Content Include="Scripts\update-db.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
