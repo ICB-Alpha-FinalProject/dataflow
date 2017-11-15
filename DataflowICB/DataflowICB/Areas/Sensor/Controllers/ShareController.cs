@@ -29,7 +29,7 @@ namespace DataflowICB.Areas.Sensor.Controllers
         [Authorize]
         public ActionResult ShareSensor(int id)
         {
-            var sensor = this.sensorService.GetSensorById(id);
+            var sensor = this.sensorService.GetUserSensorById(id);
 
             if (this.User.Identity.GetUserId() != sensor.OwnerId)
             {

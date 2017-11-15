@@ -36,15 +36,8 @@
 
                             <td>@Html.ValueRange(sensor.CurrentValue,sensor.MinValue,sensor.MaxValue)</td>
                             <td>
-
-                                @Ajax.ActionLink("[Details]", "ShowDetails",
-                                        new { id = sensor.Id },
-                                        new AjaxOptions
-                                        {
-                                            InsertionMode = InsertionMode.Replace,
-                                            UpdateTargetId = sensor.Id.ToString()
-                                        })
-
+                                @Html.ActionLink("[Details]", "ShowDetails", "Public",
+                                        new { id = sensor.Id }, new { })
                             </td>
                         </tr>
                     }

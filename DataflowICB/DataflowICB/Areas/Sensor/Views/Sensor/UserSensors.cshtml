@@ -28,31 +28,17 @@
                             <td>@sensor.MeasurementType</td>
                             <td>@sensor.Description</td>
                             <td>@sensor.IsConnected</td>
-                            <td>@Html.ValueRange(sensor.CurrentValue,sensor.MinValue,sensor.MaxValue)</td>
+                            <td>@Html.ValueRange(sensor.CurrentValue, sensor.MinValue, sensor.MaxValue)</td>
                             <td>@sensor.IsPublic</td>
                             <td>
-                                @Ajax.ActionLink("[Edit]", "EditSensor",
-                                        new { id = sensor.Id },
-                                        new AjaxOptions
-                                        {
-                                            InsertionMode = InsertionMode.Replace,
-                                            UpdateTargetId = sensor.Id.ToString()
-                                        })
-                                @Ajax.ActionLink("[Details]", "ShowDetails",
-                                        new { id = sensor.Id },
-                                        new AjaxOptions
-                                        {
-                                            InsertionMode = InsertionMode.Replace,
-                                            UpdateTargetId = sensor.Id.ToString()
-                                        })
-                                @Ajax.ActionLink("[Share]", "ShareSensor",
-                                        new { id = sensor.Id },
-                                        new AjaxOptions
-                                        {
-                                            InsertionMode = InsertionMode.Replace,
-                                            UpdateTargetId = sensor.Id.ToString()
-                                        })
+                                @Html.ActionLink("[Edit]", "EditSensor", 
+                                        new { id = sensor.Id })
 
+                                @Html.ActionLink("[Details]", "ShowDetails",
+                                        new { id = sensor.Id })
+                                       
+                                @Html.ActionLink("[Share]", "ShareSensor",
+                                        new { id = sensor.Id })
                             </td>
                         </tr>
                     }
@@ -66,7 +52,7 @@
 <!-- /.container-fluid-->
 <!-- /.content-wrapper-->
 
-@section  scripts{
+@section scripts{
     @Scripts.Render("~/bundles/tables-js")
 
     <script>

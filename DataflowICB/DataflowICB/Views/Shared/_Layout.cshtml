@@ -29,9 +29,9 @@
                     </a>
                     <ul class="sidenav-second-level collapse" id="collapseExamplePages">
                         <li>
-                            @Html.ActionLink("Public Sensors", "PublicSensors", "sensor", new { area = "Sensor" }, new { })
-                            @Html.ActionLink("MANUAL UpdateSensors (for test)", "UpdateSensors", "Sensor", new { area = "Sensor" }, new { })
-                            @Html.ActionLink("HISTORY CHARTY", "SensorHistoryGraph", "Sensor", new { area = "Sensor" }, new { })
+                            @Html.ActionLink("Public Sensors", "PublicSensors", "Public", new { area = "Sensor" }, new { })
+                            @Html.ActionLink("MANUAL UpdateSensors (for test)", "UpdateSensors", "History", new { area = "Sensor" }, new { })
+                            @Html.ActionLink("HISTORY CHARTY", "SensorHistoryGraph", "History", new { area = "Sensor" }, new { })
 
 
                         </li>
@@ -41,10 +41,10 @@
                                 @Html.ActionLink("My Sensors", "UserSensors", "Sensor", new { area = "Sensor" }, new { })
                             </li>
                             <li>
-                                @Html.ActionLink("Shared Sensors", "SharedSensors", "Sensor", new { area = "Sensor" }, new { })
+                                @Html.ActionLink("Shared Sensors", "SharedSensors", "Share", new { area = "Sensor" }, new { })
                             </li>
                             <li>
-                                @Html.ActionLink("Register New Sensor", "RegisterSensor", "Sensor", new { area = "Sensor" }, new { })
+                                @Html.ActionLink("Register New Sensor", "RegisterSensor", "Registration", new { area = "Sensor" }, new { })
                             </li>
                         }
                     </ul>

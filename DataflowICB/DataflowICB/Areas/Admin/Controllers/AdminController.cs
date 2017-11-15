@@ -78,7 +78,7 @@ namespace DataflowICB.Areas.Admin.Controllers
 
         public ActionResult EditSensor(int id)
         {
-            var sensor = this.sensorServices.GetSensorById(id);
+            var sensor = this.sensorServices.GetAdminSensorById(id);
             var adminSensorViewModel = AdminSensorViewModel.Convert(sensor);
 
             return this.PartialView("_EditSensor", adminSensorViewModel);

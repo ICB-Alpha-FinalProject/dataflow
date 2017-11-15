@@ -82,7 +82,7 @@ namespace DataflowICB.UnitTests.DataServices.SensorService
             var sensorServices = new Dataflow.DataServices.SensorService(dbContextMock.Object, httpClientMock.Object, emailServiceMock.Object);
 
             //Act
-            sensorServices.GetSensorById(Id);
+            sensorServices.GetAdminSensorById(Id);
 
             //Assert
             dbContextMock.Verify(d => d.Sensors, Times.Once());

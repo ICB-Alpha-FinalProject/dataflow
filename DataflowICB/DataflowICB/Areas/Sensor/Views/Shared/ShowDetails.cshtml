@@ -28,8 +28,10 @@
                     {
                         <th>Public</th>
                     }
-                    <th>Funcionality</th>
-
+                    @if (!Model.IsReadOnly)
+                    {
+                        <th>Funcionality</th>
+                    }
                 </tr>
             </thead>
             <tbody>
@@ -45,22 +47,14 @@
                         <td>@Model.IsPublic</td>
                     }
                     <td>
-                        @Ajax.ActionLink("[Shared With...]", "SharedWith",
-                                        new { id = @Model.Id },
-                                        new AjaxOptions
-                                        {
-                                            InsertionMode = InsertionMode.Replace,
-                                            UpdateTargetId = @Model.Id.ToString()
-                                        })
-                        @Ajax.ActionLink("[X]", "DeleteUserSensor",
+                        @if (!Model.IsReadOnly)
+                        {
+                            @Html.ActionLink("[Shared With...]", "Sensor", "SharedWith",
+                                        new { id = @Model.Id })
 
-                                        new { id = @Model.Id },
-                                        new AjaxOptions
-                                        {
-                                            InsertionMode = InsertionMode.Replace,
-                                            UpdateTargetId = @Model.Id.ToString()
-                                        })
-
+                            @Html.ActionLink("[X]", "Sensor", "DeleteUserSensor",
+                                        new { id = @Model.Id })
+                        }
                     </td>
                 </tr>
             </tbody>
@@ -71,8 +65,7 @@
 <div id="chartdiv"></div>
 <!-- /.container-fluid-->
 <!-- /.content-wrapper-->
-
-@section  scripts{
+@section scripts{
     @Scripts.Render("~/bundles/tables-js")
 
     <script type="text/javascript">

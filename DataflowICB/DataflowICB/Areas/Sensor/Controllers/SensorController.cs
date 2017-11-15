@@ -89,6 +89,66 @@ namespace DataflowICB.Areas.Sensor.Controllers
 
         //    return this.View(resViewModel);
         //}
+
+
+        //[HttpPost]
+        //[Authorize]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult CreateSensor(SensorViewModel model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var sensor = new DataflowICB.Database.Models.Sensor()
+        //        {
+        //            OwnerId = this.User.Identity.GetUserId(),
+        //            Description = model.Description,
+        //            IsPublic = model.IsPublic,
+        //            Name = model.Name,
+        //            URL = model.Url,
+        //            PollingInterval = model.PollingInterval,
+        //            LastUpdate = DateTime.Now
+        //        };
+
+        //        if (model.IsValueType)
+        //        {
+        //            var valueType = new ValueTypeSensor()
+        //            {
+        //                MeasurementType = model.MeasurementType,
+        //                //IsInAcceptableRange = model.ValueTypeSensor.IsInAcceptableRange,
+        //                Maxvalue = model.MaxValue,
+        //                MinValue = model.MinValue
+        //            };
+        //            sensor.IsBoolType = false;
+        //            sensor.ValueTypeSensor = valueType;
+        //        }
+        //        else
+        //        {
+        //            var boolType = new BoolTypeSensor()
+        //            {
+        //                MeasurementType = model.MeasurementType
+        //            };
+
+        //            sensor.IsBoolType = true;
+        //            sensor.BoolTypeSensor = boolType;
+        //        }
+
+        //        this.sensorService.AddSensor(sensor);
+
+        //        return this.Json(Url.Action("Index", "Home", new { area = "" }));
+        //    }
+        //    else
+        //    {
+        //        if (model.IsValueType)
+        //        {
+        //            return this.View("RegisterValueSensor", model);
+        //        }
+        //        else
+        //        {
+        //            return this.View("RegisterBoolSensor", model);
+        //        }
+        //    }
+        //}
+
         ////EXTRACTED TO REGISTERCONTROLLER
 
 
@@ -231,68 +291,12 @@ namespace DataflowICB.Areas.Sensor.Controllers
         ////EXTRACTED TO PUBLIC CONTROLLER
 
 
-        [HttpPost]
-        [Authorize]
-        [ValidateAntiForgeryToken]
-        public ActionResult CreateSensor(SensorViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var sensor = new DataflowICB.Database.Models.Sensor()
-                {
-                    OwnerId = this.User.Identity.GetUserId(),
-                    Description = model.Description,
-                    IsPublic = model.IsPublic,
-                    Name = model.Name,
-                    URL = model.Url,
-                    PollingInterval = model.PollingInterval,
-                    LastUpdate = DateTime.Now
-                };
 
-                if (model.IsValueType)
-                {
-                    var valueType = new ValueTypeSensor()
-                    {
-                        MeasurementType = model.MeasurementType,
-                        //IsInAcceptableRange = model.ValueTypeSensor.IsInAcceptableRange,
-                        Maxvalue = model.MaxValue,
-                        MinValue = model.MinValue
-                    };
-                    sensor.IsBoolType = false;
-                    sensor.ValueTypeSensor = valueType;
-                }
-                else
-                {
-                    var boolType = new BoolTypeSensor()
-                    {
-                        MeasurementType = model.MeasurementType
-                    };
 
-                    sensor.IsBoolType = true;
-                    sensor.BoolTypeSensor = boolType;
-                }
-
-                this.sensorService.AddSensor(sensor);
-
-                return this.Json(Url.Action("Index", "Home", new { area = "" }));
-            }
-            else
-            {
-                if (model.IsValueType)
-                {
-                    return this.View("RegisterValueSensor", model);
-                }
-                else
-                {
-                    return this.View("RegisterBoolSensor", model);
-                }
-            }
-        }
-
-        
         //http://blog.danielcorreia.net/asp-net-mvc-vary-by-current-user/
         // so it doesnt cache info for one user for all others
         //[OutputCache(Duration = 30, VaryByCustom = "User")]
+
         [Authorize]
         public ActionResult UserSensors()
         {
@@ -320,9 +324,8 @@ namespace DataflowICB.Areas.Sensor.Controllers
         [Authorize]
         public ActionResult EditSensor(int id)
         {
-            var sensor = this.sensorService.GetSensorById(id);
-
-
+            var sensor = this.sensorService.GetUserSensorById(id);
+            
             if (this.User.Identity.GetUserId() != sensor.OwnerId)
             {
                 return View("NotAutheticated");
