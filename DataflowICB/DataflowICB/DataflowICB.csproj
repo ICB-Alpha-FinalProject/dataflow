@@ -351,7 +351,7 @@
     <Content Include="Areas\Sensor\Views\Public\PublicSensors.cshtml" />
     <Content Include="Areas\Sensor\Views\Share\SharedSensors.cshtml" />
     <Content Include="Areas\Sensor\Views\Share\SharedWith.cshtml" />
-    <Content Include="Areas\Sensor\Views\Shared\NotAutheticated.cshtml" />
+    <Content Include="Areas\Sensor\Views\Shared\NotAuthenticated.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

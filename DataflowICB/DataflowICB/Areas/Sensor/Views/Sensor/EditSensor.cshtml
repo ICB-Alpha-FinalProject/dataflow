@@ -16,80 +16,72 @@
                     @Html.AntiForgeryToken()
 
                     @Html.HiddenFor(m => m.Id)
-                    <thead>
+                    <tbody>
                         <tr>
                             <th>Label</th>
-                            <th>Values</th>
-                        </tr>
-                        <tr><td>@Html.LabelFor(m => m.Name)</td></tr>
-                        <tr>
-                            <td>@Html.LabelFor(m => m.Description)</td>
+                            <th>Values                                            </th>
                         </tr>
                         <tr>
-                            <td>@Html.LabelFor(m => m.Url)</td>
-                            </tr>
+                            <th>@Html.LabelFor(m => m.Name)</th>
+                            <td>@Html.EditorFor(m => m.Name)</td>
+                        </tr>
                         <tr>
-                            <td>@Html.LabelFor(m => m.PollingInterval)</td>
-                            </tr>
+                            <th>@Html.LabelFor(m => m.Description)</th>
+                            <td>@Html.EditorFor(m => m.Description)</td>
+                        </tr>
                         <tr>
-                            <td>@Html.LabelFor(m => m.IsValueType)</td>
-                            </tr>
+                            <th>@Html.LabelFor(m => m.Url)</th>
+                            <td>@Html.DisplayFor(m => m.Url)</td>
+                        </tr>
                         <tr>
-                            <td>@Html.LabelFor(m => m.MeasurementType)</td>
-                            </tr>
+                            <th>@Html.LabelFor(m => m.PollingInterval)</th>
+                            <td>@Html.EditorFor(m => m.PollingInterval)</td>
+                        </tr>
                         <tr>
-                            <td>@Html.LabelFor(m => m.IsPublic)</td>
-                            </tr>
-                        <tr>
-                            <td>@Html.LabelFor(m => m.IsShared)</td>
-                            @*</tr>
-                            @if (Model.IsValueType)
-                            {
-                            <tr>
-                                @Html.LabelFor(m => m.MinValue)
-                            </tr>
-                                <tr>
-                                    @Html.LabelFor(m => m.MaxValue)
-                                </tr>
-                            }
-                        <tr></tr>
-                            </tr>*@
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>@Html.EditorFor(m => m.Name)</td>
-                                <td>@Html.EditorFor(m => m.Description)</td>
-                                <td>@Html.DisplayFor(m => m.Url)</td>
-                                <td>@Html.EditorFor(m => m.PollingInterval)</td>
-                                <td>
-                                    @if (Model.IsValueType)
-                                    {
-                                        <p>Value Type Sensor</p>
-                                    }
-                                    else
-                                    {
-                                        <p>Bool Type Sensor</p>
-                                    }
-                                </td>
-                                <td>@Html.EditorFor(m => m.MeasurementType)</td>
-                                <td> @Html.EditorFor(m => m.IsPublic) </td>
-                                <td>@Html.EditorFor(m => m.IsShared)</td>
-
+                            <th>@Html.LabelFor(m => m.IsValueType)</th>
+                            <td>
                                 @if (Model.IsValueType)
                                 {
-                                    <td>
-                                        @Html.EditorFor(m => m.MinValue)
-                                    </td>
-                                    <td>
-                                        @Html.EditorFor(m => m.MaxValue)
-                                    </td>
+                                    <p>Value Type Sensor</p>
                                 }
+                                else
+                                {
+                                    <p>Bool Type Sensor</p>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>@Html.LabelFor(m => m.MeasurementType)</th>
+                            <td>@Html.EditorFor(m => m.MeasurementType)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.LabelFor(m => m.IsPublic)</th>
+                            <td> @Html.EditorFor(m => m.IsPublic) </td>
+                        </tr>
+                        <tr>
+                            <th>@Html.LabelFor(m => m.IsShared)</th>
+                            <td>@Html.EditorFor(m => m.IsShared)</td>
+                        </tr>
+                        @if (Model.IsValueType)
+                        {
+                            <tr>
+                                <th>@Html.LabelFor(m => m.MinValue)</th>
+                                <td>
+                                    @Html.EditorFor(m => m.MinValue)
+                                </td>
                             </tr>
-                        </tbody>
-                    </table>
-                </div>
+                            <tr>
+                                <th>@Html.LabelFor(m => m.MaxValue)/td>
+                                <td>
+                                    @Html.EditorFor(m => m.MaxValue)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             </div>
         </div>
+    </div>
 }
 <div>
     <input type="submit" value="Save" />

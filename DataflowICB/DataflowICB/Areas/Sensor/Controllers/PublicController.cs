@@ -54,7 +54,7 @@ namespace DataflowICB.Areas.Sensor.Controllers
             
             if (sensor == null || !sensor.IsPublic)
             {
-                return View("NotAutheticated");
+                return View("NotAuthenticated");
             }
 
             var sensorViewModel = new SensorViewModel()

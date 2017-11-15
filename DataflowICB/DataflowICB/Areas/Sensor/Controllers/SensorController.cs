@@ -300,7 +300,6 @@ namespace DataflowICB.Areas.Sensor.Controllers
         [Authorize]
         public ActionResult UserSensors()
         {
-            //TODO REFACTORING getallsensorsForUSer method
             var sensors = this.sensorService.GetAllSensorsForUser(this.User.Identity.Name)
             .Select(sensor => new SensorViewModel
             {
@@ -326,9 +325,9 @@ namespace DataflowICB.Areas.Sensor.Controllers
         {
             var sensor = this.sensorService.GetUserSensorById(id);
             
-            if (this.User.Identity.GetUserId() != sensor.OwnerId)
+            if (sensor == null || this.User.Identity.GetUserId() != sensor.OwnerId)
             {
-                return View("NotAutheticated");
+                return View("NotAuthenticated");
             }
 
             var sensorViewModel = new SensorViewModel()
@@ -376,9 +375,9 @@ namespace DataflowICB.Areas.Sensor.Controllers
 
             var sensor = this.sensorService.GetUserSensorById(id);
 
-            if (this.User.Identity.GetUserId() != sensor.OwnerId)
+            if (sensor == null || this.User.Identity.GetUserId() != sensor.OwnerId)
             {
-                return View("NotAutheticated");
+                return View("NotAuthenticated");
             }
 
             var sensorViewModel = new SensorViewModel()

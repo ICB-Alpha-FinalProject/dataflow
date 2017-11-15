@@ -55,12 +55,7 @@ namespace DataflowICB.Areas.Sensor.Controllers
         [Authorize]
         public ActionResult SharedSensors()
         {
-
-            //if (this.User.Identity.GetUserId() != sharedSensorUsers.OwnerId)
-            //{
-            //    return View("NotAutheticated");
-            //}
-
+            
             var sharedSensors = this.sensorService.GetSharedWithUserSensors(this.User.Identity.GetUserName())
             .Select(sensor => new SensorViewModel
             {
@@ -90,7 +85,6 @@ namespace DataflowICB.Areas.Sensor.Controllers
             return this.RedirectToAction("UserSensors");
         }
 
-        //TODO: in detail view listing of who is the sensor shared with
         [Authorize]
         public ActionResult SharedWith(int id)
         {
@@ -99,16 +93,46 @@ namespace DataflowICB.Areas.Sensor.Controllers
 
             if (this.User.Identity.GetUserId() != sharedSensorUsers.OwnerId)
             {
-                return View("NotAutheticated");
+                return View("NotAuthenticated");
             }
 
             var sharedUsersViewModel = new SensorViewModel()
             {
                 Id = sharedSensorUsers.Id,
-                SharedWithUsers = sharedSensorUsers.SharedWithUsers
+                SharedWithUsers = sharedSensorUsers.SharedWithUsers,
+                CreatorUsername = sharedSensorUsers.Owner,
+                
             };
 
             return this.View("SharedWith", sharedUsersViewModel);
+        }
+
+        [Authorize]
+        public ActionResult ShowDetails(int id)
+        {
+
+            var sensor = this.sensorService.GetUserSensorById(id);
+
+            if (sensor == null )
+            {
+                return this.View("NotAuthenticated");
+            }
+            var sensorViewModel = new SensorViewModel()
+            {
+                Id = sensor.Id,
+                CurrentValue = sensor.CurrentValue,
+                Name = sensor.Name,
+                Description = sensor.Description,
+                Url = sensor.URL,
+                IsValueType = !sensor.IsBoolType,
+                PollingInterval = sensor.PollingInterval,
+                MeasurementType = sensor.MeasurementType,
+                IsPublic = sensor.IsPublic,
+                IsShared = sensor.IsShared,
+                IsReadOnly = true
+            };
+
+            return this.View("ShowDetails", sensorViewModel);
         }
     }
 }

@@ -286,7 +286,6 @@ namespace Dataflow.DataServices
             return sensorDModel;
         }
 
-        //TODO : questionable query !!!
         public IEnumerable<SensorDataModel> GetSharedWithUserSensors(string username)
         {
             var userSharedSensors = this.context.Users.First(n => n.UserName == username).SharedSensors
