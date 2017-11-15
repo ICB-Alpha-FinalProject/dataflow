@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<SensorViewModel>
 
+<h2>Public Sensors</h2>
+
 @Styles.Render("~/bundles/tables-css")
 <!-- Example DataTables Card-->
 <div class="card mb-3">
@@ -11,8 +13,8 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>Name</th>
                         <th>Owner</th>
+                        <th>Name</th>
                         <th>Measurement Type</th>
                         <th>Description</th>
                         <th>Online</th>
@@ -24,21 +26,15 @@
                     @foreach (var sensor in @Model)
                     {
                         <tr>
-                            <td>@sensor.Name</td>
                             <td>@sensor.CreatorUsername</td>
+                            <td>@sensor.Name</td>
                             <td>@sensor.MeasurementType</td>
                             <td>@sensor.Description</td>
                             <td>@sensor.IsConnected</td>
-                            <td>@sensor.CurrentValue</td>
+                            <td id="@sensor.Id"></td>
                             <td>
-                                @Ajax.ActionLink("[Details]", "ShowDetails",
-                                        new { id = sensor.Id },
-                                        new AjaxOptions
-                                        {
-                                            InsertionMode = InsertionMode.Replace,
-                                            UpdateTargetId = sensor.Id.ToString()
-                                        })
-
+                                @Html.ActionLink("[Details]", "ShowDetails", "Public",
+                                        new { id = sensor.Id }, new { })
                             </td>
                         </tr>
                     }
@@ -47,15 +43,32 @@
             </table>
         </div>
     </div>
-    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
 </div>
 <!-- /.container-fluid-->
 <!-- /.content-wrapper-->
 
-@section  scripts{
+@section scripts{
     @Scripts.Render("~/bundles/tables-js")
+    <script src="~/Scripts/jquery.signalR-2.2.2.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script src="~/Scripts/update-db.js"></script>
+    <script type="text/javascript">
+        (function() {
+            let data = []
+        @{
+            var list = new List<int>();
+            foreach (var sensor in Model.ToList())
+            {
+                int id = sensor.Id;
+                <text>
+                    data.push(@id);
+                </text>
+            }
+        }
 
-    <script>
+            startSignalRUpdate(data);
+        })()
+
         $('a').on('click', function () {
             let href = $(this).attr('href')
             let id = href.split('/').reverse()[0]
@@ -66,3 +79,6 @@
     </script>
 
 }
+
+
+

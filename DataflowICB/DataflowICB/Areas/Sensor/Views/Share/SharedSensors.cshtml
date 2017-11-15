@@ -1,8 +1,5 @@
 ﻿@model IEnumerable<SensorViewModel>
 
-<h2>Public Sensors</h2>
-
-
 @Styles.Render("~/bundles/tables-css")
 <!-- Example DataTables Card-->
 <div class="card mb-3">
@@ -14,8 +11,8 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>Owner</th>
                         <th>Name</th>
+                        <th>Owner</th>
                         <th>Measurement Type</th>
                         <th>Description</th>
                         <th>Online</th>
@@ -26,25 +23,16 @@
                 <tbody>
                     @foreach (var sensor in @Model)
                     {
-                        
                         <tr>
-                            <td>@sensor.CreatorUsername</td>
                             <td>@sensor.Name</td>
+                            <td>@sensor.CreatorUsername</td>
                             <td>@sensor.MeasurementType</td>
                             <td>@sensor.Description</td>
                             <td>@sensor.IsConnected</td>
-
-                            <td>@Html.ValueRange(sensor.CurrentValue,sensor.MinValue,sensor.MaxValue)</td>
+                            <td>@sensor.CurrentValue</td>
                             <td>
-
-                                @Ajax.ActionLink("[Details]", "ShowDetails",
-                                        new { id = sensor.Id },
-                                        new AjaxOptions
-                                        {
-                                            InsertionMode = InsertionMode.Replace,
-                                            UpdateTargetId = sensor.Id.ToString()
-                                        })
-
+                                @Html.ActionLink("[Details]", "ShowDetails", "Share",
+                                        new { id = sensor.Id }, new { })
                             </td>
                         </tr>
                     }
@@ -58,7 +46,7 @@
 <!-- /.container-fluid-->
 <!-- /.content-wrapper-->
 
-@section scripts{
+@section  scripts{
     @Scripts.Render("~/bundles/tables-js")
 
     <script>
@@ -72,6 +60,3 @@
     </script>
 
 }
-
-
-

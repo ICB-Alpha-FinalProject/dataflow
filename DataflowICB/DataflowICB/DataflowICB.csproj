@@ -216,6 +216,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\Dependency Resolvers\SignalRNinjectDependencyResolver.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
@@ -226,6 +227,7 @@
     <Compile Include="Areas\Admin\Models\AdminSensorViewModel.cs" />
     <Compile Include="Areas\Admin\Models\UserViewModel.cs" />
     <Compile Include="Areas\Sensor\Controllers\HistoryController.cs" />
+    <Compile Include="Areas\Sensor\Controllers\PublicController.cs" />
     <Compile Include="Areas\Sensor\Controllers\RegistrationController.cs" />
     <Compile Include="Areas\Sensor\Controllers\SensorController.cs" />
     <Compile Include="Areas\Sensor\Controllers\ShareController.cs" />
@@ -336,21 +338,21 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Areas\Sensor\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Sensor\Views\Sensor\RegisterValueSensor.cshtml" />
-    <Content Include="Areas\Sensor\Views\Sensor\RegisterBoolSensor.cshtml" />
+    <Content Include="Areas\Sensor\Views\Registration\RegisterValueSensor.cshtml" />
+    <Content Include="Areas\Sensor\Views\Registration\RegisterBoolSensor.cshtml" />
     <Content Include="Areas\Sensor\Views\Shared\_CommonSensorForm.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\AllUsers.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_EditUser.cshtml" />
     <Content Include="Areas\Sensor\Views\Sensor\UserSensors.cshtml" />
     <Content Include="Areas\Sensor\Views\Sensor\EditSensor.cshtml" />
-    <Content Include="Areas\Sensor\Views\Sensor\ShowDetails.cshtml" />
-    <Content Include="Areas\Sensor\Views\Sensor\ShareSensor.cshtml" />
+    <Content Include="Areas\Sensor\Views\Shared\ShowDetails.cshtml" />
+    <Content Include="Areas\Sensor\Views\Share\ShareSensor.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_EditSensor.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\AllSensors.cshtml" />
-    <Content Include="Areas\Sensor\Views\Sensor\PublicSensors.cshtml" />
-    <Content Include="Areas\Sensor\Views\Sensor\SharedSensors.cshtml" />
-    <Content Include="Areas\Sensor\Views\Sensor\SharedWith.cshtml" />
-    <Content Include="Areas\Sensor\Views\Sensor\NotAutheticated.cshtml" />
+    <Content Include="Areas\Sensor\Views\Public\PublicSensors.cshtml" />
+    <Content Include="Areas\Sensor\Views\Share\SharedSensors.cshtml" />
+    <Content Include="Areas\Sensor\Views\Share\SharedWith.cshtml" />
+    <Content Include="Areas\Sensor\Views\Shared\NotAuthenticated.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -372,7 +374,10 @@
     <Content Include="Scripts\sb-admin-datatables.min.js" />
     <Content Include="Scripts\sb-admin.js" />
     <Content Include="Scripts\sb-admin.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Scripts\update-db.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -407,7 +412,7 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Account\UserProfile.cshtml" />
-    <Content Include="Areas\Sensor\Views\Sensor\RegisterSensor.cshtml" />
+    <Content Include="Areas\Sensor\Views\Registration\RegisterSensor.cshtml" />
     <Content Include="Views\Error\Custom404.cshtml" />
     <Content Include="Views\Error\Custom403.cshtml" />
     <Content Include="Views\Error\Default.cshtml" />
@@ -416,6 +421,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="App_Start\Contracts\" />
     <Folder Include="App_Start\Models\" />
+    <Folder Include="Areas\Sensor\Views\History\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using DataflowICB.Models.DataApi;
+using DataflowICB.Models;
 using System.Collections.Generic;
 using Moq;
 using DataflowICB.Database;
@@ -9,6 +9,7 @@ using DataflowICB.Database.Models;
 using System.Globalization;
 using System.Data.Entity;
 using System.Linq;
+using DataflowICB.Models.DataApi;
 using DataflowICB.App_Start.Contracts;
 
 namespace DataflowICB.UnitTests.DataServices.SensorService

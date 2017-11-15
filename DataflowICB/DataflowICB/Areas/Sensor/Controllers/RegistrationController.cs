@@ -103,7 +103,7 @@ namespace DataflowICB.Areas.Sensor.Controllers
 
                 this.sensorService.AddSensor(sensor);
 
-                return this.Json(Url.Action("Index", "Home", new { area = "" }));
+                return this.Json("Successfully Registered !");
             }
             else
             {

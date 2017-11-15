@@ -2,57 +2,91 @@
 
 <h2>Edit Sensor...</h2>
 
+
 @using (Html.BeginForm("EditSensor", "Sensor", FormMethod.Post))
 {
-    @Html.AntiForgeryToken()
-
-    @Html.HiddenFor(m => m.Id)
-    <div>
-        @Html.LabelFor(m => m.Name)
-        @Html.EditorFor(m => m.Name)
-    </div>
-    <div>
-        @Html.LabelFor(m => m.Description)
-        @Html.EditorFor(m => m.Description)
-    </div>
-    <div>
-        @Html.LabelFor(m => m.Url)
-        @Html.EditorFor(m => m.Url)
-    </div>
-    <div>
-        @Html.LabelFor(m => m.PollingInterval)
-        @Html.EditorFor(m => m.PollingInterval)
-    </div>
-    <div>
-        @Html.LabelFor(m => m.IsValueType)
-        @Html.EditorFor(m => m.IsValueType)
-    </div>
-    <div>
-        @Html.LabelFor(m => m.MeasurementType)
-        @Html.EditorFor(m => m.MeasurementType)
-    </div>
-    <div>
-        @Html.LabelFor(m => m.IsPublic)
-        @Html.EditorFor(m => m.IsPublic)
-    </div>
-    <div>
-        @Html.LabelFor(m => m.IsShared)
-        @Html.EditorFor(m => m.IsShared)
-    </div>
-
-    if (Model.IsValueType)
-    {
-        <div>
-            @Html.LabelFor(m => m.MinValue)
-            @Html.EditorFor(m => m.MinValue)
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fa fa-table"></i> Data Table Example
         </div>
-        <div>
-            @Html.LabelFor(m => m.MaxValue)
-            @Html.EditorFor(m => m.MaxValue)
-        </div>
-    }
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="50%" cellspacing="0">
 
-    <div>
-        <input type="submit" value="Save" />
+                    @Html.AntiForgeryToken()
+
+                    @Html.HiddenFor(m => m.Id)
+                    <tbody>
+                        <tr>
+                            <th>Label</th>
+                            <th>Values                                            </th>
+                        </tr>
+                        <tr>
+                            <th>@Html.LabelFor(m => m.Name)</th>
+                            <td>@Html.EditorFor(m => m.Name)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.LabelFor(m => m.Description)</th>
+                            <td>@Html.EditorFor(m => m.Description)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.LabelFor(m => m.Url)</th>
+                            <td>@Html.DisplayFor(m => m.Url)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.LabelFor(m => m.PollingInterval)</th>
+                            <td>@Html.EditorFor(m => m.PollingInterval)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.LabelFor(m => m.IsValueType)</th>
+                            <td>
+                                @if (Model.IsValueType)
+                                {
+                                    <p>Value Type Sensor</p>
+                                }
+                                else
+                                {
+                                    <p>Bool Type Sensor</p>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>@Html.LabelFor(m => m.MeasurementType)</th>
+                            <td>@Html.EditorFor(m => m.MeasurementType)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.LabelFor(m => m.IsPublic)</th>
+                            <td> @Html.EditorFor(m => m.IsPublic) </td>
+                        </tr>
+                        <tr>
+                            <th>@Html.LabelFor(m => m.IsShared)</th>
+                            <td>@Html.EditorFor(m => m.IsShared)</td>
+                        </tr>
+                        @if (Model.IsValueType)
+                        {
+                            <tr>
+                                <th>@Html.LabelFor(m => m.MinValue)</th>
+                                <td>
+                                    @Html.EditorFor(m => m.MinValue)
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>@Html.LabelFor(m => m.MaxValue)/td>
+                                <td>
+                                    @Html.EditorFor(m => m.MaxValue)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
+}
+<div>
+    <input type="submit" value="Save" />
+</div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/tables-js")
 }

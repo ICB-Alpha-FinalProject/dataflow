@@ -1,14 +1,15 @@
 ﻿
 @model SensorViewModel
+@Styles.Render("~/bundles/wizard-css")
 
-@using (Ajax.BeginForm("CreateSensor", "Sensor",
-                new AjaxOptions
-                {
-                    HttpMethod = "POST",
-                    UpdateTargetId = "form-container",
-                    InsertionMode = InsertionMode.Replace
-                },
-                new { @class = "main-login main-center" }))
+@using (Ajax.BeginForm("CreateSensor", "Registration",
+                        new AjaxOptions
+                        {
+                            HttpMethod = "POST",
+                            UpdateTargetId = "form-container",
+                            InsertionMode = InsertionMode.Replace
+                        },
+                        new { @class = "main-login main-center" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(false)
@@ -32,6 +33,5 @@
     <br />
     @Html.ValidationMessageFor(m => m.MaxValue, "", new { @class = "text-danger" })
 
-    <input type="submit" value="Register" class="btn btn-primary btn-block" />
+    <input type="submit" value="Register" class="btn btn-primary btn-block reg-sensor-btn" />
 }
-

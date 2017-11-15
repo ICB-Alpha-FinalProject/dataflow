@@ -121,7 +121,7 @@
       <Name>DataflowICB</Name>
     </ProjectReference>
     <ProjectReference Include="..\SensorApiModels\SensorApiModels.csproj">
-      <Project>{40d6188c-5f7a-4cd1-b1ab-2bcc8b174c6b}</Project>
+      <Project>{40D6188C-5F7A-4CD1-B1AB-2BCC8B174C6B}</Project>
       <Name>SensorApiModels</Name>
     </ProjectReference>
   </ItemGroup>

@@ -127,7 +127,7 @@ namespace Dataflow.DataServices
             }
         }
 
-        public SensorDataModel GetSensorById(int Id)
+        public SensorDataModel GetAdminSensorById(int Id)
         {
             Sensor sensorModel = this.context.Sensors.First(s => s.Id == Id);
             SensorDataModel sensor = SensorDataModel.Convert(sensorModel);
@@ -137,6 +137,7 @@ namespace Dataflow.DataServices
 
         public SensorDataModel GetUserSensorById(int id)
         {
+
             var sensor = this.context.Sensors.Where(s => s.Id == id && s.IsDeleted == false)
                 .Select(m => new SensorDataModel
                 {
@@ -154,7 +155,7 @@ namespace Dataflow.DataServices
                     MaxValue = m.IsBoolType ? 0.0 : m.ValueTypeSensor.Maxvalue,
                     MinValue = m.IsBoolType ? 0.0 : m.ValueTypeSensor.MinValue,
 
-                }).First();
+                }).FirstOrDefault();
 
             return sensor;
         }

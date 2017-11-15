@@ -4,7 +4,7 @@
 <!-- Example DataTables Card-->
 <div class="card mb-3">
     <div class="card-header">
-        <i class="fa fa-table"></i> Data Table Example
+        <i class="fa fa-table"></i> My Sensors
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -28,31 +28,17 @@
                             <td>@sensor.MeasurementType</td>
                             <td>@sensor.Description</td>
                             <td>@sensor.IsConnected</td>
-                            <td>@Html.ValueRange(sensor.CurrentValue,sensor.MinValue,sensor.MaxValue)</td>
+                            <td id="@sensor.Id"></td>
                             <td>@sensor.IsPublic</td>
                             <td>
-                                @Ajax.ActionLink("[Edit]", "EditSensor",
-                                        new { id = sensor.Id },
-                                        new AjaxOptions
-                                        {
-                                            InsertionMode = InsertionMode.Replace,
-                                            UpdateTargetId = sensor.Id.ToString()
-                                        })
-                                @Ajax.ActionLink("[Details]", "ShowDetails",
-                                        new { id = sensor.Id },
-                                        new AjaxOptions
-                                        {
-                                            InsertionMode = InsertionMode.Replace,
-                                            UpdateTargetId = sensor.Id.ToString()
-                                        })
-                                @Ajax.ActionLink("[Share]", "ShareSensor",
-                                        new { id = sensor.Id },
-                                        new AjaxOptions
-                                        {
-                                            InsertionMode = InsertionMode.Replace,
-                                            UpdateTargetId = sensor.Id.ToString()
-                                        })
+                                @Html.ActionLink("[Edit]", "EditSensor", 
+                                        new { id = sensor.Id })
 
+                                @Html.ActionLink("[Details]", "ShowDetails",
+                                        new { id = sensor.Id })
+                                       
+                                @Html.ActionLink("[Share]", "ShareSensor",
+                                        new { id = sensor.Id })
                             </td>
                         </tr>
                     }
@@ -61,22 +47,42 @@
             </table>
         </div>
     </div>
-    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
 </div>
 <!-- /.container-fluid-->
 <!-- /.content-wrapper-->
 
-@section  scripts{
+@section scripts{
+    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/tables-js")
 
+    <script src="~/Scripts/jquery.signalR-2.2.2.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script src="~/Scripts/update-db.js"></script>
+
     <script>
+         let data = []
+        @{
+            var list = new List<int>();
+            foreach (var sensor in Model.ToList())
+            {
+                int id = sensor.Id;
+                <text> 
+                    data.push(@id);
+                </text>
+
+            }
+        }
+
+    startSignalRUpdate(data);
+        
         $('a').on('click', function () {
-            let href = $(this).attr('href')
-            let id = href.split('/').reverse()[0]
-            $('.div-form').attr('hidden', 'hidden')
-            let divId = '#' + id;
-            $(divId).removeAttr('hidden')
+        let href = $(this).attr('href')
+        let id = href.split('/').reverse()[0]
+        $('.div-form').attr('hidden', 'hidden')
+        let divId = '#' + id;
+        $(divId).removeAttr('hidden')
         })
+
     </script>
 
 }
