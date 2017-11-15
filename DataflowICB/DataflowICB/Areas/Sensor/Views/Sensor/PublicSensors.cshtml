@@ -26,7 +26,6 @@
                 <tbody>
                     @foreach (var sensor in @Model)
                     {
-                        
                         <tr>
                             <td>@sensor.CreatorUsername</td>
                             <td>@sensor.Name</td>
@@ -34,7 +33,7 @@
                             <td>@sensor.Description</td>
                             <td>@sensor.IsConnected</td>
 
-                            <td>@Html.ValueRange(sensor.CurrentValue,sensor.MinValue,sensor.MaxValue)</td>
+                            <td>@Html.ValueRange(sensor.CurrentValue, sensor.MinValue, sensor.MaxValue)</td>
                             <td>
 
                                 @Ajax.ActionLink("[Details]", "ShowDetails",
@@ -61,7 +60,12 @@
 @section scripts{
     @Scripts.Render("~/bundles/tables-js")
 
+
+
     <script>
+
+
+
         $('a').on('click', function () {
             let href = $(this).attr('href')
             let id = href.split('/').reverse()[0]

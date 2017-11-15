@@ -17,6 +17,9 @@ namespace DataflowICB.App_Start
     using System.Net.Http;
     using Dataflow.Services.Contracts;
     using Dataflow.Services;
+    using Microsoft.AspNet.SignalR;
+    using DataflowICB.App_Start.Dependency_Resolvers;
+    using DataflowICB.Hubs;
 
     public static class NinjectWebCommon
     {
@@ -53,6 +56,9 @@ namespace DataflowICB.App_Start
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
                 kernel.Bind<IUserServices>().To<CustomUserServicesICB>();
 
+
+                GlobalHost.DependencyResolver = new SignalRNinjectDependencyResolver(kernel);
+
                 RegisterServices(kernel);
                 return kernel;
             }
@@ -88,9 +94,15 @@ namespace DataflowICB.App_Start
                 .To<SensorService>()
                 .InRequestScope();
 
+            //kernel.Bind<ISensorService>()
+            //   .To<SensorService>()
+            //   .WhenInjectedInto(typeof(SensorUpdate));
+
             kernel.Bind<IHttpClientProvider>()
                 .To<HttpClientProvider>()
                 .InRequestScope();
+
+
         }
     }
 }
