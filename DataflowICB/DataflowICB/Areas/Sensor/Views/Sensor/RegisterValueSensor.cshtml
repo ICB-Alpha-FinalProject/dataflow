@@ -2,13 +2,13 @@
 @model SensorViewModel
 
 @using (Ajax.BeginForm("CreateSensor", "Sensor",
-                                                                                                                            new AjaxOptions
-                                                                                                                            {
-                                                                                                                                HttpMethod = "POST",
-                                                                                                                                UpdateTargetId = "form-container",
-                                                                                                                                InsertionMode = InsertionMode.Replace
-                                                                                                                            },
-                                                                                                                            new { @class = "main-login main-center" }))
+                new AjaxOptions
+                {
+                    HttpMethod = "POST",
+                    UpdateTargetId = "form-container",
+                    InsertionMode = InsertionMode.Replace
+                },
+                new { @class = "main-login main-center" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(false)

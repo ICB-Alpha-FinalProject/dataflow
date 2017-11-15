@@ -12,11 +12,12 @@ using System.Web.Mvc;
 using DataflowICB.Database.Models;
 using DataflowICB.Areas.Sensor.Models;
 using Microsoft.AspNet.Identity;
-using DataflowICB.Models.DataApi;
+using DataflowICB.Models;
 using Dataflow.Services.Contracts;
 using Bytes2you.Validation;
 using DataflowICB.App_Start;
 using SensorApiModels;
+using DataflowICB.Models.DataApi;
 
 namespace DataflowICB.Areas.Sensor.Controllers
 {
@@ -109,7 +110,7 @@ namespace DataflowICB.Areas.Sensor.Controllers
 
                 this.sensorService.AddSensor(sensor);
 
-                return this.Json(Url.Action("Index", "Home", new { area = "" }));
+                return this.Json("Registered");
             }
             else
             {

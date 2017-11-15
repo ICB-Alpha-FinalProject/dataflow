@@ -39,7 +39,7 @@ function parseSpan(currValue, min, max, isValue) {
 
     }
     else {
-        classVal = currValue == "False" ? "fa fa-window-close" : "fa fa-check";
+        classVal = currValue === "False" ? "fa fa-window-close" : "fa fa-check";
         span = `<span class="${classVal}"></span>`
 
     }

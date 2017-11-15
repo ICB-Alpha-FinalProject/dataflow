@@ -7,8 +7,8 @@ using DataflowICB.Database.Models;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Data.Entity;
-using DataflowICB.Models.DataApi;
 using System.Linq;
+using DataflowICB.Models.DataApi;
 
 namespace DataflowICB.UnitTests.DataServices.SensorService
 {

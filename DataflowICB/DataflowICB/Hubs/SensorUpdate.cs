@@ -22,8 +22,7 @@ namespace DataflowICB.Hubs
             //this.sensorService = sensorService;
             //this.context = context;
         }
-
-
+        
         public void Send(IEnumerable<int> ids)
         {
             //var sensorsToUpdate = this.context.Sensors.ToList();

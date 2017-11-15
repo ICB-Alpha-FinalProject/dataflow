@@ -65,38 +65,38 @@
             </tbody>
         </table>
 
-</div>
+    </div>
 
-<div id="chartdiv"></div>
-<!-- /.container-fluid-->
-<!-- /.content-wrapper-->
+    <div id="chartdiv"></div>
 
-@section  scripts{
-    @Scripts.Render("~/bundles/tables-js")
+    <!-- /.container-fluid-->
+    <!-- /.content-wrapper-->
+
+    @section  scripts{
+        @Scripts.Render("~/bundles/tables-js")
 
 
-    <script src="~/Scripts/jquery.signalR-2.2.2.js"></script>
-    <script src="~/signalr/hubs"></script>
-    <script src="~/Scripts/update-db.js"></script>
+        <script src="~/Scripts/jquery.signalR-2.2.2.js"></script>
+        <script src="~/signalr/hubs"></script>
+        <script src="~/Scripts/update-db.js"></script>
 
-    <script type="text/javascript">
-        
+        <script type="text/javascript">
+
         startSignalRUpdate([@Model.Id]);
 
         $('a').on('click', function () {
             let href = $(this).attr('href')
+            data.push(@Model.Id);
             let id = href.split('/').reverse()[0]
             $('.div-form').attr('hidden', 'hidden')
             let divId = '#' + id;
             $(divId).removeAttr('hidden')
-        })
+            })
 
-        let data = []
-        data.push(@Model.Id);
+            let data = []
 
         startSignalRUpdate(data);
-
-
+            
         var chart;
          $.ajax({
              url: "@Html.Raw(@Url.Action("GetHistoryDataForSensor", "Sensor", new {area = "Sensor", sensorId = Model.Id, isValueType = Model.IsValueType }))",
@@ -157,7 +157,7 @@
                     chart.zoomToIndexes(chartData.length - 250, chartData.length - 100);
                 }
             }
-        })
-    </script>
+            })
+        </script>
 
-}
+    }
