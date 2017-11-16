@@ -14,12 +14,15 @@
                 <table class="table table-bordered" id="dataTable" width="50%" cellspacing="0">
 
                     @Html.AntiForgeryToken()
-
                     @Html.HiddenFor(m => m.Id)
+                    @Html.HiddenFor(m => m.LowestValue)
+                    @Html.HiddenFor(m => m.HighestValue)
+                    @Html.HiddenFor(m => m.Url)
+
                     <tbody>
                         <tr>
                             <th>Label</th>
-                            <th>Values                                            </th>
+                            <th>Values</th>
                         </tr>
                         <tr>
                             <th>@Html.LabelFor(m => m.Name)</th>
@@ -73,7 +76,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th>@Html.LabelFor(m => m.MaxValue)/td>
+                                <th>@Html.LabelFor(m => m.MaxValue)</th>
                                 <td>
                                     @Html.EditorFor(m => m.MaxValue)
                                     <br />
@@ -83,15 +86,16 @@
                         }
                     </tbody>
                 </table>
+    <div>
+        <input type="submit" value="Save" />
+    </div>
             </div>
         </div>
     </div>
-<div>
-    <input type="submit" value="Save" />
-</div>
 }
+
 
 @section scripts{
     @Scripts.Render("~/bundles/tables-js")
-@Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryval")
 }

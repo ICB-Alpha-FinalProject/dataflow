@@ -46,11 +46,11 @@
                     <td>
                         @if (!Model.IsReadOnly)
                         {
-                            @Html.ActionLink("[Shared With...]", "Sensor", "SharedWith",
-                                        new { id = @Model.Id })
+                            @Html.ActionLink("[Shared With...]", "SharedWith", "Share",
+                                        new { id = @Model.Id }, new { })
 
-                            @Html.ActionLink("[X]", "Sensor", "DeleteUserSensor",
-                                        new { id = @Model.Id })
+                            @Html.ActionLink("[X]", "DeleteUserSensor", "Sensor",
+                                        new { id = @Model.Id }, new { })
                         }
                     </td>
                 </tr>

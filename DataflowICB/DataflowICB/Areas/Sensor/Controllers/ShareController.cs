@@ -33,7 +33,7 @@ namespace DataflowICB.Areas.Sensor.Controllers
 
             if (this.User.Identity.GetUserId() != sensor.OwnerId)
             {
-                return View("NotAutheticated");
+                return View("NotAuthenticated");
             }
 
             var sensorViewModel = new SensorViewModel()
@@ -55,7 +55,7 @@ namespace DataflowICB.Areas.Sensor.Controllers
         [Authorize]
         public ActionResult SharedSensors()
         {
-            
+
             var sharedSensors = this.sensorService.GetSharedWithUserSensors(this.User.Identity.GetUserName())
             .Select(sensor => new SensorViewModel
             {
@@ -82,7 +82,7 @@ namespace DataflowICB.Areas.Sensor.Controllers
         {
             this.sensorService.ShareSensorWithUser(viewModel.Id, viewModel.ShareWithUser);
 
-            return this.RedirectToAction("UserSensors");
+            return this.RedirectToAction("UserSensors", "Sensor");
         }
 
         [Authorize]
@@ -91,9 +91,9 @@ namespace DataflowICB.Areas.Sensor.Controllers
 
             var sharedSensorUsers = this.sensorService.GetUsersSharedSensor(id);
 
-            if (this.User.Identity.GetUserId() != sharedSensorUsers.OwnerId)
+            if (!sharedSensorUsers.SharedWithUsers.Contains(sharedSensorUsers.Owner))
             {
-                return View("NotAuthenticated");
+                return this.View("NotAuthenticated");
             }
 
             var sharedUsersViewModel = new SensorViewModel()
@@ -101,7 +101,7 @@ namespace DataflowICB.Areas.Sensor.Controllers
                 Id = sharedSensorUsers.Id,
                 SharedWithUsers = sharedSensorUsers.SharedWithUsers,
                 CreatorUsername = sharedSensorUsers.Owner,
-                
+
             };
 
             return this.View("SharedWith", sharedUsersViewModel);
@@ -113,7 +113,7 @@ namespace DataflowICB.Areas.Sensor.Controllers
 
             var sensor = this.sensorService.GetUserSensorById(id);
 
-            if (sensor == null )
+            if (sensor == null)
             {
                 return this.View("NotAuthenticated");
             }

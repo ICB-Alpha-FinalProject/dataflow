@@ -61,7 +61,7 @@
         </table>
 </div>
 
-@using (Html.BeginForm("ShareSensor", "Sensor", FormMethod.Post))
+@using (Html.BeginForm("ShareSensor", "Share", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(m => m.Id)

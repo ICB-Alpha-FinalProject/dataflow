@@ -31,11 +31,11 @@ namespace DataflowICB.Areas.Sensor.Models
         
         public string CurrentValue { get; set; }
         
-        [Remote("CheckLowerRange","Sensor","Sensor", AdditionalFields = "LowestValue,HighestValue,MaxValue",
+        [Remote("CheckLowerRange","Sensor","Sensor", AdditionalFields = "MaxValue,LowestValue,HighestValue",
             ErrorMessage = "Minimum must be between LOWEST and HIGHEST value!")]
         public double MinValue { get; set; }
 
-        [Remote("CheckUpperRange", "Sensor", "Sensor", AdditionalFields = "LowestValue,HighestValue,MinValue",
+        [Remote("CheckUpperRange", "Sensor", "Sensor", AdditionalFields = "MinValue, LowestValue,HighestValue",
             ErrorMessage = "Maximum must be between LOWEST and HIGHEST value!")]
         public double MaxValue { get; set; }
 

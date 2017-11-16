@@ -22,8 +22,6 @@ using DataflowICB.Models.DataApi;
 namespace DataflowICB.Areas.Sensor.Controllers
 {
 
-    //TODO: Optimization of LINQ queries
-    //TODO: Validation
     public class SensorController : Controller
     {
 
@@ -109,6 +107,8 @@ namespace DataflowICB.Areas.Sensor.Controllers
                 MeasurementType = viewModel.MeasurementType,
                 IsPublic = viewModel.IsPublic,
                 IsShared = viewModel.IsShared,
+                MaxValue = viewModel.MaxValue,
+                MinValue = viewModel.MinValue
             });
 
             return this.RedirectToAction("UserSensors");
@@ -151,8 +151,8 @@ namespace DataflowICB.Areas.Sensor.Controllers
             return this.RedirectToAction("UserSensors");
         }
 
-        public ActionResult CheckLowerRange(double MinValue, double? LowestValue,
-            double? HighestValue, double MaxValue)
+        public ActionResult CheckLowerRange(double MinValue, double MaxValue, double? LowestValue = double.MinValue,
+            double? HighestValue = double.MaxValue)
         {
             var inRange = MinValue <= HighestValue && MinValue >= LowestValue;
             if (!inRange)
@@ -162,8 +162,8 @@ namespace DataflowICB.Areas.Sensor.Controllers
             return Json(true, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult CheckUpperRange(double MaxValue, double? LowestValue, double? HighestValue,
-            double MinValue)
+        public ActionResult CheckUpperRange(double MaxValue, double MinValue,double? LowestValue = double.MinValue, 
+            double? HighestValue = double.MaxValue)
         {
             var inRange = MaxValue >= LowestValue && MaxValue <= HighestValue;
             if (!inRange)
@@ -173,7 +173,7 @@ namespace DataflowICB.Areas.Sensor.Controllers
             return Json(true, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult CheckPollingInterval(int PollingInterval, int MinPollingInterval)
+        public ActionResult CheckPollingInterval(int PollingInterval, int MinPollingInterval = 0)
         {
             var inRange = PollingInterval >= MinPollingInterval;
             if (!inRange)
