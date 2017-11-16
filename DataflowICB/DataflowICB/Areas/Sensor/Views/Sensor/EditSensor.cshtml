@@ -68,12 +68,16 @@
                                 <th>@Html.LabelFor(m => m.MinValue)</th>
                                 <td>
                                     @Html.EditorFor(m => m.MinValue)
+                                    <br />
+                                    @Html.ValidationMessageFor(m => m.MinValue)
                                 </td>
                             </tr>
                             <tr>
                                 <th>@Html.LabelFor(m => m.MaxValue)/td>
                                 <td>
                                     @Html.EditorFor(m => m.MaxValue)
+                                    <br />
+                                    @Html.ValidationMessageFor(m => m.MaxValue)
                                 </td>
                             </tr>
                         }
@@ -82,11 +86,12 @@
             </div>
         </div>
     </div>
-}
 <div>
     <input type="submit" value="Save" />
 </div>
+}
 
 @section scripts{
     @Scripts.Render("~/bundles/tables-js")
+@Scripts.Render("~/bundles/jqueryval")
 }

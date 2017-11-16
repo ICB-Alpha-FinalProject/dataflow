@@ -17,7 +17,6 @@
                         <th>Name</th>
                         <th>Measurement Type</th>
                         <th>Description</th>
-                        <th>Online</th>
                         <th>Current Value</th>
                         <th>Functionality</th>
                     </tr>
@@ -30,7 +29,6 @@
                             <td>@sensor.Name</td>
                             <td>@sensor.MeasurementType</td>
                             <td>@sensor.Description</td>
-                            <td>@sensor.IsConnected</td>
                             <td id="@sensor.Id"></td>
                             <td>
                                 @Html.ActionLink("[Details]", "ShowDetails", "Public",

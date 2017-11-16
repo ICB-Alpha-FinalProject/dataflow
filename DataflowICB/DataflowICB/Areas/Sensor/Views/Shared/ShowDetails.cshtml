@@ -21,7 +21,6 @@
                     <th>Measurement Type</th>
                     <th>Polling Interval</th>
                     <th>Description</th>
-                    <th>Online</th>
                     <th>Current Value</th>
                     @if (!Model.IsPublic)
                     {
@@ -39,7 +38,6 @@
                     <td>@Model.MeasurementType</td>
                     <td>@Model.PollingInterval</td>
                     <td>@Model.Description</td>
-                    <td>@Model.IsConnected</td>
                     <td id="@Model.Id">@Model.CurrentValue</td>
                     @if (!Model.IsPublic)
                     {
@@ -104,7 +102,9 @@
                     }],
                     "graphs": [{
                         "id": "g1",
-                        "fillAlphas": 0.4,
+                        "fillAlphas": 0,
+                        "bulletSize": 2,
+                        "lineThickness": 4,
                         "valueField": "Value",
                         "balloonText": "<div style='margin:5px; font-size:19px;'>Value:<b>[[value]]</b></div>"
                     }],
