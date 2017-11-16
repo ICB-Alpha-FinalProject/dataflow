@@ -82,8 +82,9 @@ namespace Dataflow.DataServices
                     sensor.ValueTypeSensor.MeasurementType = editedSensor.MeasurementType;
                     sensor.ValueTypeSensor.CurrentValue = 0.0;
                 }
-
-                this.context.SaveChanges();
+               
+                    this.context.SaveChanges();
+              
             }
         }
 
@@ -153,8 +154,10 @@ namespace Dataflow.DataServices
                     IsPublic = m.IsPublic,
                     IsShared = m.IsShared,
                     MaxValue = m.IsBoolType ? 0.0 : m.ValueTypeSensor.Maxvalue,
-                    MinValue = m.IsBoolType ? 0.0 : m.ValueTypeSensor.MinValue,
+                    MinValue = m.IsBoolType ? 0.0 : m.ValueTypeSensor.MinValue
 
+                    //kvo stava ne trq da ima max i min a lowset i highest li, mi ednoto trqq da e granicata na senzra a drugto ot inputa ama ...
+                    // sec
                 }).FirstOrDefault();
 
             return sensor;
@@ -272,7 +275,7 @@ namespace Dataflow.DataServices
             var sharedSensor = this.context.Sensors.Single(s => s.Id == id && s.IsDeleted == false);
 
             var user = this.context.Users.Single(n => n.UserName == username);
-
+            sharedSensor.IsShared = true;
             sharedSensor.SharedWithUsers.Add(user);
 
             this.context.SaveChanges();
@@ -294,11 +297,13 @@ namespace Dataflow.DataServices
             var sensorDModel = new SensorDataModel()
             {
                 Id = id,
+                
             };
 
             for (int i = 0; i < sharedSensor.Count; i++)
             {
                 sensorDModel.SharedWithUsers.Add(sharedSensor[i].UserName);
+                sensorDModel.Owner = sharedSensor[i].UserName;
             }
 
             return sensorDModel;
