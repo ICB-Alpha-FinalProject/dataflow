@@ -68,7 +68,7 @@ namespace DataflowICB.Areas.Sensor.Controllers
         public ActionResult EditSensor(int id)
         {
             var sensor = this.sensorService.GetUserSensorById(id);
-            
+                
             if (sensor == null || this.User.Identity.GetUserId() != sensor.OwnerId)
             {
                 return View("NotAuthenticated");

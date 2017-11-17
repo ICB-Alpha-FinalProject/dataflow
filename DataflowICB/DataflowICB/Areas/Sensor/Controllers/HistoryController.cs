@@ -15,8 +15,6 @@ namespace DataflowICB.Areas.Sensor.Controllers
 {
     public class HistoryController : Controller
     {
-
-
         private readonly ISensorService sensorService;
         private readonly IHttpClientProvider httpClient;
 

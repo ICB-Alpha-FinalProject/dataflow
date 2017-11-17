@@ -1,6 +1,7 @@
 ﻿
 /* ADD SENSOR ID TO THE <td> ELEMENT U WANT TO UPDATE */
 function startSignalRUpdate(data) {
+
     let update = $.connection.sensorUpdate;
     $.connection.hub.start().done(function () {
         setInterval(function () {
